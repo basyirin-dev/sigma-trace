@@ -1,8 +1,10 @@
 # σ-Trace
 
-[![CI](https://github.com/sigma-trace/sigma-trace/actions/workflows/ci.yml/badge.svg)](https://github.com/sigma-trace/sigma-trace/actions/workflows/ci.yml)
+[![CI](https://github.com/basyirin-dev/sigma-trace/actions/workflows/ci.yml/badge.svg)](https://github.com/basyirin-dev/sigma-trace/actions/workflows/ci.yml)
+[![Deploy](https://img.shields.io/badge/deploy-netlify-00C7B7?logo=netlify)](https://sigma-trace.netlify.app)
 
-Two-mode MIL education game for UNESCO Youth Hackathon 2026.
+Two-mode MIL education game for UNESCO Youth Hackathon 2026.  
+**Live:** [sigma-trace.netlify.app](https://sigma-trace.netlify.app)
 
 ## Scripts
 
