@@ -1,0 +1,17 @@
+{
+  "introCutscene": [
+    {
+      "text": "Mrs. Kowalski received a panicked voicemail from her grandson — or so she thought.",
+      "duration": 4000
+    },
+    {
+      "text": "The voice said he was in jail and needed $5,000 bail. But her grandson was sitting next to her.",
+      "duration": 4000
+    },
+    {
+      "text": "Analyze the audio for synthetic markers. Trace the call metadata. Find the truth.",
+      "duration": 3000
+    }
+  ],
+  "conclusionText": "The voice was AI-cloned using just 3 seconds of audio from the grandson's social media. The call originated from a VoIP number registered overseas. AI voice cloning is becoming dangerously accessible."
+}

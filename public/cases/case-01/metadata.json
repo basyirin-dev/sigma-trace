@@ -1,0 +1,21 @@
+{
+  "id": "case-01",
+  "title": "The Viral Minister",
+  "brief": "A video of the city mayor saying 'I resign effective immediately' goes viral. Determine if the video is real or AI-generated.",
+  "milLesson": "Deepfake detection through multi-modal analysis",
+  "correctVerdict": "manipulated",
+  "solution": {
+    "requiredConnections": [["evidence-01", "evidence-03"]],
+    "requiredToolEvidencePairs": [
+      ["spectrogram", "evidence-02"],
+      ["frame-stepper", "evidence-01"]
+    ],
+    "justificationKeywords": ["lip-sync", "audio artifact", "synthetic"]
+  },
+  "outcome": {
+    "successR0Delta": -0.3,
+    "successSigmaDelta": 5,
+    "failR0Delta": 0.4,
+    "failSigmaDelta": -5
+  }
+}

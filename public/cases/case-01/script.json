@@ -1,0 +1,17 @@
+{
+  "introCutscene": [
+    {
+      "text": "A video of Mayor Chen has gone viral. In it, she appears to resign effective immediately.",
+      "duration": 4000
+    },
+    {
+      "text": "The opposition is calling for an emergency election. Your job: determine if this video is authentic.",
+      "duration": 4000
+    },
+    {
+      "text": "Examine the video frame by frame. Check the audio spectrogram. Look for inconsistencies.",
+      "duration": 3000
+    }
+  ],
+  "conclusionText": "The video was indeed AI-generated. A subtle audio artifact in the 2-4kHz range and inconsistent lip-sync timing revealed the manipulation. Always verify through multiple channels."
+}

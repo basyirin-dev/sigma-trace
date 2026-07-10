@@ -1,0 +1,17 @@
+{
+  "introCutscene": [
+    {
+      "text": "A violent protest photo is spreading across social media. Caption: 'Veritas residents clash with police.'",
+      "duration": 4000
+    },
+    {
+      "text": "But something feels off. The buildings don't match. The shadows point the wrong way.",
+      "duration": 4000
+    },
+    {
+      "text": "Trace the image origin. Check the lighting. Verify the location. Is this really Veritas?",
+      "duration": 3000
+    }
+  ],
+  "conclusionText": "The photo was taken in a different city — 2,000km away — during an unrelated protest. The lighting angles and a misidentified building gave it away. Always reverse-image-search before sharing."
+}

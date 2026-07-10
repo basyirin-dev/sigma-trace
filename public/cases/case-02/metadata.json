@@ -1,0 +1,21 @@
+{
+  "id": "case-02",
+  "title": "Grandma's Distress Call",
+  "brief": "Elderly residents receive AI-generated voicemails from a familiar voice claiming to be a grandchild needing bail money. Trace the call origin.",
+  "milLesson": "AI voice cloning awareness and verification protocols",
+  "correctVerdict": "manipulated",
+  "solution": {
+    "requiredConnections": [["evidence-01", "evidence-04"]],
+    "requiredToolEvidencePairs": [
+      ["spectrogram", "evidence-01"],
+      ["metadata-inspector", "evidence-03"]
+    ],
+    "justificationKeywords": ["voice clone", "synthetic audio", "spoofed caller"]
+  },
+  "outcome": {
+    "successR0Delta": -0.3,
+    "successSigmaDelta": 5,
+    "failR0Delta": 0.4,
+    "failSigmaDelta": -5
+  }
+}

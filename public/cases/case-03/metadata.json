@@ -1,0 +1,21 @@
+{
+  "id": "case-03",
+  "title": "The Front Page",
+  "brief": "A photo of a violent protest appears on social media, purportedly from Veritas. Verify if it's authentic and from this city.",
+  "milLesson": "Reverse image search and geolocation verification",
+  "correctVerdict": "manipulated",
+  "solution": {
+    "requiredConnections": [["evidence-02", "evidence-05"]],
+    "requiredToolEvidencePairs": [
+      ["source-tracer", "evidence-01"],
+      ["inconsistency-highlighter", "evidence-02"]
+    ],
+    "justificationKeywords": ["geolocation", "lighting mismatch", "misattributed"]
+  },
+  "outcome": {
+    "successR0Delta": -0.3,
+    "successSigmaDelta": 5,
+    "failR0Delta": 0.4,
+    "failSigmaDelta": -5
+  }
+}
