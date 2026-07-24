@@ -1,21 +1,30 @@
 {
   "id": "case-02",
   "title": "Grandma's Distress Call",
-  "brief": "Elderly residents receive AI-generated voicemails from a familiar voice claiming to be a grandchild needing bail money. Trace the call origin.",
-  "milLesson": "AI voice cloning awareness and verification protocols",
+  "brief": "Elderly residents of Harborview are receiving panicked voicemails from family members in crisis — but the voices are AI clones. Trace the origin before more victims fall for it.",
+  "milLesson": "AI voice cloning can replicate a person\u2019s voice from just 3 seconds of audio \u2014 always verify urgent financial requests through a separate communication channel",
   "correctVerdict": "manipulated",
+  "difficulty": "normal",
   "solution": {
-    "requiredConnections": [["evidence-01", "evidence-04"]],
+    "requiredConnections": [
+      ["evidence-01", "evidence-02"],
+      ["evidence-01", "evidence-03"],
+      ["evidence-03", "evidence-04"],
+      ["evidence-03", "evidence-06"]
+    ],
     "requiredToolEvidencePairs": [
       ["spectrogram", "evidence-01"],
-      ["metadata-inspector", "evidence-03"]
+      ["metadata-inspector", "evidence-03"],
+      ["source-tracer", "evidence-06"]
     ],
-    "justificationKeywords": ["voice clone", "synthetic audio", "spoofed caller"]
+    "justificationKeywords": ["voice clone", "synthetic audio", "spoofed caller", "VoIP", "shell company"]
   },
   "outcome": {
-    "successR0Delta": -0.3,
-    "successSigmaDelta": 5,
+    "successR0Delta": -0.4,
+    "successSigmaDelta": 7,
     "failR0Delta": 0.4,
-    "failSigmaDelta": -5
+    "failSigmaDelta": -8,
+    "partialR0Delta": -0.1,
+    "partialSigmaDelta": 1
   }
 }

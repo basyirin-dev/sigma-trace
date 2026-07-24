@@ -1,17 +1,38 @@
 {
   "introCutscene": [
     {
-      "text": "Mrs. Kowalski received a panicked voicemail from her grandson — or so she thought.",
-      "duration": 4000
-    },
-    {
-      "text": "The voice said he was in jail and needed $5,000 bail. But her grandson was sitting next to her.",
-      "duration": 4000
-    },
-    {
-      "text": "Analyze the audio for synthetic markers. Trace the call metadata. Find the truth.",
+      "text": "Mrs. Kowalski, 78, received a voicemail from her grandson this morning. His voice — panicked, desperate — said he was in jail and needed $5,000 bail immediately.",
       "duration": 3000
+    },
+    {
+      "text": "She was about to empty her savings account when her grandson walked through the kitchen door. He had been upstairs the whole time.",
+      "duration": 2500
+    },
+    {
+      "text": "Twelve similar reports came in overnight — all from Harborview, all targeting elderly residents, all using cloned voices of real family members.",
+      "duration": 3000
+    },
+    {
+      "text": "GIHA has the voicemail recording and the call metadata. Find the source. Identify the pattern. Stop the operation.",
+      "duration": 2000
     }
   ],
-  "conclusionText": "The voice was AI-cloned using just 3 seconds of audio from the grandson's social media. The call originated from a VoIP number registered overseas. AI voice cloning is becoming dangerously accessible."
+  "evidenceFindings": {
+    "evidence-01": "The voicemail is 22 seconds long. The voice sounds like a young man in distress — but the breathing pattern is too regular. Someone who just ran up stairs would be out of breath. This voice is perfectly controlled.",
+    "evidence-02": "Voiceprint comparison shows the voicemail matches the grandson's real voice with 87% spectral similarity — close enough to fool the ear, but the AI missed micro-movements in the vocal cords that only appear in natural speech. The difference is visible in the 200-400Hz range.",
+    "evidence-03": "Call metadata reveals the voicemail originated from a VoIP number registered to VeraTech Solutions LLC — a shell company incorporated overseas. The call routed through three countries before reaching Veritas. The same shell company funded the deepfake production tool in Case 1.",
+    "evidence-04": "Phone records show a series of text messages from the same VoIP number to the victim's grandson — each containing a link that, when clicked, granted the sender 3 seconds of audio recording access through a seemingly harmless browser game. This is how they captured the voice sample. The domain\u2019s registration IP resolves to the same server cluster that routed the VoIP call \u2014 confirming the text messages and the call are part of the same VeraTech operation.",
+    "evidence-05": "A photo of a smiling elderly woman is attached to one of the scammer's profiles. Reverse image search shows this is a stock photo sold on an image marketplace — not a real person. The profile is entirely fabricated.",
+    "evidence-06": "Bank transaction records show a $5,000 payment from VeraTech Solutions to a numbered account three days before the first scam call. The payment memo reads 'Harborview deployment — phase 2'. This confirms the voice scam was directly funded by the same shell company that produced the deepfake video in Case 1. All three cases are funded and operated by the same network."
+  },
+  "toolHints": {
+    "spectrogram": "Best tool for this case. Audio-focused analysis. AI-cloned voices have unnaturally consistent formant patterns with missing micro-variations in the 200-500Hz range.",
+    "frame-stepper": "Less useful here — this case has no video evidence. Focus on audio tools instead.",
+    "metadata-inspector": "Essential for call tracing. Extracts VoIP routing data, timestamps, and origin numbers. Trace the call path to find the real source.",
+    "source-tracer": "Traces financial trails and evidence origins through documents and images. Use on transaction records and suspicious files.",
+    "inconsistency-highlighter": "Applies to the profile photo. Detects lighting, shadow, and composition anomalies in stock images vs. genuine photos.",
+    "timeline-cross-referencer": "Places all evidence on a chronological timeline. Will reveal impossible call routing across three countries."
+  },
+  "conclusionText": "The voice was cloned from just 3 seconds of audio — captured through a seemingly innocent browser game shared via text message. The scam targeted Harborview because its elderly population lives alone and trusts family voices implicitly. Bank records confirm VeraTech Solutions funded this operation directly, paying $5,000 for 'Harborview deployment — phase 2'. The shell company is controlled by the Shadow Collective, the same network behind the deepfake video in Case 1. This is not random crime. This is a coordinated campaign. In 2026, voice cloning technology is accessible to anyone with five dollars and a 3-second audio sample. The only defense is a verification protocol: if a loved one calls asking for money, hang up and call them back on a number you already know.",
+  "milLesson": "Three seconds of audio is enough to clone a voice. Always verify urgent financial requests through a separate communication channel — call the person on a known number."
 }

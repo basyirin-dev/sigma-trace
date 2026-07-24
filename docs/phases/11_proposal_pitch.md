@@ -17,7 +17,7 @@
 - **Output:** `sigma-trace-unesco-proposal.pdf` (exported from Markdown via Pandoc)
 
 ### 11.2 Design Proposal Layout (M2)
-- Create cover page with σ-Trace logo + UNESCO branding (use official assets)
+- Create cover page with GIHA logo + UNESCO branding (use official assets)
 - Typography: consistent with game's design system
 - Include screenshots from game (record during playtesting)
 - Charts/diagrams: strategy-detective loop flowchart, R₀ simulation graph

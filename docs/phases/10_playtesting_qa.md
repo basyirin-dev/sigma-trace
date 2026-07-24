@@ -55,7 +55,7 @@
 ### 10.7 Performance Profiling
 - Profile with Chrome DevTools:
   - Identify memory leaks (heap snapshots before/after mode transitions)
-  - Identify render bottlenecks (Three.js draw calls, React re-renders)
+  - Identify render bottlenecks (Canvas2D draw calls, React re-renders)
   - Fix top 3 performance issues
 - Test on mid-range device (integrated GPU, 8GB RAM)
   - Target: consistent 30fps

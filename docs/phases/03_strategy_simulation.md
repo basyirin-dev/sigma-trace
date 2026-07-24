@@ -3,11 +3,11 @@
 **Duration:** 4 days
 **Member:** M1
 **Dependencies:** Phase 1 (ODE engine)
-**Output:** Interactive city grid with heatmap, σ-coherence gauge, time controls
+**Output:** Interactive pixel city grid with heatmap, agents, σ-coherence gauge, time controls
 
 ## Tasks
 
-### 3.1 ODE → Three.js Data Bridge
+### 3.1 ODE → Canvas Data Bridge
 - Create `useSimulation.ts` hook that:
   - Initializes PopulationState from store
   - Runs `simulateStep()` on each animation frame (throttled to 1 game-tick per second real-time)
@@ -15,28 +15,32 @@
   - Returns current state for rendering
 - **Test:** Watching console.log shows state updating every second
 
-### 3.2 City Grid Rendering
-- Build `CityGrid.tsx` with 10×10 grid of instanced mesh buildings
-- Color each building based on its district's infection level:
-  - S > 75% → green (#2ECC71)
-  - E > 25% → yellow (#F1C40F)
-  - I > 15% → orange (#E67E22)
-  - I > 30% → red (#E74C3C)
-  - σ-trap → gray (#2C3E50)
-- Add subtle height variation (randomize building height within district)
-- **Test:** Grid renders with correct colors, changes as simulation progresses
+### 3.2 Tile Grid Rendering
+- Build 50×50 tile grid via Canvas2D `fillRect`, 20px per tile
+- Color each tile based on its district:
+  - Foundry: rust/terracotta (#8B4513)
+  - Harborview: teal (#2C7A7B)
+  - Uptown: gold (#B8860B)
+  - Campus: forest green (#4A7C59)
+- Draw 1px boundary borders at district edges
+- **Test:** Grid renders with correct district colors and visible boundaries
 
 ### 3.3 District Heatmap Overlay
-- Render semi-transparent colored plane over each district
-- Color intensity corresponds to R₀ (higher = more saturated)
-- Pulse animation when district R₀ > 1.0 (slow pulse every 2s)
-- **Test:** Heatmap pulses red when R₀ crosses threshold
+- Render semi-transparent color wash over each district via Canvas2D `fillRect` with `globalAlpha`
+- Opacity proportional to σ severity:
+  - σ ≥ 80 → green (#2ECC71, 10%)
+  - σ ≥ 60 → yellow-green (#A8E063, 20%)
+  - σ ≥ 40 → yellow (#F1C40F, 35%)
+  - σ ≥ 20 → orange (#E67E22, 55%)
+  - σ < 20 → red (#E74C3C, 80%)
+- **Test:** Heatmap opacity changes as σ value changes
 
 ### 3.4 Population Agent Visualization
-- Render small dots (CircleGeometry) moving within each district
+- Render small 2px-4px dots via Canvas2D `arc`
 - Color by state: green (S), yellow (E), red (I), blue (R)
-- Count proportional to actual S/E/I/R distribution (1 agent = 1000 people)
-- Agents move randomly within district bounds
+- Count: 80 agents, distributed across 4 districts
+- Agents move with random-walk within district bounds, Y-sorted for depth
+- Drop shadow under each agent (1px offset)
 - **Test:** Agent colors shift as simulation progresses
 
 ### 3.5 σ-Coherence Gauge
@@ -70,10 +74,10 @@
 
 ## Acceptance Criteria
 - [ ] City grid renders with district colors that update every tick
-- [ ] Heatmap pulses red when R₀ > 1.0
+- [ ] Heatmap opacity changes with σ severity
 - [ ] Population agents shift colors correctly
 - [ ] σ-coherence gauge animates smoothly
 - [ ] Time controls (play/pause/speed/step) work correctly
 - [ ] R₀ trend graph shows scrolling history
 - [ ] Warning notifications trigger at correct thresholds
-- [ ] All Three.js rendering maintains 30fps on integrated GPU
+- [ ] All Canvas2D rendering maintains 30fps on integrated GPU

@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "evidence-01",
+      "x": 0.25,
+      "y": 0.2,
+      "label": "Mayor's Resignation Video"
+    },
+    {
+      "id": "evidence-02",
+      "x": 0.55,
+      "y": 0.1,
+      "label": "Audio Spectrogram Data"
+    },
+    {
+      "id": "evidence-03",
+      "x": 0.65,
+      "y": 0.35,
+      "label": "Video File Metadata"
+    },
+    {
+      "id": "evidence-04",
+      "x": 0.15,
+      "y": 0.7,
+      "label": "Social Media Comment Thread"
+    },
+    {
+      "id": "evidence-05",
+      "x": 0.5,
+      "y": 0.55,
+      "label": "Official Reference Photo"
+    },
+    {
+      "id": "evidence-06",
+      "x": 0.85,
+      "y": 0.55,
+      "label": "Upload Server Logs"
+    }
+  ],
+  "requiredConnections": [
+    ["evidence-01", "evidence-02"],
+    ["evidence-01", "evidence-03"],
+    ["evidence-03", "evidence-05"],
+    ["evidence-03", "evidence-06"]
+  ],
+  "hintConnections": [
+    ["evidence-02", "evidence-03"],
+    ["evidence-04", "evidence-06"]
+  ]
+}

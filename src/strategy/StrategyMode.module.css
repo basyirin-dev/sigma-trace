@@ -1,0 +1,70 @@
+.flashIn {
+  animation: screenFlash 0.8s ease-out;
+}
+
+.mainRow {
+  padding: 16px;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  gap: 20px;
+}
+
+.canvasCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebarCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 340px;
+  max-width: 380px;
+}
+
+@media (max-width: 1200px) {
+  .sidebarCol { min-width: 260px; max-width: 300px; }
+}
+
+@media (max-width: 768px) {
+  .mainRow { flex-direction: column; padding: 8px; }
+  .sidebarCol { min-width: auto; max-width: none; }
+}
+
+@media (min-width: 1440px) {
+  .mainRow { max-width: 1600px; }
+  .sidebarCol { min-width: 380px; max-width: 420px; }
+}
+
+@keyframes screenFlash {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  0%, 10% {
+    background-color: #f1c40f;
+  }
+  20% {
+    background-color: var(--color-bg);
+  }
+  100% {
+    opacity: 1;
+    background-color: var(--color-bg);
+  }
+}
+
+.flashOut {
+  animation: screenDim 0.3s ease-out forwards;
+}
+
+@keyframes screenDim {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

@@ -1,21 +1,35 @@
 {
   "id": "case-03",
   "title": "The Front Page",
-  "brief": "A photo of a violent protest appears on social media, purportedly from Veritas. Verify if it's authentic and from this city.",
-  "milLesson": "Reverse image search and geolocation verification",
+  "brief": "A graphic photo of police clashing with protesters is spreading across Veritas. It claims to show 'Veritas residents fighting for their rights.' But the city hasn't seen a protest all week.",
+  "milLesson": "Real images can be misattributed \u2014 reverse image search, EXIF data analysis, and geolocation verification are essential before reacting to viral content",
   "correctVerdict": "manipulated",
+  "difficulty": "hard",
   "solution": {
-    "requiredConnections": [["evidence-02", "evidence-05"]],
+    "requiredConnections": [
+      ["evidence-01", "evidence-02"],
+      ["evidence-01", "evidence-03"],
+      ["evidence-02", "evidence-05"],
+      ["evidence-03", "evidence-06"],
+      ["evidence-05", "evidence-06"]
+    ],
     "requiredToolEvidencePairs": [
       ["source-tracer", "evidence-01"],
-      ["inconsistency-highlighter", "evidence-02"]
+      ["inconsistency-highlighter", "evidence-02"],
+      ["metadata-inspector", "evidence-06"]
     ],
-    "justificationKeywords": ["geolocation", "lighting mismatch", "misattributed"]
+    "justificationKeywords": ["geolocation", "lighting mismatch", "misattributed", "reverse image", "bot amplification"],
+    "optionalToolEvidencePairs": [
+      ["source-tracer", "evidence-07"],
+      ["metadata-inspector", "evidence-08"]
+    ]
   },
   "outcome": {
-    "successR0Delta": -0.3,
-    "successSigmaDelta": 5,
-    "failR0Delta": 0.4,
-    "failSigmaDelta": -5
+    "successR0Delta": -0.5,
+    "successSigmaDelta": 10,
+    "failR0Delta": 0.6,
+    "failSigmaDelta": -8,
+    "partialR0Delta": -0.15,
+    "partialSigmaDelta": 2
   }
 }

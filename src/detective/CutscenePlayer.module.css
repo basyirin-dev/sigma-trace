@@ -1,0 +1,78 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal, 9000);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg, #1E1E2E);
+  cursor: pointer;
+}
+
+.caseTitle {
+  font-family: var(--pixel-font);
+  font-size: var(--text-caption, 16px);
+  color: var(--giha-gold, #f39c12);
+  position: absolute;
+  top: var(--space-lg, 24px);
+  left: var(--space-lg, 24px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.card {
+  max-width: 600px;
+  padding: var(--space-2xl, 48px) var(--space-xl, 32px);
+  cursor: default;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.text {
+  font-family: var(--pixel-font-mono);
+  font-size: var(--text-heading, 16px);
+  line-height: var(--leading-relaxed, 1.75);
+  color: var(--color-text, #e0e0e0);
+  white-space: pre-wrap;
+}
+
+.cursor {
+  animation: blink 0.8s step-end infinite;
+  color: var(--giha-gold, #f39c12);
+}
+
+.progress {
+  font-family: var(--pixel-font-mono);
+  font-size: var(--text-caption, 16px);
+  color: var(--color-text-muted, #888);
+  position: absolute;
+  bottom: var(--space-lg, 24px);
+  left: var(--space-lg, 24px);
+}
+
+.skipArea {
+  position: absolute;
+  bottom: var(--space-lg, 24px);
+  right: var(--space-lg, 24px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

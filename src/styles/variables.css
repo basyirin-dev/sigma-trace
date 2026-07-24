@@ -1,12 +1,125 @@
+@font-face {
+  font-family: 'BoldPixels';
+  src: url('/assets/fonts/BoldPixels.woff2') format('woff2'),
+       url('/assets/fonts/BoldPixels.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --color-bg: #1a1a2e;
-  --color-surface: #16213e;
-  --color-primary: #4ecdc4;
-  --color-danger: #ff6b6b;
-  --color-warning: #ffd93d;
-  --color-text: #e0e0e0;
-  --color-text-muted: #888;
+  /* === Primary Palette === */
+  --color-primary: #1A237E;
+  --color-primary-light: #283593;
+  --color-primary-dark: #0D1541;
+
+  --color-secondary: #00897B;
+  --color-secondary-light: #00ACC1;
+  --color-secondary-dark: #00695C;
+
+  --color-accent: #FFB300;
+  --color-accent-light: #FFCA28;
+  --color-accent-dark: #FF8F00;
+
+  --color-danger: #E53935;
+  --color-danger-light: #EF5350;
+  --color-danger-dark: #C62828;
+
+  --color-success: #43A047;
+  --color-success-light: #66BB6A;
+  --color-success-dark: #2E7D32;
+
+  --color-warning: #FB8C00;
+
+  /* === Surfaces === */
+  --color-bg: #1E1E2E;
+  --color-surface: #2A2A3E;
+  --color-surface-alt: #16213e;
+  --color-white: #ffffff;
+
+  /* === Text === */
+  --color-text: #E0E0E0;
+  --color-text-muted: #9E9E9E;
+
+  --color-bg-detective: #0a0a1a;
+
+  /* === Phase indicators === */
+  --color-phase-calm: #43A047;
+  --color-phase-outbreak: #FFB300;
+  --color-phase-crisis: #FB8C00;
+  --color-phase-trap: #E53935;
+
+  /* === District tile colors === */
+  --color-district-foundry: #8B4513;
+  --color-district-harborview: #2C7A7B;
+  --color-district-uptown: #B8860B;
+  --color-district-campus: #4A7C59;
+
+  /* === Heatmap severity levels === */
+  --color-heatmap-safe: #2ECC71;
+  --color-heatmap-caution: #F1C40F;
+  --color-heatmap-danger: #E74C3C;
+
+  /* === Evidence types === */
+  --color-evidence-video: #E53935;
+  --color-evidence-audio: #FFB300;
+  --color-evidence-image: #43A047;
+  --color-evidence-text: #1E88E5;
+  --color-evidence-metadata: #8E24AA;
+
+  /* === Typography === */
+  --font-pixel: 'BoldPixels', 'Courier New', monospace, sans-serif;
+  --font-pixel-mono: 'BoldPixels', 'Courier New', monospace, sans-serif;
+  --font-narrative: 'BoldPixels', 'Courier New', monospace, sans-serif;
+
+  --font-ui: var(--font-pixel);
+  --font-mono: var(--font-pixel-mono);
+
+  --pixel-font: var(--font-pixel);
+  --pixel-font-mono: var(--font-pixel-mono);
+
+  --text-display: 44px;
+  --text-heading: 28px;
+  --text-body: 20px;
+  --text-caption: 16px;
+  --text-mono: 18px;
+  --text-mono-sm: 14px;
+
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* === Borders === */
+  --pixel-border: 2px solid #333;
+  --pixel-border-selected: 2px solid #00897B;
+  --pixel-border-danger: 2px solid #E53935;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+
+  /* === Spacing === */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* === Transitions === */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+
+  /* === Z-index === */
+  --z-canvas: 0;
+  --z-content: 10;
+  --z-overlay: 100;
+  --z-hud: 200;
+  --z-modal: 9000;
+  --z-tooltip: 9999;
+
+  /* === Shadows === */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --focus-ring: 0 0 0 2px #FFB300;
 }

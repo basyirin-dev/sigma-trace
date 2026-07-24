@@ -1,0 +1,60 @@
+.wrapper {
+  display: inline-flex;
+  position: relative;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 9999;
+  padding: 6px 10px;
+  font-family: var(--pixel-font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-text);
+  background: var(--color-surface-alt);
+  border: 1px solid #555;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.arrow {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--color-surface-alt);
+  border: 1px solid #555;
+  transform: rotate(45deg);
+}
+
+.top .arrow {
+  bottom: -4px;
+  left: calc(50% - 3px);
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+
+.bottom .arrow {
+  top: -4px;
+  left: calc(50% - 3px);
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+
+.left .arrow {
+  right: -4px;
+  top: calc(50% - 3px);
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+
+.right .arrow {
+  left: -4px;
+  top: calc(50% - 3px);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

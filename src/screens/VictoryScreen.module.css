@@ -1,0 +1,283 @@
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 40px 48px;
+  background: var(--color-bg);
+  text-align: center;
+  overflow: auto;
+}
+
+.animatedBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(78, 205, 196, 0.06) 0%, transparent 70%);
+  animation: bgPulse 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes bgPulse {
+  from { transform: scale(1); opacity: 0.5; }
+  to { transform: scale(1.1); opacity: 1; }
+}
+
+.badge {
+  position: relative;
+  z-index: 1;
+  font-family: var(--pixel-font);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  padding: 12px 32px;
+  animation: scaleIn 0.4s ease-out;
+}
+
+.gradeCircle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  border: 6px solid;
+  border-radius: 50%;
+  animation: scaleIn 0.5s ease-out 0.1s both;
+}
+
+.gradeLetter {
+  font-family: var(--pixel-font);
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.gradeLabel {
+  font-family: var(--pixel-font);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.7;
+}
+
+.subtitle {
+  position: relative;
+  z-index: 1;
+  font-family: var(--pixel-font);
+  font-size: 18px;
+  line-height: 1.6;
+  color: #aaa;
+  max-width: 520px;
+  margin: 0;
+}
+
+.statsGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  max-width: 640px;
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
+  background: var(--color-surface-alt);
+  border: 2px solid #333;
+  border-radius: 8px;
+}
+
+.statValue {
+  font-family: var(--pixel-font);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.statLabel {
+  font-family: var(--pixel-font);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.badges {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  width: 100%;
+}
+
+.badgesHeader {
+  font-family: var(--pixel-font);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.badgesRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.badgeItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(78, 205, 196, 0.12);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-radius: 24px;
+}
+
+.badgeIcon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.badgeName {
+  font-family: var(--pixel-font);
+  font-size: 15px;
+  color: var(--color-secondary);
+}
+
+.lessons {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  width: 100%;
+  padding: 18px 24px;
+  background: rgba(46, 204, 113, 0.06);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.lessonsHeader {
+  font-family: var(--pixel-font);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-success);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.lessonsList {
+  margin: 0;
+  padding: 0 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lessonsList li {
+  font-family: var(--pixel-font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+.actionsRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .statsGrid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .badge { font-size: 16px; padding: 8px 20px; }
+  .actionsRow { flex-direction: column; align-items: center; }
+  .gradeCircle { width: 100px; height: 100px; }
+  .gradeLetter { font-size: 40px; }
+  .screen { padding: 24px 16px; }
+}
+
+.continueBtn {
+  padding: 14px 32px;
+  background: rgba(78, 205, 196, 0.15);
+  border: 2px solid var(--color-secondary);
+  border-radius: 0;
+  font-family: var(--pixel-font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.continueBtn:hover {
+  background: var(--color-secondary);
+  color: var(--color-bg);
+}
+
+.shareBtn {
+  padding: 14px 32px;
+  background: rgba(243, 156, 18, 0.12);
+  border: 2px solid var(--color-accent);
+  border-radius: 0;
+  font-family: var(--pixel-font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.shareBtn:hover {
+  background: rgba(243, 156, 18, 0.25);
+}
+
+.playAgainBtn {
+  padding: 14px 32px;
+  background: var(--color-secondary);
+  border: none;
+  border-radius: 0;
+  font-family: var(--pixel-font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-bg);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.playAgainBtn:hover {
+  background: #45b7aa;
+}
+
+.playAgainBtn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

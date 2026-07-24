@@ -1,13 +1,23 @@
-# σ-Trace: Game Design Document
+# GIHA: Game Design Document
 
 ## 1.1 Concept
 
-σ-Trace is a two-mode web game that teaches Media and Information Literacy (MIL) through systems thinking and hands-on investigation. Players alternate between **Strategy Mode** (managing a city's information ecosystem health) and **Detective Mode** (investigating specific disinformation cases). The game engine is powered by a discrete-time adaptation of the Σ-Model ODE system, where the σ-coherence metric and R₀ spread rate govern population belief dynamics.
+GIHA is a two-mode web game that teaches Media and Information Literacy (MIL) through systems thinking and hands-on investigation. Players alternate between **Strategy Mode** (managing a city's information ecosystem health) and **Detective Mode** (investigating specific disinformation cases).
 
 **Target audience:** Youth aged 18–30, no prior MIL knowledge required.
 **Platform:** Web (static site, no server needed after deployment).
-**Build window:** 6 weeks (July 6 – August 16, 2026).
+**Build window:** 6 weeks (July 9 – August 16, 2026). *(Started 3 days behind schedule; initial phases compressed.)*
 **Team:** 2 developers.
+
+### Key Terms (Plain Language)
+
+| Term | What It Means | Why It Matters |
+|:-----|:--------------|:---------------|
+| **σ (sigma)** | The city's "immune system" score (0–100). High = people can spot fake news. Low = people believe everything. | If σ drops below 20, the city is trapped in a state where truth and falsehood are indistinguishable — game over. |
+| **R₀ (R-naught)** | How fast disinformation spreads. If R₀ > 1, each piece of disinfo creates more than 1 new believer — it's spreading faster than it can be stopped. Like the R₀ for COVID-19, but for fake news. | If R₀ stays above 1.5 too long, districts collapse. |
+| **S / E / I / R** | Population compartments: **S**usceptible (haven't seen it), **E**xposed (saw it, don't believe yet), **I**nfected (believe it), **R**esistant (MIL-literate, immune). | These shift as disinformation spreads and interventions work. |
+| **σ-trap** | When σ drops below 20, the population can't distinguish truth from falsehood — game over. | A low-coherence equilibrium where no intervention can recover. |
+| **Intervention** | An action you take to fight disinformation (fact-checking, education, algorithm audits). | Each has a cost, cooldown, and specific effect on R₀ or σ. |
 
 ## 1.2 Narrative Framing
 
@@ -141,7 +151,7 @@ Each case follows a 5-step state machine:
 | Full ODE system (continuous) | Cut | Discrete-time approximation sufficient for gameplay |
 | Real LLM inference | Cut | All AI tool effects are pre-simulated/baked |
 | Multiplayer | Cut | Adds auth, networking, balancing complexity |
-| Save/load system | Cut | Single-session game, ~15 min playtime |
+| Save/load system | Implemented | localStorage-based, auto-save every 5 ticks + on key events |
 | Tutorial overlay | Cut | Tooltip-only onboarding |
 | Custom difficulty | Cut | Single difficulty tuned to target experience |
 | Real reverse image search API | Cut | Simulated search against pre-baked database |
@@ -149,15 +159,21 @@ Each case follows a 5-step state machine:
 
 ## 1.9 Art Style
 
-- **Strategy mode:** Top-down isometric city grid, color-coded heatmap overlays. Warm palette (healthy: green/blue, infected: orange/red, σ-trap: desaturated gray/black).
-- **Detective mode:** 2D flat UI inspired by forensic TV shows. Dark background, evidence cards with yellow folder tabs. Tool icons monoline style.
-- **Typography:** Inter (UI), JetBrains Mono (code/forensics data)
-- **All assets:** Vector graphics generated programmatically or from CC0 sources. No custom illustration budget.
+- **Strategy mode:** Top-down pixel art tile grid (50×50, 20px tiles). Four district color zones (rust, teal, gold, green) with 1px boundary borders. Semi-transparent heatmap overlay (green → red severity). Pixel agent dots moving with random-walk AI. Dark navy background.
+- **Detective mode:** 2D pixel-themed UI with pixel-bordered cards, monoline type badges, dark background. Evidence cards with flip animation, tool buttons with pixel styling.
+- **Typography:** BoldPixels (custom pixel font for all UI). See `src/styles/variables.css` for font definitions.
+- **Logo:** SVG at `public/assets/logo/GIHA-Logo.svg` — purple (#863bff) shield design.
+- **City tiles:** 16px tiles from a third-party pixel pack (grass + stone), procedurally rendered buildings.
+- **Agents:** 5px colored circles (S/E/I/R) via Canvas2D — no character sprites.
+- **All additional assets:** Collected third-party pixel art packs (itch.io) with per-pack licensing.
 
 ## 1.10 Sound
 
-- **Strategy mode:** Ambient city hum. Pitch distorts as σ drops. Low drone at R₀ > 1.0.
-- **Detective mode:** Focused silence with UI click sounds. "Aha" chime on correct tool-evidence match.
-- **Case solved:** Short affirming melody (major chord arpeggio).
+- **Strategy mode:** Static ambient loop. Music auto-dims to 30% volume during warning toasts. Mode switching uses 1-second crossfade.
+- **Detective mode:** Static ambient loop. "Aha" chime on correct tool-evidence match.
+- **Case solved:** Short affirming melody.
 - **σ-trap game over:** Descending drone, cut to silence.
-- **All sounds:** Generated from CC0 samples or synthesized via Web Audio API.
+- **Mode switching:** Automatic track switching via Zustand subscription + 1-second linear crossfade.
+- **Volume control:** Two sliders (music, SFX) + mute toggle, all persisted to localStorage.
+- **Preloading:** All audio preloaded at app start via `useAudioManager.preloadAll()`. SFX served from a pooled array of `HTMLAudioElement` instances with round-robin cycling.
+- **All sounds:** Pre-rendered MP3/WAV files sourced from CC0 sample libraries. No Web Audio API synthesis or real-time DSP (the Spectrogram tool uses `AudioContext` + `AnalyserNode` for read-only frequency analysis).

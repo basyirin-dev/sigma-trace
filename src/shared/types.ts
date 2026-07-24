@@ -1,3 +1,5 @@
+import type { Phase } from '@engine/types'
+
 export interface GameStore {
   strategy: StrategyState
   detective: DetectiveState
@@ -9,7 +11,7 @@ export interface StrategyState {
   r0: number
   budget: number
   time: number
-  phase: string
+  phase: Phase
 }
 
 export interface DetectiveState {

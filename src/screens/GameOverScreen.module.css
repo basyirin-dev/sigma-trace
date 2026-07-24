@@ -1,0 +1,129 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 100vh;
+  padding: 32px;
+  background: #0a0a0a;
+  animation: fadeIn 0.5s ease-out;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.skull {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-family: monospace;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--color-danger);
+  letter-spacing: 6px;
+  animation: pulseDanger 1.5s ease-in-out infinite;
+}
+
+.subtitle {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #c0392b;
+  letter-spacing: 4px;
+}
+
+.message {
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  margin: 0;
+}
+
+.postmortem {
+  max-width: 520px;
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.postmortemHeader {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-danger);
+  letter-spacing: 2px;
+  padding: 10px 16px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.postmortemBody {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.postmortemLine {
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #aaa;
+  margin: 0;
+  padding: 0 0 0 12px;
+  border-left: 2px solid #444;
+}
+
+.tryAgainBtn {
+  padding: 12px 36px;
+  background: var(--color-danger);
+  border: none;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.tryAgainBtn:hover {
+  background: #c0392b;
+}
+
+.tryAgainBtn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.progressNote {
+  font-family: monospace;
+  font-size: 11px;
+  color: #555;
+  max-width: 380px;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseDanger {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

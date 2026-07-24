@@ -1,0 +1,10 @@
+.gauge {
+  display: inline-flex;
+  border: 2px solid #333;
+  line-height: 0;
+}
+
+.canvas {
+  display: block;
+  image-rendering: pixelated;
+}

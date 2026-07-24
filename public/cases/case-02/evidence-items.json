@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "evidence-01",
+      "type": "audio",
+      "label": "Voicemail Recording",
+      "description": "22-second voicemail. Male voice in distress claiming to be a grandson in jail, asking for $5,000 bail. Background sounds consistent with a call center, not a holding cell.",
+      "isRedHerring": false,
+      "src": "evidence/voicemail-cloned.wav"
+    },
+    {
+      "id": "evidence-02",
+      "type": "audio",
+      "label": "Voiceprint Comparison",
+      "description": "Spectral overlay of the voicemail voice versus the grandson's actual voice from a school recording. Shows 87% match \u2014 close, but the 200-400Hz range shows systematic divergence.",
+      "isRedHerring": false,
+      "src": "evidence/voiceprint-data.wav"
+    },
+    {
+      "id": "evidence-03",
+      "type": "metadata",
+      "label": "Call Origin Metadata",
+      "description": "VoIP call routing data. Originated from a number registered to 'VeraTech Solutions LLC'. Routed through three proxy countries before reaching Veritas.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-04",
+      "type": "text",
+      "label": "Suspicious Text Messages",
+      "description": "Text thread between the victim's grandson and an unknown number. Contains links to a 'fun voice changer game' \u2014 actually an audio capture script. Three seconds of playback was enough.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-05",
+      "type": "image",
+      "label": "Scammer Profile Photo",
+      "description": "Profile image attached to the scammer's account. Shows a smiling elderly woman. The account lists her as 'Maria Santos, family friend of the Kowalskis.'",
+      "isRedHerring": true,
+      "src": "evidence/scammer-profile.jpg"
+    },
+    {
+      "id": "evidence-06",
+      "type": "text",
+      "label": "Bank Transaction Records",
+      "description": "Bank records showing a $5,000 payment from VeraTech Solutions LLC to a numbered account. Memo reads 'Harborview deployment \u2014 phase 2'. Dated three days before the first scam call.",
+      "isRedHerring": false
+    }
+  ]
+}

@@ -1,17 +1,46 @@
 {
   "introCutscene": [
     {
-      "text": "A video of Mayor Chen has gone viral. In it, she appears to resign effective immediately.",
-      "duration": 4000
-    },
-    {
-      "text": "The opposition is calling for an emergency election. Your job: determine if this video is authentic.",
-      "duration": 4000
-    },
-    {
-      "text": "Examine the video frame by frame. Check the audio spectrogram. Look for inconsistencies.",
+      "text": "A video of Mayor Chen just went viral. In it, she looks directly at the camera and says: 'I can no longer serve this city. I resign effective immediately.'",
       "duration": 3000
+    },
+    {
+      "text": "Mayor Chen has served Veritas for 12 years. She\u2019s never missed a vote or a public appearance. Her integrity is what got her elected.",
+      "duration": 2500
+    },
+    {
+      "text": "Her office says she was attending a charity dinner at the time this video was created. But the file was uploaded at 2:47 AM \u2014 three hours before that dinner started.",
+      "duration": 3000
+    },
+    {
+      "text": "The opposition is calling for an emergency election. News outlets are running the story. The city is in chaos.",
+      "duration": 2500
+    },
+    {
+      "text": "GIHA intercepted this file before it spread to every screen in Veritas. Your job: determine if this video is authentic or fabricated.",
+      "duration": 2500
+    },
+    {
+      "text": "Check the audio spectrogram for synthetic markers. Step through each frame. Look for anything that doesn't belong.",
+      "duration": 2000
     }
   ],
-  "conclusionText": "The video was indeed AI-generated. A subtle audio artifact in the 2-4kHz range and inconsistent lip-sync timing revealed the manipulation. Always verify through multiple channels."
+  "evidenceFindings": {
+    "evidence-01": "The video is 30 seconds long, 1080p. The mayor's mouth movements look slightly off — a frame-by-frame advance reveals micro-mismatches between audio and lip shapes.",
+    "evidence-02": "The audio spectrogram shows a clean voice profile but the high-frequency range (2-4kHz) has an unusual pattern — consistent with AI voice synthesis, not natural human speech.",
+    "evidence-03": "File metadata shows the video was created in Vegas Pro at 2:47 AM — three hours before the mayor's official alibi places her at a charity dinner. Creation software matches known deepfake toolchains.",
+    "evidence-04": "Social media comments are split: half demanding resignation, half claiming the video is fake. Several accounts pushing the resignation narrative were created in the last 48 hours \u2014 a common astroturfing tactic. Note: these comments reveal the motive behind the campaign, not the video\u2019s origin. Analyze the video file itself first.",
+    "evidence-05": "Side-by-side comparison with an official video of Mayor Chen shows her natural speaking style includes hand gestures and pauses. The viral video lacks these — it's a static headshot with animated mouth movement.",
+    "evidence-06": "Upload server logs reveal the video was posted via a VPN registered to VeraTech Solutions — a shell company controlled by a network calling itself The Shadow Collective. The IP traces to a data center used exclusively by known disinformation operators. The same shell company later funded the Harborview voice scam operation (Case 2), using the same numbered account structure."
+  },
+  "toolHints": {
+    "spectrogram": "Best tool for this case. Visualizes audio frequency spectrum. AI-generated speech often leaves distinctive artifacts in the 2-4kHz range.",
+    "frame-stepper": "Essential for video analysis. Best tool for this case. Advances video one frame at a time to spot mismatches between audio waveforms and lip movements.",
+    "metadata-inspector": "Extracts file headers, creation timestamps, and editing history. Reveals Vegas Pro origin and conflict with mayor's alibi.",
+    "source-tracer": "Simulates reverse image search. Shows earliest known publication date and matching sources across the web.",
+    "inconsistency-highlighter": "Detects lighting, shadow, and perspective anomalies. Helps identify composited or AI-generated visual elements.",
+    "timeline-cross-referencer": "Places all evidence on a chronological timeline. Highlights impossible sequences or conflicting timestamps."
+  },
+  "conclusionText": "The video was a deepfake. An AI-generated audio track was overlaid onto footage of Mayor Chen's public address — the voice model was trained on clips from her public speeches using a generative adversarial network. The 2-4kHz audio artifact is a signature of current-generation voice synthesis models. The creator used Vegas Pro — a common deepfake production tool — and uploaded the file through an anonymous VPN registered to VeraTech Solutions, a shell company controlled by the Shadow Collective. In 2026, deepfake detection requires examining multiple modalities: audio, visual, and metadata. One clue alone isn't enough — but together, they reveal the truth.",
+  "milLesson": "Deepfakes target multiple senses simultaneously. Always verify through audio analysis, frame inspection, and source checking — no single test is sufficient."
 }

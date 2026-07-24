@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "evidence-01",
+      "type": "video",
+      "label": "Mayor's Resignation Video",
+      "description": "30-second clip of Mayor Chen saying 'I resign effective immediately'. 1080p, uploaded 4 hours ago.",
+      "isRedHerring": false,
+      "src": "evidence/deepfake-video.mp4"
+    },
+    {
+      "id": "evidence-02",
+      "type": "audio",
+      "label": "Audio Spectrogram Data",
+      "description": "Frequency spectrum analysis of the video's audio track. Shows energy distribution across 0-8kHz range.",
+      "isRedHerring": false,
+      "src": "evidence/spectrogram-audio.wav"
+    },
+    {
+      "id": "evidence-03",
+      "type": "metadata",
+      "label": "Video File Metadata",
+      "description": "EXIF data and file headers. Includes creation timestamp, software origin, and device fingerprint.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-04",
+      "type": "text",
+      "label": "Social Media Comment Thread",
+      "description": "Screenshot of the viral post's comment section. 15,000 reactions in 4 hours. Several accounts pushing the resignation narrative were created recently.",
+      "isRedHerring": true
+    },
+    {
+      "id": "evidence-05",
+      "type": "image",
+      "label": "Official Reference Photo",
+      "description": "Side-by-side comparison: the viral video's frame 147 vs. an official press conference recording. Shows differences in posture, lighting, and mouth position.",
+      "isRedHerring": false,
+      "src": "evidence/reference-photo.jpg"
+    },
+    {
+      "id": "evidence-06",
+      "type": "metadata",
+      "label": "Upload Server Logs",
+      "description": "Server access logs showing the video's upload origin. IP address resolves to a VPN registered to VeraTech Solutions \u2014 a shell company linked to coordinated disinformation operations.",
+      "isRedHerring": false
+    }
+  ]
+}

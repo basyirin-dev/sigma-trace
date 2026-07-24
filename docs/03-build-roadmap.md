@@ -1,4 +1,6 @@
-# σ-Trace: Build Roadmap
+# GIHA: Build Roadmap
+
+> **Retrospective status (as of August 16, 2026):** All phases 0–10 completed on schedule despite a 3-day late start. Risk R09 (compressed schedule) was triggered but fully absorbed by overlapping P0/P0.5 and starting P1/P2 immediately on July 11. The August 13–16 buffer remained unused. Current build is Phase 10-ready for Gold Master and submission.
 
 ## 3.1 Phase Overview
 
@@ -78,10 +80,12 @@ Phase 0 → 0.5 → 1 (M1) & 2 (M2) → 3 (M1) & 5 (M2) → 4 (M1) & 6 (M1+M2) &
 
 ## 3.4 Risk Register
 
+> **See also:** `docs/phases/CC4_risk_register.md` for the technical/quality risk register (11 risks, Likelihood×Impact scoring, escalation triggers). This roadmap risk register covers schedule/budget risks only.
+
 | ID | Risk | Probability | Impact | Mitigation | Trigger |
 |:---|:-----|:----------:|:------:|:-----------|:--------|
 | R01 | ODE engine produces non-fun gameplay | Medium | High | Playtest early (Phase 3 day 1), tune parameters | Phase 4 starts with unbalanced R₀ curves |
-| R02 | Three.js performance on low-end devices | Medium | Medium | LOD system, fallback to Canvas 2D for strategy | Phase 3 benchmarks below 30fps |
+| R02 | Canvas2D performance with 200+ agents | Medium | Medium | Simplify agent AI, reduce to 80 agents, use spatial bucketing | Phase 3 benchmarks below 30fps |
 | R03 | Case 3 photo manipulation too complex for 5-day build | High | Medium | Simplify to single-inconsistency case, reduce tool requirement | Phase 6 day 3 behind schedule |
 | R04 | Pitch video production takes longer than expected | Medium | High | Use OBS + iMovie, not Premiere | Phase 11 day 2 no footage recorded |
 | R05 | M1 sickness or unavailability | Low | Critical | Cross-train M2 on basic ODE parameter tuning by Phase 3 | M1 misses 2+ consecutive days |

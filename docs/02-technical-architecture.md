@@ -1,284 +1,300 @@
-# σ-Trace: Technical Architecture
+# GIHA: Technical Architecture
 
 ## 2.1 Stack Overview
 
 | Layer | Technology | Rationale |
 |:------|:-----------|:----------|
-| Bundler | Vite 6 | Fast HMR, static export, TypeScript native |
-| Framework | React 19 | Component model, ecosystem, shared with existing Σ-Model work |
-| State | Zustand | Minimal boilerplate, TypeScript-first, middleware support |
-| 3D/Canvas | React Three Fiber + Three.js | Strategy mode city visualization |
+| Bundler | Vite 8 | Fast HMR, static export, TypeScript native |
+| Framework | React 19 | Component model, ecosystem |
+| State | Zustand 5 | Minimal boilerplate, TypeScript-first, 8+ atomic stores |
+| Strategy rendering | Canvas2D (pixel art) | Strategy mode city visualization (1000×1000px, 50×50 tiles) |
 | 2D UI | React + CSS Modules | Detective mode point-and-click interface |
-| Simulation | Python → WASM (pyodide) or JS port | ODE engine ported from Σ-Model |
-| Tests | Vitest + Playwright | Unit + integration + E2E |
+| Simulation | TypeScript ODE engine | Discrete-time SEIR + σ-coherence model, ported from Python Σ-Model |
+| Tests | Vitest + v8 coverage | Unit + integration |
 | CI | GitHub Actions | Lint, type-check, test, build |
-| Hosting | Netlify / Vercel | Static site, zero server cost |
+| Hosting | Netlify (free tier) | Static site, zero server cost |
 
 ## 2.2 Directory Structure
 
 ```
-sigma-trace/
-├── index.html
+giha/
 ├── package.json
-├── tsconfig.json
 ├── vite.config.ts
 ├── public/
 │   ├── cases/
-│   │   ├── case-01/
-│   │   │   ├── evidence/
-│   │   │   ├── script.json
-│   │   │   └── metadata.json
-│   │   ├── case-02/
-│   │   └── case-03/
-│   └── sounds/
+│   │   ├── case-01/          # "The Viral Mayor"
+│   │   ├── case-02/          # "Grandma's Distress Call"
+│   │   └── case-03/          # "The Front Page"
+│   ├── audio/                 # Music + SFX (see audio/ subdirectories)
+│   └── assets/                # Fonts, logo
 ├── src/
 │   ├── main.tsx
 │   ├── App.tsx
 │   ├── router.tsx
 │   │
-│   ├── engine/                 # σ-Model ODE simulation
-│   │   ├── types.ts
-│   │   ├── simulate.ts         # Discrete-time simulation step
-│   │   ├── interventions.ts    # Intervention effect functions
-│   │   ├── sigma-trap.ts       # σ-trap classification
-│   │   └── r0.ts              # R₀ computation
+│   ├── engine/                # σ-Model ODE simulation
+│   │   ├── types.ts           # PopulationState, District, Phase, SimulationConfig
+│   │   ├── constants.ts       # All tunable parameters (gamma, kappa, sigma decay, thresholds)
+│   │   ├── simulate.ts        # Discrete-time simulation step (SEIR + sigma + R0)
+│   │   ├── sigma.ts           # Sigma coherence computation (decay + intervention recovery)
+│   │   ├── r0.ts              # R₀ computation with mitigation factors
+│   │   ├── sigma-trap.ts      # Sigma trap detection (5+ consecutive ticks < threshold)
+│   │   ├── interventions.ts   # Intervention definitions + color mappings
+│   │   ├── districts.ts       # District definitions + effective R0 computation
+│   │   └── active-effects.ts  # Active effect lifecycle (creation + ticking)
 │   │
-│   ├── strategy/               # Strategy mode
-│   │   ├── StrategyMode.tsx
-│   │   ├── CityGrid.tsx        # Three.js scene
-│   │   ├── DistrictHeatmap.tsx
-│   │   ├── CoherenceGauge.tsx
-│   │   ├── InterventionPalette.tsx
+│   ├── strategy/              # Strategy mode
+│   │   ├── StrategyMode.tsx     # Main strategy mode orchestrator
+│   │   ├── CityCanvas.tsx       # Canvas2D pixel scene with DPI scaling
+│   │   ├── CityGrid.tsx
+│   │   ├── useCityLoop.ts      # Game loop (requestAnimationFrame + tick management)
+│   │   ├── useSimulation.ts    # Simulation tick bridge to engine
+│   │   ├── useActiveEffects.ts # Intervention deployment + effect wiring
+│   │   ├── useWarningDetection.ts # R0/sigma warning thresholds
+│   │   ├── useCaseUnlocks.ts   # Case unlock conditions based on simulation state
+│   │   ├── renderers/          # Canvas2D rendering functions
+│   │   │   ├── renderGrid.ts     # Tile grid, tile glow, district quadrants
+│   │   │   ├── renderMap.ts      # Ground, roads, buildings with sprite support
+│   │   │   ├── renderHeatmap.ts  # Per-district heatmap overlay + district pulse
+│   │   │   ├── renderAgents.ts   # Population agent dots with stable threshold coloring
+│   │   │   ├── renderParticles.ts # Floating particle system
+│   │   │   ├── renderGauge.ts    # Sigma coherence gauge (semi-circular)
+│   │   │   ├── renderR0Trend.ts  # R₀ historical trend graph
+│   │   │   └── renderInterventionRings.ts  # Active effect ring visualization
 │   │   ├── InterventionCard.tsx
-│   │   ├── Timeline.tsx
-│   │   └── store.ts
+│   │   ├── InterventionPalette.tsx
+│   │   ├── InterventionTimeline.tsx
+│   │   ├── DeployConfirmModal.tsx
+│   │   ├── TimeControls.tsx
+│   │   ├── R0TrendGraph.tsx
+│   │   ├── CoherenceGauge.tsx
+│   │   ├── CaseSelector.tsx
+│   │   └── buffs.ts           # Case completion buffs
 │   │
-│   ├── detective/              # Detective mode
-│   │   ├── DetectiveMode.tsx
-│   │   ├── CaseLoader.ts
-│   │   ├── EvidenceBoard.tsx
-│   │   ├── EvidenceCard.tsx
-│   │   ├── Toolbelt.tsx
+│   ├── detective/             # Detective mode
+│   │   ├── DetectiveMode.tsx    # Main detective orchestrator
+│   │   ├── CaseLoader.ts        # Case data fetcher + JSON validator
+│   │   ├── CaseState.ts         # 5-state machine (intro→investigation→evidence→verdict→debrief)
+│   │   ├── EvidenceBoard.tsx    # Draggable evidence cards + SVG connection lines
+│   │   ├── EvidenceCard.tsx     # Flip card with type preview + connect handle
+│   │   ├── Toolbelt.tsx         # 6-tool toolbar
+│   │   ├── ToolResultModal.tsx  # Finding display + confidence bar
+│   │   ├── VerdictPanel.tsx     # Verdict selection + justification textarea
+│   │   ├── DebriefScreen.tsx    # Score breakdown + MIL lesson
+│   │   ├── ScoringEngine.ts     # 5-component scoring algorithm
 │   │   ├── tools/
-│   │   │   ├── Spectrogram.tsx
-│   │   │   ├── FrameStepper.tsx
-│   │   │   ├── MetadataInspector.tsx
-│   │   │   ├── SourceTracer.tsx
-│   │   │   ├── InconsistencyHighlighter.tsx
-│   │   │   └── TimelineCrossReferencer.tsx
-│   │   ├── VerdictPanel.tsx
-│   │   ├── ScoringEngine.ts
-│   │   └── store.ts
+│   │   │   ├── constants.ts     # Shared tool definitions (id, label, icon, affinity, tooltip)
+│   │   │   ├── types.ts         # Tool + ToolResult interfaces
+│   │   │   ├── BaseTool.ts      # Abstract base class
+│   │   │   ├── SpectrogramTool.ts | Spectrogram.tsx
+│   │   │   ├── FrameStepperTool.ts | FrameStepper.ts | FrameStepper.tsx
+│   │   │   ├── MetadataInspectorTool.ts | MetadataInspector.tsx
+│   │   │   ├── SourceTracerTool.ts | SourceTracer.tsx
+│   │   │   ├── InconsistencyHighlighterTool.ts | InconsistencyHighlighter.tsx
+│   │   │   └── TimelineCrossReferencerTool.ts | TimelineCrossReferencer.tsx
+│   │   ├── ToolTutorialOverlay.tsx
+│   │   ├── useDetectiveStore.ts  # Detective runtime state
+│   │   └── useToolTutorialStore.ts
 │   │
-│   ├── shared/                 # Shared components
+│   ├── shared/                # Shared components
 │   │   ├── HUD.tsx
 │   │   ├── Modal.tsx
 │   │   ├── Button.tsx
 │   │   ├── Tooltip.tsx
-│   │   ├── Transition.tsx      # Mode-switch animation
-│   │   └── types.ts            # Shared types
+│   │   ├── SettingsPanel.tsx
+│   │   ├── WarningToast.tsx
+│   │   ├── ErrorFallback.tsx
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── useAudioManager.ts
+│   │   ├── saveManager.ts
+│   │   ├── stores/
+│   │   │   ├── gameStore.ts           # Core game state (budget, mode, cases, status)
+│   │   │   ├── useSimulationStore.ts  # Simulation state (population, sigma, r0, tick)
+│   │   │   ├── useWarningStore.ts     # Warning toast queue
+│   │   │   ├── useAudioStore.ts       # Audio settings with localStorage persistence
+│   │   │   ├── useInterventionLogStore.ts  # Deployment history
+│   │   │   └── index.ts               # Barrel exports
+│   │   └── types.ts
+│   │
+│   ├── screens/               # Standalone screens
+│   │   ├── TitleScreen.tsx
+│   │   ├── LoadingScreen.tsx
+│   │   ├── TransitionScreen.tsx
+│   │   ├── VictoryScreen.tsx
+│   │   ├── GameOverScreen.tsx
+│   │   └── NotFound.tsx
 │   │
 │   └── styles/
 │       ├── global.css
-│       ├── variables.css
-│       └── animations.css
+│       ├── variables.css      # CSS custom properties (colors, typography, spacing)
+│       ├── animations.css
+│       └── pixel-theme.css    # Pixel art CSS classes
 ```
 
 ## 2.3 Data Flow
 
-### 2.3.1 State Architecture (Zustand)
+### 2.3.1 State Architecture (Zustand — Atomic Stores)
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      GameStore                               │
-│                                                             │
-│  strategy: {                                                 │
-│    population: CityPopulation,     // S, E, I, R counts     │
-│    sigma: number,                  // 0–100                  │
-│    r0: number,                     // 0–5.0                  │
-│    budget: number,                                            │
-│    time: number,                                              │
-│    phase: Phase,                    // calm / outbreak / trap │
-│    districtStates: District[],                                │
-│    interventionHistory: LogEntry[],                           │
-│    activeEffects: ActiveEffect[]                              │
-│  },                                                          │
-│                                                             │
-│  detective: {                                                │
-│    currentCase: Case | null,                                 │
-│    progress: 'intro' | 'investigation' | 'evidence' |       │
-│              'verdict' | 'debrief',                          │
-│    evidence: EvidenceItem[],                                 │
-│    connections: Connection[],                                │
-│    usedTools: string[],                                      │
-│    startTime: number,                                        │
-│    verdict: Verdict | null                                   │
-│  },                                                          │
-│                                                             │
-│  meta: {                                                     │
-│    mode: 'strategy' | 'detective' | 'transition',           │
-│    caseQueue: string[],      // pending cases                │
-│    completedCases: number,                                   │
-│    gameStatus: 'playing' | 'won' | 'lost'                    │
-│  }                                                          │
-│                                                             │
-│  actions: {                                                  │
-│    strategyTick(), deployIntervention(),                     │
-│    startCase(), useTool(), makeConnection(), submitVerdict(),│
-│    applyOutcome(), switchMode(),                             │
-│    reset()                                                    │
-│  }                                                           │
-└─────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│                    gameStore                               │
+│  budget, mode, caseResults, cooldowns, interventionUse,   │
+│  gameStatus, cityPaused, unlockFlags                      │
+├──────────────────────────────────────────────────────────┤
+│                  useSimulationStore                        │
+│  population, sigma, r0, tick, phase, activeEffects,       │
+│  isRunning, speed, r0History, sigmaHistory                 │
+├──────────────────────────────────────────────────────────┤
+│                  useDetectiveStore                         │
+│  caseData, connections, usedTools, activeTool,            │
+│  verdict, justification, startTime                         │
+├──────────────────────────────────────────────────────────┤
+│                  useCaseStateStore                         │
+│  phase (CaseProgress), introFrameIndex                     │
+├──────────────────────────────────────────────────────────┤
+│                useInterventionLogStore                     │
+│  entries (deployment history)                              │
+├──────────────────────────────────────────────────────────┤
+│                  useWarningStore                           │
+│  warnings array (toast queue)                              │
+├──────────────────────────────────────────────────────────┤
+│                  useAudioStore                             │
+│  musicVolume, sfxVolume, muted, showFps, currentTrack      │
+├──────────────────────────────────────────────────────────┤
+│              useToolTutorialStore                          │
+│  dismissed (which tool tutorials have been seen)           │
+└──────────────────────────────────────────────────────────┘
 ```
 
 ### 2.3.2 Simulation Tick
 
+Each tick approximates 1 second of game time:
+
 ```
-Each tick (every 1 second of game time, 60x real-time speed):
+1. Apply active effects: decrement remainingTicks, filter expired
 
-1. Calculate new R₀ from current parameters:
-   R₀(t+1) = baseR₀ × (1 − literacyRate × 0.3)
-            × (1 − factCheckCoverage × 0.4)
-            × (1 − algorithmAuditActive × 0.3)
-            × randomNoise(±0.05)
+2. Compute sigma coherence:
+   σ(t+1) = σ(t) - D × (I/N) × (σ(t)/100) + Σ(σ_interventions × (1 - σ(t)/100))
+   where D = 2.0, sigma_capped ∈ [0, 100]
 
-2. Update S/E/I/R populations using discrete SIR-like model:
-   ΔS = −β × S × I / N        (exposure)
-   ΔE = +β × S × I / N − κ × E (incubation: exposed → infected)
-   ΔI = +κ × E − γ × I        (recovery: infected → σ-aware)
+3. Compute R₀ from population state + config + active effects:
+   R₀(t+1) = computeR0(population, config, activeEffects)
+   (mitigation: literacy, factCheck, audit; intervention deltas; susceptible ratio)
+
+4. Compute S/E/I/R transitions:
+   ΔS = -β × S × I / N
+   ΔE = +β × S × I / N - κ × E
+   ΔI = +κ × E - γ × I
    ΔR = +γ × I
-   where β = R₀ × γ, γ = 0.1, κ = 0.15
+   where β = R₀ × γ, γ = recovery_rate, κ = incubation_rate
 
-3. Update σ-coherence:
-   σ(t+1) = σ(t) + Δσ_interventions − Δσ_disinformation
-   where Δσ_interventions = sum of active intervention effects
-   and Δσ_disinformation = 0.5 × (I / N) × (100 − σ(t))
+5. Detect phase transitions and σ-trap:
+   Phase = classifyPhase(σ, R₀)
+   σ-trap = detectSigmaTrap(sigmaHistory)  // 5+ consecutive < 20
 
-4. Check phase transitions:
-   if R₀ > 1.0 for >5s → enter Outbreak phase
-   if σ < 30 → trigger Critical warning
-   if σ < 20 → GAME OVER (σ-trap reached)
-
-5. Calculate district-level statistics from city aggregates
+6. Apply income: budget += 0.5 + σ/100 × 1.5 per tick
+   Decrement intervention cooldowns
 ```
+
+Source: `src/engine/simulate.ts`, `src/engine/sigma.ts`, `src/engine/r0.ts`
 
 ## 2.4 Case Data Schema
 
-```typescript
-interface Case {
-  id: string;
-  title: string;
-  brief: string;
-  milLesson: string;
-  introCutscene: CutsceneFrame[];
-  evidence: EvidenceItem[];
-  correctVerdict: 'real' | 'manipulated' | 'uncertain';
-  solution: {
-    requiredConnections: [string, string][];
-    requiredToolEvidencePairs: [string, string][];
-    justificationKeywords: string[];
-  };
-  outcome: {
-    successR0Delta: number;
-    successSigmaDelta: number;
-    failR0Delta: number;
-    failSigmaDelta: number;
-  };
-}
+Case files live in `public/cases/{case-id}/`:
 
-interface EvidenceItem {
-  id: string;
-  type: 'video' | 'audio' | 'image' | 'text' | 'metadata';
-  src: string;                 // path to asset
-  label: string;
-  description: string;
-  isRedHerring: boolean;
-  metadata?: Record<string, string>;
-  revealsWithTool?: string;    // tool id that unlocks additional info
-  hiddenFinding?: string;      // revealed when correct tool applied
-}
-```
+| File | Content |
+|------|---------|
+| `metadata.json` | Case ID, title, brief, MIL lesson, correct verdict, solution spec (connections, tool pairs, keywords), outcome deltas |
+| `script.json` | Intro cutscene frames, evidence findings (per-evidence text), tool hints, conclusion text, MIL lesson |
+| `evidence-items.json` | Array of `{id, type, label, description, isRedHerring, src}` |
+| `evidence-board.json` | Node positions, required connections, hint connections |
+
+Source: `src/detective/CaseLoader.ts` (with full JSON validation)
 
 ## 2.5 Mode Integration Bridge
 
-```typescript
-function applyCaseOutcome(store: GameStore, verdict: Verdict, caseData: Case): void {
-  const isCorrect = verdict.classification === caseData.correctVerdict;
-  const isTimely = (Date.now() - store.detective.startTime) < 180000; // 3 min
-
-  if (isCorrect && isTimely) {
-    store.strategy.r0 += caseData.outcome.successR0Delta * 1.5; // −0.45
-    store.strategy.sigma += caseData.outcome.successSigmaDelta * 1.5; // +7.5
-    store.strategy.budget += 50; // bonus
-  } else if (isCorrect && !isTimely) {
-    store.strategy.r0 += caseData.outcome.successR0Delta;
-    store.strategy.sigma += caseData.outcome.successSigmaDelta;
-  } else {
-    store.strategy.r0 += caseData.outcome.failR0Delta; // +0.4
-    store.strategy.sigma += caseData.outcome.failSigmaDelta; // −5
-  }
-
-  store.meta.mode = 'transition';
-  // 3-second animated transition back to strategy mode
-}
 ```
+Strategy → Detective:
+  1. Player clicks "Investigate" on a case card
+  2. gameStore.startCase(caseId) → pauses simulation, sets cityPaused, switches mode
+  3. navigate('/transition', { state: { direction: 'to-detective', caseId, ... }})
+  4. Transition screen → navigate(`/detective/${caseId}`)
+
+Detective → Strategy:
+  1. Player submits verdict → score is calculated + debrief shown
+  2. Player clicks "Return to City" → handleReturnToCity()
+  3. gameFinishCase(r0Delta, sigmaDelta, budgetBonus) applies outcome
+  4. recordCaseGrade() stores the grade
+  5. navigate('/transition', { state: { direction: 'to-strategy', deltas }})
+  6. Transition screen shows case outcome → navigate('/strategy')
+```
+
+Source: `src/strategy/StrategyMode.tsx`, `src/detective/DetectiveMode.tsx`
 
 ## 2.6 Tool API Contract
 
-Each forensics tool in `src/detective/tools/` exports:
+Each forensic tool follows this interface (defined in `src/detective/tools/types.ts`):
 
 ```typescript
-interface ForensicsTool {
-  id: string;
-  name: string;
-  icon: string;             // icon component or path
-  description: string;
-  canApplyTo: EvidenceType[];
-  apply(evidence: EvidenceItem): ToolResult;
+interface ToolResult {
+  findings: string[]     // bullet points discovered
+  confidence: number     // 0–1 how conclusive
+  evidenceId: string
+  timestamp: number
 }
 
-interface ToolResult {
-  findings: string[];       // bullet points discovered
-  confidence: number;       // 0–1 how conclusive
-  revealsId?: string;       // new evidence unlocked
-  triggerAha?: boolean;     // triggers correct-tool animation
+interface Tool {
+  id: string
+  name: string
+  icon: string
+  description: string
+  eligibility: (evidence: EvidenceItem) => boolean   // can this tool apply to this evidence?
+  apply: (evidence: EvidenceItem, caseData: CaseData) => ToolResult
 }
 ```
 
+Each tool has a corresponding React component for interactive visualization (e.g., `Spectrogram.tsx` for real-time audio spectrogram, `FrameStepper.tsx` for video frame stepping). Tool implementations read findings from `caseData.script.evidenceFindings[evidence.id]` to provide case-specific investigation results.
+
+Source: `src/detective/tools/types.ts`, `src/detective/tools/BaseTool.ts`
+
 ## 2.7 Performance Budget
 
-| Metric | Target | Notes |
-|:-------|:------:|:------|
-| Load time (first paint) | < 2s | Under 500kB JS bundle, image preloading |
-| FPS (strategy mode) | 60fps | LOD for population agents, instanced rendering |
-| FPS (detective mode) | 60fps | 2D UI only, no heavy rendering |
-| Bundle size (total) | < 800kB | Code splitting by mode |
-| Memory | < 200MB | No persistent state, no streaming |
-| Offline | Full | No API calls after initial load |
-| Browser support | Chrome, Firefox, Safari (last 2 major) | Target 95% of youth users |
+| Metric | Current | Target | Notes |
+|:-------|:-------:|:------:|:------|
+| Bundle size (JS gzip) | ~325 KB | < 800 KB | Measured from Vite build output |
+| Bundle size (total) | ~5 MB | < 5 MB | Includes audio, evidence media, and fonts |
+| FPS (strategy mode) | — | 60 fps | Benchmark pending — requestAnimationFrame loop with 80 agents |
+| FPS (detective mode) | — | 60 fps | 2D UI only, no heavy rendering |
+| Browser support | Chrome, Firefox, Safari (last 2 major) | 95% of youth users | Confirm with actual testing |
+| Load time | — | < 2s first paint | Benchmark pending — static SPA, no blocking requests |
+| Offline | Full | Full | No API calls after initial load |
+| Memory | — | < 200 MB | No persistent state (estimated — no streaming or large datasets) |
 
 ## 2.8 Deployment
 
 ```
-                           ┌──────────────┐
-                           │  GitHub Repo  │
-                           └──────┬───────┘
-                                  │ push
-                                  ▼
-                           ┌──────────────┐
-                           │ GitHub Actions│
-                           │  (CI/CD)      │
-                           └──────┬───────┘
-                                  │ build + deploy
-                                  ▼
-                    ┌─────────────────────────┐
-                    │  Netlify / Vercel        │
-                    │  (static site)           │
-                    │                          │
-                    │  /.                       │ → index.html
-                    │  /cases/*                │ → case assets
-                    │  /sounds/*               │ → sound files
-                    └─────────────────────────┘
+GitHub Repo → push → GitHub Actions (CI/CD) → lint → typecheck → test → build → Netlify
+
+Netlify serves:
+  /            → index.html (React SPA)
+  /cases/*     → Case JSON + evidence media files
+  /audio/*     → Music + SFX
+  /assets/*    → Fonts, logo, tile sprites
 ```
 
 No server. No database. No authentication. A single-page static application deployed from a GitHub push.
+
+## 2.9 Stores Quick Reference
+
+| Store File | Module | Key State | Connected Components |
+|-----------|--------|-----------|---------------------|
+| `stores/gameStore.ts` | Shared | budget, mode, caseResults, cooldowns, badges, bestCaseResults | HUD, Palette, SettingsPanel, VictoryScreen |
+| `stores/useSimulationStore.ts` | Shared | population, sigma, r0, tick, phase | StrategyMode, HUD, R0TrendGraph |
+| `stores/useWarningStore.ts` | Shared | warnings[] | WarningToast |
+| `stores/useAudioStore.ts` | Shared | musicVolume, sfxVolume, muted, showFps | SettingsPanel, useAudioManager |
+| `stores/useInterventionLogStore.ts` | Shared | entries (deployment history) | InterventionTimeline |
+| `detective/useDetectiveStore.ts` | Detective | caseData, connections, usedTools | DetectiveMode, EvidenceBoard |
+| `detective/CaseState.ts` | Detective | phase (CaseProgress), introFrameIndex | DetectiveMode, CutscenePlayer |
+| `detective/useToolTutorialStore.ts` | Detective | dismissed[] | ToolTutorialOverlay |
+| `stores/useHintStore.ts` | Shared | cooldowns, active hints | HintToast |
+| `stores/usePlaytestStore.ts` | Shared | events[], isDevMode | DebugOverlay |

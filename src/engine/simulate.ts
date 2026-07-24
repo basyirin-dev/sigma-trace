@@ -1,50 +1,63 @@
-import type { CityPopulation, Phase, ActiveEffect } from './types';
+import type { ActiveEffect, SimulationConfig, SimulationSnapshot } from './types'
+import { computeSigma } from './sigma'
+import { classifyPhase } from './phase-classifier'
+import { tickActiveEffects } from './active-effects'
+import { computeR0 } from './r0'
+import { RECOVERY_RATE, INCUBATION_RATE, SIGMA_MIN, SIGMA_MAX, R0_MIN, R0_MAX } from './constants'
+import { getRampBaseR0 } from './tuning'
 
 export interface SimulationParams {
-  population: CityPopulation;
-  sigma: number;
-  r0: number;
-  activeEffects: ActiveEffect[];
-  time: number;
+  population: { susceptible: number; exposed: number; infected: number; recovered: number; total: number }
+  sigma: number
+  r0: number
+  activeEffects: ActiveEffect[]
+  time: number
 }
 
-export interface SimulationResult {
-  population: CityPopulation;
-  sigma: number;
-  r0: number;
-  phase: Phase;
+export function buildDefaultConfig(tick?: number): SimulationConfig {
+  return {
+    baseR0: tick !== undefined ? getRampBaseR0(tick) : 2.5,
+    literacyRate: 0,
+    factCheckCoverage: 0,
+    algorithmAuditActive: false,
+    recoveryRate: RECOVERY_RATE,
+    incubationRate: INCUBATION_RATE,
+  }
 }
 
-export function simulateTick(params: SimulationParams): SimulationResult {
-  const { population, sigma, r0, activeEffects } = params;
-  const { S, E, I, R, N } = population;
-  const gamma = 0.1;
-  const kappa = 0.15;
-  const beta = r0 * gamma;
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value))
+}
 
-  const deltaS = (-beta * S * I) / N;
-  const deltaE = (beta * S * I) / N - kappa * E;
-  const deltaI = kappa * E - gamma * I;
-  const deltaR = gamma * I;
+export function simulateTick(params: SimulationParams, config: SimulationConfig): SimulationSnapshot {
+  const { population, sigma, r0, activeEffects, time } = params
+  const { susceptible, exposed, infected, recovered, total } = population
 
-  const totalEffect = activeEffects.reduce((sum, e) => sum + e.remainingTicks * 0.01, 0);
-  const nextSigma = Math.max(0, Math.min(100, sigma + totalEffect - 0.5 * (I / N) * (100 - sigma)));
-  const nextR0 = Math.max(0, r0 - totalEffect * 0.1);
+  const beta = r0 * config.recoveryRate
+  const deltaS = (-beta * susceptible * infected) / total
+  const deltaE = (beta * susceptible * infected) / total - config.incubationRate * exposed
+  const deltaI = config.incubationRate * exposed - config.recoveryRate * infected
+  const deltaR = config.recoveryRate * infected
 
-  let phase: Phase = 'calm';
-  if (nextSigma < 20) phase = 'trap';
-  else if (nextR0 > 1.0) phase = 'outbreak';
+  const liveEffects = tickActiveEffects(activeEffects)
+
+  const nextSigma = computeSigma(population, sigma, activeEffects, 1.0)
+  const nextR0 = computeR0(population, config, activeEffects)
+
+  const nextPhase = classifyPhase(nextSigma, nextR0)
 
   return {
-    population: {
-      S: Math.max(0, S + deltaS),
-      E: Math.max(0, E + deltaE),
-      I: Math.max(0, I + deltaI),
-      R: Math.min(N, R + deltaR),
-      N,
+    state: {
+      susceptible: clamp(susceptible + deltaS, 0, total),
+      exposed: clamp(exposed + deltaE, 0, total),
+      infected: clamp(infected + deltaI, 0, total),
+      recovered: clamp(recovered + deltaR, 0, total),
+      total,
     },
-    sigma: nextSigma,
-    r0: nextR0,
-    phase,
-  };
+    r0: clamp(nextR0, R0_MIN, R0_MAX),
+    sigma: clamp(nextSigma, SIGMA_MIN, SIGMA_MAX),
+    phase: nextPhase,
+    time,
+    interventions: liveEffects,
+  }
 }

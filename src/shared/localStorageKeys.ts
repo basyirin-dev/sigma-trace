@@ -1,0 +1,5 @@
+export const SAVE_KEY = 'giha_save'
+export const LS_MUSIC = 'giha_musicVolume'
+export const LS_SFX = 'giha_sfxVolume'
+export const LS_MUTED = 'giha_muted'
+export const LS_FPS = 'giha_showFps'

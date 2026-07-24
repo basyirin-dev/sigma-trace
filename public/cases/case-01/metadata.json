@@ -1,21 +1,30 @@
 {
   "id": "case-01",
-  "title": "The Viral Minister",
-  "brief": "A video of the city mayor saying 'I resign effective immediately' goes viral. Determine if the video is real or AI-generated.",
-  "milLesson": "Deepfake detection through multi-modal analysis",
+  "title": "The Viral Mayor",
+  "brief": "A video of Mayor Chen appears to show her resigning in a panic. The clip is spreading across Veritas. Determine if it is real or AI-generated before the city spirals.",
+  "milLesson": "Deepfake detection requires multi-modal analysis \u2014 audio spectrograms, frame-by-frame video inspection, and metadata verification together reveal synthetic media",
   "correctVerdict": "manipulated",
+  "difficulty": "normal",
   "solution": {
-    "requiredConnections": [["evidence-01", "evidence-03"]],
+    "requiredConnections": [
+      ["evidence-01", "evidence-02"],
+      ["evidence-01", "evidence-03"],
+      ["evidence-03", "evidence-05"],
+      ["evidence-03", "evidence-06"]
+    ],
     "requiredToolEvidencePairs": [
       ["spectrogram", "evidence-02"],
-      ["frame-stepper", "evidence-01"]
+      ["frame-stepper", "evidence-01"],
+      ["metadata-inspector", "evidence-06"]
     ],
-    "justificationKeywords": ["lip-sync", "audio artifact", "synthetic"]
+    "justificationKeywords": ["lip-sync", "audio artifact", "synthetic", "deepfake", "shell company"]
   },
   "outcome": {
     "successR0Delta": -0.3,
-    "successSigmaDelta": 5,
-    "failR0Delta": 0.4,
-    "failSigmaDelta": -5
+    "successSigmaDelta": 8,
+    "failR0Delta": 0.3,
+    "failSigmaDelta": -5,
+    "partialR0Delta": -0.1,
+    "partialSigmaDelta": 1
   }
 }

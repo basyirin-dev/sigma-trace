@@ -6,13 +6,13 @@
 ## Philosophy
 - Tests exist to catch regressions, not to prove correctness
 - Prioritize integration tests over unit tests (game is stateful)
-- Three.js rendering: visual tests use snapshot comparison (not pixel-perfect)
+- Canvas2D rendering: visual tests use snapshot comparison (not pixel-perfect)
 
 ## Test Pyramid
 
 ### Unit Tests (Vitest)
 - Pure functions only: ODE solver, scoring engine, intervention math, case state machine
-- No mocking of Three.js or React
+- No mocking of Canvas2D or React
 - **Coverage target:** 90%+ for utility functions
 - **Files:** `src/**/*.test.ts`
 - **Command:** `npx vitest run`
@@ -37,7 +37,7 @@
 - **Command:** `npx playwright test`
 
 ### Performance Tests
-- Three.js render loop: assert < 33ms frame time (30fps) with 10× agents
+- Canvas2D render loop: assert < 33ms frame time (30fps) with 80 agents
 - Zustand store: assert < 1ms per state update (1000 sequential ticks)
 - Evidence board: assert < 100ms for 20 evidence cards re-render
 - **Tool:** Custom `performance.now()` assertions in vitest

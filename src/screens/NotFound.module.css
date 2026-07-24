@@ -1,0 +1,40 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 440px;
+  padding: 32px;
+  border: var(--pixel-border);
+  background: var(--color-surface);
+}
+
+.code {
+  font-size: 64px;
+  font-family: var(--pixel-font);
+  color: var(--color-danger);
+  line-height: 1;
+}
+
+.title {
+  font-family: var(--pixel-font);
+  font-size: var(--text-heading);
+  color: var(--color-warning);
+}
+
+.message {
+  font-family: var(--pixel-font);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: var(--leading-normal);
+}

@@ -1,0 +1,64 @@
+@keyframes pulse-trap {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes pulse-alert {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes phase-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pixel-card {
+  border: var(--pixel-border);
+  background: var(--color-surface-alt);
+  padding: 12px;
+  image-rendering: pixelated;
+}
+
+.pixel-card--selected {
+  border-color: var(--color-secondary);
+}
+
+.pixel-card--danger {
+  border-color: var(--color-danger);
+}
+
+.pixel-border {
+  border: var(--pixel-border);
+}
+
+.pixel-phase {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border: 2px solid currentColor;
+}
+
+.pixel-phase--calm {
+  color: var(--color-phase-calm);
+}
+
+.pixel-phase--outbreak {
+  color: var(--color-phase-outbreak);
+}
+
+.pixel-phase--crisis {
+  color: var(--color-phase-crisis);
+  animation: pulse-alert 2s ease-in-out infinite;
+}
+
+.pixel-phase--trap {
+  color: var(--color-phase-trap);
+  animation: pulse-trap 1s ease-in-out infinite;
+}

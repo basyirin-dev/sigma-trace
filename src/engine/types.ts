@@ -1,24 +1,47 @@
-export interface CityPopulation {
-  S: number
-  E: number
-  I: number
-  R: number
-  N: number
+export interface PopulationState {
+  susceptible: number
+  exposed: number
+  infected: number
+  recovered: number
+  total: number
 }
 
 export interface District {
   id: string
   name: string
+  population: PopulationState
+  baseR0: number
   vulnerability: number
-  sigma: number
-  r0: number
+  literacyFactor: number
+  internetAccessFactor: number
 }
 
-export type Phase = 'calm' | 'outbreak' | 'trap'
+export type Phase = 'calm' | 'outbreak' | 'crisis' | 'trap'
 
 export interface ActiveEffect {
   interventionId: string
   remainingTicks: number
+  r0Delta: number
+  sigmaDelta: number
+  districtId?: number
 }
 
 export type Verdict = 'real' | 'manipulated' | 'uncertain'
+
+export interface SimulationConfig {
+  baseR0: number
+  literacyRate: number
+  factCheckCoverage: number
+  algorithmAuditActive: boolean
+  recoveryRate: number
+  incubationRate: number
+}
+
+export interface SimulationSnapshot {
+  state: PopulationState
+  r0: number
+  sigma: number
+  phase: Phase
+  time: number
+  interventions: ActiveEffect[]
+}

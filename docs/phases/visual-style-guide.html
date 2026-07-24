@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIHA — Visual Style Guide</title>
+  <!-- NOTE: This is a Phase 0.5 design-intent mockup using a standalone CSS cascade. Color values may differ from the production variables.css (Phase 9 finalized palette). See docs/phases/visual-style-guide.md for the current authoritative spec. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #1a1a2e;
+      --color-surface: #16213e;
+      --color-surface-alt: #0f3460;
+      --color-primary: #4ecdc4;
+      --color-danger: #ff6b6b;
+      --color-warning: #ffd93d;
+      --color-text: #e0e0e0;
+      --color-text-muted: #888;
+      --color-phase-calm: #2ecc71;
+      --color-phase-outbreak: #f1c40f;
+      --color-phase-crisis: #e67e22;
+      --color-phase-trap: #e74c3c;
+      --color-evidence-video: #e74c3c;
+      --color-evidence-audio: #f39c12;
+      --color-evidence-image: #2ecc71;
+      --color-evidence-text: #3498db;
+      --color-evidence-metadata: #9b59b6;
+      --text-display: 28px;
+      --text-heading: 20px;
+      --text-body: 14px;
+      --text-caption: 12px;
+      --text-mono: 13px;
+      --text-mono-sm: 10px;
+      --pixel-border: 2px solid #333;
+      --pixel-font: 'Inter', system-ui, sans-serif;
+      --pixel-font-mono: 'JetBrains Mono', monospace;
+    }
+
+    @keyframes pulse-trap { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes pulse-alert { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    body {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 40px 60px;
+      line-height: 1.5;
+    }
+
+    .page-title { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .page-subtitle { font-size: 14px; color: #888; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
+
+    .section { margin-bottom: 48px; }
+    .section-title {
+      font-size: 20px; font-weight: 600; margin-bottom: 20px;
+      padding-bottom: 8px; border-bottom: 2px solid #333;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .swatch-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .swatch {
+      display: flex; flex-direction: column; align-items: center;
+      width: 120px; padding: 12px; background: #16213e;
+      border: 2px solid #333; border-radius: 0;
+    }
+    .swatch-color { width: 80px; height: 40px; border: 1px solid #444; margin-bottom: 8px; }
+    .swatch-hex { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #888; }
+    .swatch-usage { font-size: 10px; color: #888; text-align: center; margin-top: 2px; }
+
+    .type-row { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+    .type-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #888; width: 100px; }
+
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    .pixel-btn {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 8px 16px; border: 2px solid #4ecdc4;
+      border-radius: 0; background: transparent;
+      color: #4ecdc4; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 1px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .pixel-btn:hover { background: #4ecdc4; color: #1a1a2e; }
+    .pixel-btn:active { transform: translate(1px, 1px); }
+    .pixel-btn--danger { border-color: #ff6b6b; color: #ff6b6b; }
+    .pixel-btn--danger:hover { background: #ff6b6b; color: #1a1a2e; }
+    .pixel-btn:disabled { border-color: #555; color: #555; cursor: not-allowed; }
+    .pixel-btn:disabled:hover { background: transparent; color: #555; }
+    .pixel-btn--used { background: #2ecc71; border-color: #2ecc71; color: #1a1a2e; }
+
+    .phase-row { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .pixel-phase {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 4px 10px; border: 2px solid currentColor;
+    }
+    .pixel-phase--calm { color: #2ecc71; }
+    .pixel-phase--outbreak { color: #f1c40f; }
+    .pixel-phase--crisis { color: #e67e22; animation: pulse-alert 2s ease-in-out infinite; }
+    .pixel-phase--trap { color: #e74c3c; animation: pulse-trap 1s ease-in-out infinite; }
+
+    .pixel-badge {
+      display: inline-block; font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600; padding: 2px 6px;
+      border: 1px solid currentColor; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pixel-badge--video { color: #e74c3c; }
+    .pixel-badge--audio { color: #f39c12; }
+    .pixel-badge--image { color: #2ecc71; }
+    .pixel-badge--text  { color: #3498db; }
+    .pixel-badge--metadata { color: #9b59b6; }
+
+    .pixel-card {
+      border: 2px solid #333; background: #16213e; padding: 12px;
+      width: 260px;
+    }
+    .pixel-card--selected { border-color: #4ecdc4; }
+    .card-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .card-desc { font-size: 12px; color: #888; margin-bottom: 8px; }
+    .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #888; }
+
+    .pixel-hud {
+      display: flex; align-items: center; gap: 16px;
+      padding: 8px 16px; background: rgba(22, 33, 62, 0.9);
+      border: 2px solid #333;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pixel-hud-value { font-size: 18px; font-weight: 700; line-height: 1; }
+    .pixel-hud-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+
+    .pixel-gauge { width: 120px; height: 8px; border: 2px solid #333; background: #0f3460; }
+    .pixel-gauge-fill { height: 100%; transition: width 0.3s ease, background-color 0.3s ease; }
+
+    .pixel-input {
+      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      padding: 8px 12px; border: 2px solid #333; border-radius: 0;
+      background: #0f3460; color: #e0e0e0; outline: none; width: 100%;
+    }
+    .pixel-input:focus { border-color: #4ecdc4; }
+
+    .heatbar { display: flex; height: 28px; width: 400px; border: 2px solid #333; }
+    .heatbar-stop { flex: 1; display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #1a1a2e; font-weight: 600; }
+
+    .tool-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tool-icon {
+      width: 48px; height: 48px; border: 2px solid #333; background: #16213e;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer; transition: border-color 0.15s;
+    }
+    .tool-icon:hover { border-color: #4ecdc4; }
+    .tool-icon--selected { border-color: #4ecdc4; background: rgba(78, 205, 196, 0.15); }
+    .tool-icon--used { border-color: #2ecc71; opacity: 0.6; }
+
+    .district-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .district-item { display: flex; align-items: center; gap: 8px; }
+    .district-color { width: 20px; height: 20px; border: 1px solid #444; }
+  </style>
+</head>
+<body>
+
+<h1 class="page-title">GIHA — Visual Style Guide</h1>
+<p class="page-subtitle">Pixel Art Theme · Design Lock Phase 0.5.4</p>
+
+<!-- 1. Color Palette -->
+<div class="section">
+  <h2 class="section-title">1. Color Palette</h2>
+
+  <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#888;">Background</h3>
+  <div class="swatch-grid" style="margin-bottom:20px;">
+    <div class="swatch"><div class="swatch-color" style="background:#1a1a2e"></div><span class="swatch-hex">#1A1A2E</span><span class="swatch-usage">Page bg</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#16213e"></div><span class="swatch-hex">#16213E</span><span class="swatch-usage">Surface</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#0f3460"></div><span class="swatch-hex">#0F3460</span><span class="swatch-usage">Surface alt</span></div>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#888;">District Tiles</h3>
+  <div class="swatch-grid" style="margin-bottom:20px;">
+    <div class="swatch"><div class="swatch-color" style="background:#8b4513"></div><span class="swatch-hex">#8B4513</span><span class="swatch-usage">Foundry</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#2c7a7b"></div><span class="swatch-hex">#2C7A7B</span><span class="swatch-usage">Harborview</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#b8860b"></div><span class="swatch-hex">#B8860B</span><span class="swatch-usage">Uptown</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4a7c59"></div><span class="swatch-hex">#4A7C59</span><span class="swatch-usage">Campus</span></div>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#888;">Heatmap Overlay</h3>
+  <div class="swatch-grid" style="margin-bottom:20px;">
+    <div class="swatch"><div class="swatch-color" style="background:#2ecc71"></div><span class="swatch-hex">#2ECC71</span><span class="swatch-usage">10% opacity</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#a8e063"></div><span class="swatch-hex">#A8E063</span><span class="swatch-usage">20% opacity</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#f1c40f"></div><span class="swatch-hex">#F1C40F</span><span class="swatch-usage">35% opacity</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#e67e22"></div><span class="swatch-hex">#E67E22</span><span class="swatch-usage">55% opacity</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#e74c3c"></div><span class="swatch-hex">#E74C3C</span><span class="swatch-usage">80% opacity</span></div>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#888;">UI &amp; States</h3>
+  <div class="swatch-grid" style="margin-bottom:20px;">
+    <div class="swatch"><div class="swatch-color" style="background:#4ecdc4"></div><span class="swatch-hex">#4ECDC4</span><span class="swatch-usage">Primary</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ff6b6b"></div><span class="swatch-hex">#FF6B6B</span><span class="swatch-usage">Danger</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ffd93d"></div><span class="swatch-hex">#FFD93D</span><span class="swatch-usage">Warning</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#e0e0e0"></div><span class="swatch-hex">#E0E0E0</span><span class="swatch-usage">Text</span></div>
+    <div class="swatch"><div class="swatch-color" style="background:#888"></div><span class="swatch-hex">#888888</span><span class="swatch-usage">Muted text</span></div>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#888;">Evidence Type Badges</h3>
+  <div class="badge-row" style="margin-bottom:8px;">
+    <span class="pixel-badge pixel-badge--video">Video</span>
+    <span class="pixel-badge pixel-badge--audio">Audio</span>
+    <span class="pixel-badge pixel-badge--image">Image</span>
+    <span class="pixel-badge pixel-badge--text">Text</span>
+    <span class="pixel-badge pixel-badge--metadata">Metadata</span>
+  </div>
+</div>
+
+<!-- 2. Typography -->
+<div class="section">
+  <h2 class="section-title">2. Typography</h2>
+  <div class="type-row"><span class="type-label">Display</span><span style="font-size:28px;font-weight:700;">σ 78</span></div>
+  <div class="type-row"><span class="type-label">Heading</span><span style="font-size:20px;font-weight:600;">Intervention Panel</span></div>
+  <div class="type-row"><span class="type-label">Body</span><span style="font-size:14px;font-weight:400;">Evaluates synthetic audio for spectral artifacts.</span></div>
+  <div class="type-row"><span class="type-label">Caption</span><span style="font-size:12px;font-weight:400;color:#888;">30s cooldown · 15 tick duration</span></div>
+  <div class="type-row"><span class="type-label">Mono</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:400;">R₀ 0.6 · σ 78 · Day 12</span></div>
+  <div class="type-row"><span class="type-label">Mono sm</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;">DEEPFAKE · 30FPS · 1920×1080</span></div>
+</div>
+
+<!-- 3. Buttons -->
+<div class="section">
+  <h2 class="section-title">3. Button States</h2>
+  <div class="btn-row" style="margin-bottom:12px;">
+    <button class="pixel-btn">Default</button>
+    <button class="pixel-btn" style="background:#4ecdc4;color:#1a1a2e;">Hover</button>
+    <button class="pixel-btn" style="background:#4ecdc4;color:#1a1a2e;transform:translate(1px,1px);">Active</button>
+    <button class="pixel-btn" disabled>Disabled</button>
+    <button class="pixel-btn pixel-btn--danger">Danger</button>
+    <button class="pixel-btn pixel-btn--danger" style="background:#ff6b6b;color:#1a1a2e;">Danger Hover</button>
+  </div>
+  <div style="font-size:12px;color:#888;margin-bottom:8px;">Used tool state:</div>
+  <div class="btn-row">
+    <button class="pixel-btn pixel-btn--used">✓ Spectrogram</button>
+  </div>
+</div>
+
+<!-- 4. Phase Indicators -->
+  <!-- NOTE: Phase symbols (○◑◕●) are a Phase 0.5 design exploration. Production code (HUD.tsx) uses text-only labels: "Calm", "Outbreak", "Crisis", "SIGMA TRAP" with CSS pulse animations. -->
+
+  <h2 class="section-title">4. Phase Indicators</h2>
+
+    <span class="pixel-phase pixel-phase--calm">○ CALM</span>
+    <span class="pixel-phase pixel-phase--outbreak">◑ OUTBREAK</span>
+    <span class="pixel-phase pixel-phase--crisis">◕ CRISIS</span>
+    <span class="pixel-phase pixel-phase--trap">● TRAP</span>
+  </div>
+  <p style="font-size:12px;color:#888;">Crisis and Trap states pulse via CSS keyframe animations.</p>
+</div>
+
+<!-- 5. Heatmap Scale -->
+<div class="section">
+  <h2 class="section-title">5. Heatmap Color Scale</h2>
+  <div class="heatbar">
+    <div class="heatbar-stop" style="background:#2ecc71;">80+</div>
+    <div class="heatbar-stop" style="background:#a8e063;">60</div>
+    <div class="heatbar-stop" style="background:#f1c40f;">40</div>
+    <div class="heatbar-stop" style="background:#e67e22;">20</div>
+    <div class="heatbar-stop" style="background:#e74c3c;">0</div>
+  </div>
+  <div style="display:flex;width:400px;margin-top:4px;">
+    <span style="flex:1;font-size:10px;color:#888;text-align:left;">σ 80+</span>
+    <span style="flex:1;font-size:10px;color:#888;text-align:center;">σ 60</span>
+    <span style="flex:1;font-size:10px;color:#888;text-align:center;">σ 40</span>
+    <span style="flex:1;font-size:10px;color:#888;text-align:center;">σ 20</span>
+    <span style="flex:1;font-size:10px;color:#888;text-align:right;">σ 0</span>
+  </div>
+</div>
+
+<!-- 6. Evidence Card -->
+<div class="section">
+  <h2 class="section-title">6. Evidence Card</h2>
+  <div class="card-row">
+    <div class="pixel-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="pixel-badge pixel-badge--video">Video</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#888;">NEW</span>
+      </div>
+      <div style="background:#0f3460;height:80px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;border:1px solid #333;font-size:24px;color:#555;">
+        ▶
+      </div>
+      <div class="card-title">Mayor's Resignation Video</div>
+      <div class="card-desc">30-second clip of Mayor Chen saying "I resign effective immediately"</div>
+      <div class="card-meta">evidence-01 · 1080p · 30fps</div>
+    </div>
+
+    <div class="pixel-card pixel-card--selected">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="pixel-badge pixel-badge--image">Image</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#2ecc71;">REVEALED</span>
+      </div>
+      <div style="background:#0f3460;height:80px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;border:1px solid #333;font-size:24px;color:#555;">
+        🖼
+      </div>
+      <div class="card-title">Lighting Analysis</div>
+      <div class="card-desc">Gradient analysis shows inconsistent lighting direction</div>
+      <div class="card-meta">evidence-02 · 1200×800</div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Toolbelt -->
+<div class="section">
+  <h2 class="section-title">7. Toolbelt</h2>
+  <div class="tool-grid" style="margin-bottom:8px;">
+    <div class="tool-icon tool-icon--used" title="Spectrogram Analyzer">〰</div>
+    <div class="tool-icon tool-icon--selected" title="Frame Stepper">▶</div>
+    <div class="tool-icon" title="Metadata Inspector">ℹ</div>
+    <div class="tool-icon" title="Source Tracer">↗</div>
+    <div class="tool-icon" title="Inconsistency Highlighter">◐</div>
+    <div class="tool-icon" title="Timeline Cross-Referencer">↔</div>
+  </div>
+  <div style="font-size:12px;color:#888;display:flex;gap:16px;">
+    <span>〰 Spectrogram Analyzer</span>
+    <span style="color:#2ecc71;">✓ Used</span>
+    <span style="color:#4ecdc4;">◀ Selected</span>
+    <span> id="pulse-trap" or keyframe animations</span>
+  </div>
+</div>
+
+<!-- 8. Verdict Panel -->
+<div class="section">
+  <h2 class="section-title">8. Verdict Panel</h2>
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:400px;">
+    <div style="display:flex;gap:8px;">
+      <button class="pixel-btn">Real</button>
+      <button class="pixel-btn pixel-btn--danger">Manipulated</button>
+      <button class="pixel-btn" style="border-color:#888;color:#888;">Uncertain</button>
+    </div>
+    <input class="pixel-input" placeholder="Write your justification..." value="The lip-sync is off and the spectrogram shows synthetic artifacts" />
+    <button class="pixel-btn" style="width:fit-content;">Submit</button>
+  </div>
+</div>
+
+<!-- 9. Strategy HUD -->
+<div class="section">
+  <h2 class="section-title">9. Strategy Mode HUD</h2>
+  <div class="pixel-hud" style="max-width:600px;">
+    <div>
+      <div class="pixel-hud-label">σ Coherence</div>
+      <div class="pixel-hud-value" style="color:#e67e22;">42</div>
+    </div>
+    <div class="pixel-gauge">
+      <div class="pixel-gauge-fill" style="width:42%;background:#e67e22;"></div>
+    </div>
+    <div>
+      <div class="pixel-hud-label">R₀</div>
+      <div class="pixel-hud-value" style="color:#f1c40f;">1.2</div>
+    </div>
+    <div>
+      <div class="pixel-hud-label">Budget</div>
+      <div class="pixel-hud-value">310</div>
+    </div>
+    <div>
+      <div class="pixel-hud-label">Day</div>
+      <div class="pixel-hud-value" style="font-size:14px;">34</div>
+    </div>
+  </div>
+</div>
+
+<!-- 10. District Legend -->
+<div class="section">
+  <h2 class="section-title">10. District Legend</h2>
+  <div class="district-row">
+    <div class="district-item"><div class="district-color" style="background:#8b4513;"></div><span>Foundry (×1.30)</span></div>
+    <div class="district-item"><div class="district-color" style="background:#2c7a7b;"></div><span>Harborview (×1.15)</span></div>
+    <div class="district-item"><div class="district-color" style="background:#b8860b;"></div><span>Uptown (×1.00)</span></div>
+    <div class="district-item"><div class="district-color" style="background:#4a7c59;"></div><span>Campus (×0.85)</span></div>
+  </div>
+</div>
+
+<!-- 11. Canvas Spec -->
+<div class="section">
+  <h2 class="section-title">11. Canvas2D Reference</h2>
+  <table style="font-family:'JetBrains Mono',monospace;font-size:12px;border-collapse:collapse;">
+    <tr><td style="padding:4px 16px 4px 0;color:#888;">Grid</td><td>50 × 50 tiles</td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#888;">Tile size</td><td>20px × 20px</td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#888;">Canvas</td><td>1000px × 1000px</td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#888;">Agents</td><td>80 dots (2px radius)</td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#888;">CSS</td><td>image-rendering: pixelated</td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#888;">Border</td><td>2px solid #333, radius 4px</td></tr>
+  </table>
+</div>
+
+</body>
+</html>

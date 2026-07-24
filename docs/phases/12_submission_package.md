@@ -22,25 +22,25 @@
 - Pre-fill all fields in a local document:
   - Team name: [TBD]
   - Team members: [TBD] — AI Researcher, Cybersecurity Developer
-  - Project title: σ-Trace
+  - Project title: GIHA
   - Category: [Choose relevant track]
   - Description (100 words): concise summary
   - How it addresses the theme (200 words): link each mechanic to MIL
-  - Technical implementation (100 words): React, Three.js, static site
+  - Technical implementation (100 words): React, Canvas2D, static site
   - Target audience: youth aged 14–24
 - **Output:** `submission-form-contents.md`
 
 ### 12.3 Submission Asset Packaging (M2)
 - Create `submission-package/` directory:
-  - `sigma-trace-unesco-proposal.pdf`
+  - `giha-unesco-proposal.pdf`
   - `pitch-video-final.mp4`
   - `pitch-video-captions.srt`
-  - `sigma-trace-game.zip` (production build — `npm run build` output)
+  - `giha-game.zip` (production build — `npm run build` output)
   - `README.txt`: instructions for judges — how to run the game locally
   - `source-code.zip` (optional, if required)
-- Compress to ZIP: `sigma-trace-submission-2026.zip`
+- Compress to ZIP: `giha-submission-2026.zip`
 - Verify ZIP opens correctly on another machine
-- **Output:** `sigma-trace-submission-2026.zip`
+- **Output:** `giha-submission-2026.zip`
 
 ### 12.4 Submission Upload (M1)
 - Submit via UNESCO portal

@@ -54,8 +54,8 @@
 - **Test:** Budget decreases on deploy, increases on tick and case solve
 
 ### 4.8 Intervention Effectiveness Visualization
-- When an intervention is active, show a colored ring around affected district
-- Ring thickness = remaining duration
+- When an intervention is active, show a colored pixel-ring overlay on affected district tiles
+- Ring thickness = remaining duration (in tiles)
 - Ring color matches intervention type
 - **Test:** Deploy intervention → ring appears → ring shrinks → ring disappears
 

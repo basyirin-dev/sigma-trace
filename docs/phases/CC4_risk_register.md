@@ -3,6 +3,8 @@
 **Owner:** M1
 **Applies to:** Entire project, updated weekly
 
+> **See also:** `docs/03-build-roadmap.md` §3.4 for the schedule/budget risk register (9 risks, Probability×Impact scoring). This CC4 register covers technical/quality risks only.
+
 ## Risk Scoring
 - **Likelihood:** 1 (rare) – 5 (almost certain)
 - **Impact:** 1 (negligible) – 5 (project failure)
@@ -13,10 +15,10 @@
 
 | # | Risk | L | I | S | Response | Owner | Status |
 |---|---|---|---|---|---|---|---|
-| R01 | Team member drops out (illness, life event) | 2 | 5 | 10 | Cross-train: M1 can do basic Three.js, M2 can do basic React. Document all architecture decisions for handover. | M1 | Monitor |
+| R01 | Team member drops out (illness, life event) | 2 | 5 | 10 | Cross-train: M1 can do basic Canvas2D, M2 can do basic React. Document all architecture decisions for handover. | M1 | Monitor |
 | R02 | Deepfake tool breaks mid-project (API deprecation, paid tier) | 4 | 3 | 12 | **Mitigate:** Generate all deepfake assets in Week 1 (Phase 0.5). Save outputs locally. Never rely on live API during production. | M2 | Watch |
-| R03 | Three.js performance issues on low-end hardware | 3 | 4 | 12 | **Mitigate:** Set performance budget (30fps target). Implement quality slider (low/med/high). Fallback to 2D Canvas rendering if WebGL unavailable. | M1 | Active |
-| R04 | Browser compatibility (Safari WebGL quirks) | 3 | 3 | 9 | **Mitigate:** Test on Safari weekly. Use Three.js with WebGL 1.0 fallback. No WebGL2-only features. | M1 | Monitor |
+| R03 | Canvas2D performance issues on low-end hardware | 3 | 4 | 12 | **Mitigate:** Set performance budget (30fps target). Implement quality slider (low/med/high). Reduce agent count and tile complexity. | M1 | Active |
+| R04 | Browser compatibility (Canvas2D quirks) | 3 | 3 | 9 | **Mitigate:** Test on Safari weekly. Use standard Canvas2D API only (no experimental features). | M1 | Monitor |
 | R05 | Evidence assets (video/audio) exceed file size limits | 4 | 2 | 8 | **Mitigate:** Compress to 720p, 30fps, 1Mbps video; 128kbps audio. Max 3 minutes per evidence item. | M2 | Active |
 | R06 | ODE solver has numerical instability (NaN, oscillations) | 2 | 5 | 10 | **Mitigate:** Clamp all state variables to [0,1]. Add NaN guard in simulateStep(). Unit test edge cases (R₀=0, extreme parameter values). | M1 | Monitor |
 | R07 | React re-render performance with frequent store updates | 3 | 3 | 9 | **Mitigate:** Use Zustand selectors (shallow equality). Batch ODE updates to 10 ticks per render frame. Profile with React DevTools weekly. | M1 | Active |

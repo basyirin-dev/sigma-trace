@@ -20,11 +20,11 @@
 - Typography: Inter (UI), JetBrains Mono (code/data), Playfair Display (narrative)
 - **Test:** All UI components use CSS variables, no hardcoded colors
 
-### 9.2 Three.js Visual Polish
-- Add ambient particles floating over city grid (subtle, 50 particles)
-- Building emissive glow when district R₀ spikes ("outbreak glow")
-- Smooth camera orbit (Lerp-based, 500ms response)
-- Depth of field blur on non-focused districts (post-processing pass)
+### 9.2 Canvas2D Visual Polish
+- Add ambient pixel particles floating over city grid (subtle, 50 particles)
+- Tile emissive glow when district R₀ spikes ("outbreak glow" — orange pixel overlay)
+- Smooth tile color transitions (Lerp-based, 500ms interpolation)
+- District pulse animation when R₀ > 1.0 (slow opacity pulse every 2s)
 - **Test:** All visual effects maintain 30fps on integrated GPU
 
 ### 9.3 UI Animations
@@ -58,14 +58,14 @@
 - `LoadingScreen.tsx`:
   - Animated σ logo (pulsing)
   - Progress bar (asset loading progress)
-  - Tip rotation: "Did you know? The σ in σ-Trace stands for sigma — a measure of societal coherence in information ecosystems."
+  - Tip rotation: "Did you know? The σ in GIHA's sigma model stands for sigma — a measure of societal coherence in information ecosystems."
   - Minimum display time: 2s (even if assets load fast)
 - **Test:** Loading screen shows during asset load, transitions to title screen
 
 ### 9.6 Title Screen
 - `TitleScreen.tsx`:
-  - Animated background: Three.js scene with floating city silhouette
-  - σ-Trace logo with animated σ symbol
+  - Animated background: Canvas2D scene with floating pixel city silhouette
+  - GIHA logo with animated σ symbol
   - "A Two-Mode Game for Media & Information Literacy"
   - Buttons: "New Game", "How to Play" (instructions overlay), "About" (UNESCO context)
   - Σ-Model credit: "Inspired by the Σ-Model — a dynamical systems theory of information ecosystems"
@@ -93,7 +93,7 @@
 
 ## Acceptance Criteria
 - [ ] All color/typography variables finalized and applied consistently
-- [ ] Three.js visual effects (particles, glow, smooth orbit) render at 30fps+
+- [ ] Canvas2D visual effects (particles, glow, smooth transitions) render at 30fps+
 - [ ] UI animations smooth at 60fps
 - [ ] Background music + SFX play correctly with crossfade
 - [ ] Loading screen with progress bar

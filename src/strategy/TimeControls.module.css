@@ -1,0 +1,39 @@
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 6px 16px;
+  background: rgba(22, 33, 62, 0.9);
+  border-bottom: 2px solid #333;
+  font-family: var(--pixel-font-mono);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.separator {
+  width: 1px;
+  height: 24px;
+  background: #444;
+}
+
+.speedLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  margin-right: 2px;
+}
+
+.dayCounter {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+}

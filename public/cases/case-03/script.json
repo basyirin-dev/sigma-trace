@@ -1,17 +1,44 @@
 {
   "introCutscene": [
     {
-      "text": "A violent protest photo is spreading across social media. Caption: 'Veritas residents clash with police.'",
-      "duration": 4000
-    },
-    {
-      "text": "But something feels off. The buildings don't match. The shadows point the wrong way.",
-      "duration": 4000
-    },
-    {
-      "text": "Trace the image origin. Check the lighting. Verify the location. Is this really Veritas?",
+      "text": "A photograph is burning through Veritas social media. It shows a line of riot police facing off against masked protesters. Flames rise in the background.",
       "duration": 3000
+    },
+    {
+      "text": "Caption: 'This is Veritas now. Fight back.' 50,000 shares in three hours. Uptown is panicking. Campus is organizing.",
+      "duration": 2500
+    },
+    {
+      "text": "But something is wrong. A preliminary scan flagged inconsistencies in the image. The details just don\u2019t add up.",
+      "duration": 3000
+    },
+    {
+      "text": "And the building in the background — it doesn't exist in Veritas. If this spreads unchecked, real violence could follow.",
+      "duration": 2500
+    },
+    {
+      "text": "Trace the image origin. Analyze the lighting. Verify the location. Is this really Veritas — or is someone trying to make us believe it is?",
+      "duration": 2000
     }
   ],
-  "conclusionText": "The photo was taken in a different city — 2,000km away — during an unrelated protest. The lighting angles and a misidentified building gave it away. Always reverse-image-search before sharing."
+  "evidenceFindings": {
+    "evidence-01": "The image shows a street confrontation. Resolution is high enough to read storefront signs — but the store names don't match any businesses in Veritas. The architecture is European, not coastal North American.",
+    "evidence-02": "Lighting analysis reveals a problem: the sun is positioned at 40 degrees elevation from the northeast. At Veritas's latitude and time of year, the sun should be at 25 degrees from the southeast. The shadows are wrong for this location.",
+    "evidence-03": "Photo metadata shows the image was captured on a Canon EOS 5D Mark IV — timestamped 11:47 AM. GPS coordinates point to a city 2,000km away. The photographer's username (pixel_journalist) redirects to a known disinformation network connected to VeraTech Solutions.",
+    "evidence-04": "A news article from an obscure blog claims the photo was taken 'yesterday in Downtown Veritas.' The byline is a pseudonym with no verifiable identity or publication history. The article reads like a coordinated talking point, not original reporting.",
+    "evidence-05": "Source trace results: the image first appeared on a photography forum two years ago — posted by pixel_journalist from a city 2,000km away during an unrelated labor protest. It was never in Veritas.",
+    "evidence-06": "Bot network amplification data shows the image was shared 50,000 times in three hours — an impossible organic growth rate. 78% of shares originated from a cluster of IPs registered to data centers linked to VeraTech Solutions, the shell company behind Cases 1 and 2."
+  },
+  "toolHints": {
+    "spectrogram": "Not needed here — this case has no audio evidence. Focus on image analysis tools instead.",
+    "frame-stepper": "Less useful — this case has no video evidence. Focus on image and source tracing tools.",
+    "metadata-inspector": "Extracts EXIF data, GPS coordinates, and camera information from photos. Reveals where and when the image was actually taken.",
+    "source-tracer": "Essential for this case. Simulates reverse image search to show earliest known publication date and original locations across the web.",
+    "inconsistency-highlighter": "Best tool for this case. Analyzes lighting, shadow angles, and perspective. Compares sun position against known geolocation data.",
+    "timeline-cross-referencer": "Places all evidence on a chronological timeline spanning 2 years. Highlights impossible publication timelines."
+  },
+  "conclusionText": "The photo was real — just not from Veritas. It was taken two years ago during a labor protest in a city 2,000km away. The operator known as pixel_journalist downloaded it from a photography forum, stripped the metadata, added a misleading caption, and deployed VeraTech's bot networks to amplify it. The same shell company funded the deepfake in Case 1 and the voice scams in Case 2. This is one of the most dangerous forms of disinformation — a real image, misattributed. It feels true because the photo itself is authentic. The lie is in the context. Reverse image search and geolocation verification are the only defenses.",
+  "conclusionTextExposed": "The photo was real — just not from Veritas. But you uncovered something deeper: the encrypted message fragment and the GIHA-formatted internal memo point to an insider. The same communication patterns that exposed VeraTech's bot networks also revealed a mole inside the agency. You followed the evidence trail to the Unidentified Insider node. The Shadow Collective's mole has been identified. Their operation relied on someone inside GIHA feeding them operational intelligence. That channel is now closed. The mole's identity has been logged — but exposing them puts them at risk. The agency now has their complete comms history: a devastating blow to the disinformation network. But the question remains — how many more are there?",
+  "conclusionTextProtected": "The photo was real — just not from Veritas. But you detected something more. The encrypted message and the internal memo both point to a mole inside GIHA. You held back from connecting the final links. The insider remains protected. The Shadow Collective doesn't know their operative has been compromised. By keeping this channel open, you gain intelligence on their next move — but the mole remains embedded. A pragmatic choice. The question is whether it was the right one.",
+  "milLesson": "An image can be real but misattributed. Context is everything — always check EXIF data and run a reverse image search before reacting to a viral photo. Location, date, and source tell the real story."
 }

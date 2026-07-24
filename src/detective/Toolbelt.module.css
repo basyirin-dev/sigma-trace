@@ -1,0 +1,96 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-sm, 8px) var(--space-md, 16px);
+  background: var(--color-surface, #2A2A3E);
+  border-top: 2px solid #333;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .bar { flex-wrap: wrap; gap: 4px; }
+  .toolBtn { flex: 1 1 45%; min-width: 0; }
+}
+
+.toolBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #444;
+  color: var(--color-text-muted, #888);
+  font-family: var(--pixel-font);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+  position: relative;
+}
+
+.toolBtn:hover {
+  background: rgba(78, 205, 196, 0.1);
+  border-color: var(--color-primary, #4ecdc4);
+  color: var(--color-text, #e0e0e0);
+}
+
+.activeTool {
+  background: rgba(78, 205, 196, 0.2);
+  border-color: var(--giha-gold, #f39c12);
+  color: var(--giha-gold, #f39c12);
+  box-shadow: 0 0 6px rgba(243, 156, 18, 0.3);
+}
+
+.activeTool:hover {
+  background: rgba(78, 205, 196, 0.25);
+  border-color: var(--giha-gold, #f39c12);
+}
+
+.toolIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.toolLabel {
+  flex-shrink: 0;
+}
+
+.usedBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary, #4ecdc4);
+  color: var(--color-bg);
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+.helpBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--color-accent, #FFB300);
+  border-radius: 50%;
+  color: var(--color-accent, #FFB300);
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.helpBtn:hover {
+  background: rgba(255, 179, 0, 0.15);
+  color: #fff;
+}

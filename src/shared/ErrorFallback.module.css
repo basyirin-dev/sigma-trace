@@ -1,0 +1,65 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 440px;
+  padding: 32px;
+  border: var(--pixel-border);
+  background: var(--color-surface);
+}
+
+.icon {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.title {
+  font-family: var(--pixel-font);
+  font-size: var(--text-heading);
+  font-weight: 600;
+  color: var(--color-warning);
+  text-align: center;
+}
+
+.message {
+  font-family: var(--pixel-font);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: var(--leading-normal);
+}
+
+.errorSummary {
+  cursor: pointer;
+  font-family: var(--pixel-font-mono);
+  font-size: 12px;
+  color: #888;
+}
+
+.details {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #555;
+  background: var(--color-bg);
+  font-family: var(--pixel-font-mono);
+  font-size: var(--text-mono-sm);
+  color: var(--color-danger);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}

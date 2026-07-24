@@ -1,4 +1,4 @@
-# σ-Trace: 3-Minute Pitch Script
+# GIHA: 3-Minute Pitch Script
 
 **Format:** Screen recording with voiceover
 **Duration:** 180 seconds (±5)
@@ -20,7 +20,7 @@
 
 `VO:` Someone in your city just received this voice note. A frightened grandmother. She thinks her grandson is in jail. She's about to send money.
 
-`SCREEN:` Dark screen, a single WhatsApp voice note UI element fades in. Play button pulses. The message preview reads: "Grandma, it's me — I need bail money, please don't tell Mom."
+`SCREEN:` Dark screen. Text fades in: *"Grandma, it's me — I need bail money, please don't tell Mom."*
 
 `VO:` The voice is AI-generated. The number is spoofed. The love is real. And in 2026, she has no way to know the difference.
 
@@ -38,15 +38,15 @@
 
 `VO:` The problem isn't that people are stupid. The problem is that the ecosystem is designed for maximum viral spread — not maximum coherence.
 
-`SCREEN:` A simple equation fades in: R₀ > 1.0. Then a city icon turns red.
+`SCREEN:` The R₀ indicator crosses 1.0 — the critical threshold for epidemic spread. The sigma gauge begins to trend downward.
 
 ---
 
 ### [00:45–01:30] The Solution
 
-`VO:` We built σ-Trace. A game that teaches you to think like an AI forensics investigator and act like an information ecosystem manager.
+`VO:` We built GIHA. A game that teaches you to think like an AI forensics investigator and act like an information ecosystem manager.
 
-`SCREEN:` Title card: **σ-Trace** with the sigma symbol glowing.
+`SCREEN:` Title card: **GIHA** with the sigma symbol glowing.
 
 `VO:` Two modes, one mission.
 
@@ -56,7 +56,7 @@
 
 `VO:` In Strategy Mode, you manage a city's information health. Monitor the R₀ — the spread rate of disinformation. Deploy interventions. Watch the σ-coherence rise or fall.
 
-`SCREEN:` Focus on left half. Show the city grid. Click an intervention card. The R₀ line on a graph dips. City blocks turn from red back to green.
+`SCREEN:` Focus on left half. Show the city grid. Click an intervention card. The heatmap overlay cools from red to green as the intervention takes effect.
 
 `VO:` When a case breaks — a deepfake, a voice scam, a manipulated photo — you zoom in to Detective Mode.
 
@@ -74,7 +74,7 @@
 
 ### [01:30–02:15] The Math Behind It
 
-`VO:` Under the hood, σ-Trace runs on something no other MIL tool has: a mathematical model of belief coherence.
+`VO:` Under the hood, GIHA runs on something no other MIL tool has: a mathematical model of belief coherence.
 
 `SCREEN:` Simple diagram. Equations dissolve into visual graphs.
 
@@ -92,9 +92,9 @@
 
 `VO:` Media literacy isn't a luxury for educated Western youth. It's a survival skill for everyone. In communities where disinformation has sparked violence, where scam calls drain life savings, where manipulated news topples governments — the people who need MIL the most have the least access to it.
 
-`VO:` σ-Trace is a web app. No install. No server. No internet required after load. It runs on a $150 Chromebook. It supports localization. And it costs zero dollars to deploy.
+`VO:` GIHA is a web app. No install. No server. No internet required after load. It runs on a $150 Chromebook. It supports localization. And it costs zero dollars to deploy.
 
-`SCREEN:` The URL: sigmatrace.io — then transition to the game running in a browser. Resize the window to show it works on mobile.
+`SCREEN:` The URL: sigmatrace.io — then transition to the game running in a browser.
 
 `VO:` We are two developers. One AI researcher who built the σ-coherence formalism. One cybersecurity engineer who builds trust architectures. We combined our skills to build something that didn't exist before: a game that makes the invisible structure of disinformation visible.
 
@@ -102,9 +102,9 @@
 
 ### [02:50–03:00] Call to Action
 
-`SCREEN:` σ-Trace logo. URL. Text: "Play Your Part."
+`SCREEN:` GIHA logo. URL. Text: "Play Your Part."
 
-`VO:` Disinformation leaves a trace. σ-Trace teaches you to follow it. Play your part.
+`VO:` Disinformation leaves a trace. GIHA teaches you to follow it. Play your part.
 
 `SFX:` Case solved chime.
 
@@ -123,4 +123,4 @@
 | 1:40 | Phase transition animation (R₀ crosses 1.0) | "The math is doing something real" |
 | 2:00 | City collapse screen | "Failure is part of the learning" |
 | 2:30 | Chromebook / mobile resize | "It actually works anywhere" |
-| 2:55 | σ-Trace logo + URL | "I remember the name" |
+| 2:55 | GIHA logo + URL | "I remember the name" |

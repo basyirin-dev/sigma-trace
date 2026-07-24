@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "id": "evidence-01",
+      "type": "image",
+      "label": "Viral Protest Photo",
+      "description": "High-resolution photo of riot police facing protesters. Flames in background. Caption claims 'Veritas residents clash with police.'",
+      "isRedHerring": false,
+      "src": "evidence/protest-photo.jpg"
+    },
+    {
+      "id": "evidence-02",
+      "type": "image",
+      "label": "Lighting Analysis Overlay",
+      "description": "Sun position analysis overlaid on the photo. Calculated sun angle: 40 degrees from northeast. Expected for Veritas at this time of year: 25 degrees from southeast. Discrepancy of 15 degrees.",
+      "isRedHerring": false,
+      "src": "evidence/lighting-analysis.png"
+    },
+    {
+      "id": "evidence-03",
+      "type": "metadata",
+      "label": "Photo Metadata",
+      "description": "EXIF data from the original upload. Camera: Canon EOS 5D Mark IV. Timestamp: 11:47 AM. GPS coordinates point to a city 2,000km away. Photographer name linked to a known disinformation network.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-04",
+      "type": "text",
+      "label": "Blog Article",
+      "description": "Article titled 'Veritas Erupts: Citizens Take to the Streets.' Published 6 hours ago on an obscure blog. Byline is a pseudonym previously linked to 3 other misattributed image incidents.",
+      "isRedHerring": true
+    },
+    {
+      "id": "evidence-05",
+      "type": "text",
+      "label": "Source Trace Result",
+      "description": "Reverse image search timeline. The photo first appeared on a photography forum 2 years ago. Location: a city 2,000km away. Event: a labor protest. Poster had no connection to Veritas.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-06",
+      "type": "metadata",
+      "label": "Bot Network Amplification Data",
+      "description": "Social media amplification analysis. 50,000 shares in 3 hours \u2014 78% from a cluster of IPs linked to VeraTech Solutions data centers. Growth curve matches bot-driven amplification, not organic viral spread.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-07",
+      "type": "text",
+      "label": "Encrypted message fragment",
+      "description": "An intercepted communication recovered from a compromised VeraTech server. The sender ID is scrubbed but the message references operational details only an insider would know: 'They know the photo is fake. The geolocation metadata was flagged internally. We need to pivot before the trail leads back.' The phrase 'the trail leads back' suggests someone is protecting their identity.",
+      "isRedHerring": false
+    },
+    {
+      "id": "evidence-08",
+      "type": "metadata",
+      "label": "Internal memo \u2014 sender redacted",
+      "description": "A leaked internal document with truncated metadata headers. The comms channel ID matches a pattern reserved for GIHA field operatives. The memo references VeraTech operational security protocols \u2014 details only someone inside the investigation would know. The redacted sender field is consistent with GIHA internal document formatting.",
+      "isRedHerring": false
+    }
+  ]
+}
