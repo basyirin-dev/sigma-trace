@@ -20,7 +20,7 @@
   border-radius: 4px;
   color: #e0e0e0;
   font-family: var(--font-pixel, monospace);
-  font-size: 13px;
+  font-size: var(--text-ui-sm, 15px);
   white-space: nowrap;
   animation: slideIn 0.25s ease-out forwards;
   pointer-events: auto;
@@ -33,15 +33,27 @@
 
 .message {
   flex: 1;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(-12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-12px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
 }

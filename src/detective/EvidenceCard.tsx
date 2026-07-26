@@ -1,33 +1,33 @@
-import { useState, useCallback, useEffect, useRef, type MouseEvent, type DragEvent } from 'react'
-import styles from './EvidenceCard.module.css'
+import { useState, useCallback, useEffect, useRef, type MouseEvent, type DragEvent } from 'react';
+import styles from './EvidenceCard.module.css';
 
-export type EvidenceType = 'video' | 'audio' | 'image' | 'text' | 'metadata'
+export type EvidenceType = 'video' | 'audio' | 'image' | 'text' | 'metadata';
 
 export interface EvidenceItem {
-  id: string
-  type: EvidenceType
-  label: string
-  description: string
-  isRedHerring: boolean
-  src?: string
+  id: string;
+  type: EvidenceType;
+  label: string;
+  description: string;
+  isRedHerring: boolean;
+  src?: string;
 }
 
 export interface EvidenceCardProps {
-  evidence: EvidenceItem
-  selected: boolean
-  onSelect: () => void
-  onContextMenu?: (e: MouseEvent) => void
-  onConnectMouseDown?: (e: MouseEvent) => void
-  onDragStart?: (e: DragEvent) => void
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
-  style?: React.CSSProperties
-  isRevealed?: boolean
-  showRedHerringBadge?: boolean
-  evidenceDetails?: string
-  onCardClick?: () => void
-  clickDenied?: boolean
-  onKeyDown?: (e: React.KeyboardEvent) => void
+  evidence: EvidenceItem;
+  selected: boolean;
+  onSelect: () => void;
+  onContextMenu?: (e: MouseEvent) => void;
+  onConnectMouseDown?: (e: MouseEvent) => void;
+  onDragStart?: (e: DragEvent) => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  style?: React.CSSProperties;
+  isRevealed?: boolean;
+  showRedHerringBadge?: boolean;
+  evidenceDetails?: string;
+  onCardClick?: () => void;
+  clickDenied?: boolean;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
 const TYPE_LABELS: Record<EvidenceType, string> = {
@@ -36,7 +36,7 @@ const TYPE_LABELS: Record<EvidenceType, string> = {
   image: 'IMAGE',
   text: 'TEXT',
   metadata: 'META',
-}
+};
 
 const TYPE_ICONS: Record<EvidenceType, string> = {
   video: '\u25B6',
@@ -44,7 +44,7 @@ const TYPE_ICONS: Record<EvidenceType, string> = {
   image: '\u25A0',
   text: '\u00B6',
   metadata: '\u2699',
-}
+};
 
 export function EvidenceCard({
   evidence,
@@ -63,43 +63,39 @@ export function EvidenceCard({
   clickDenied = false,
   onKeyDown,
 }: EvidenceCardProps) {
-  const [flipped, setFlipped] = useState(false)
-  const [wasExamined, setWasExamined] = useState(false)
-  const [flashDenied, setFlashDenied] = useState(false)
-  const prevClickDenied = useRef(false)
+  const [flipped, setFlipped] = useState(false);
+  const [wasExamined, setWasExamined] = useState(false);
+  const [flashDenied, setFlashDenied] = useState(false);
+  const prevClickDenied = useRef(false);
 
   useEffect(() => {
     if (clickDenied && !prevClickDenied.current) {
-      setFlashDenied(true)
-      const timer = setTimeout(() => setFlashDenied(false), 400)
-      prevClickDenied.current = true
-      return () => clearTimeout(timer)
+      setFlashDenied(true);
+      const timer = setTimeout(() => setFlashDenied(false), 400);
+      prevClickDenied.current = true;
+      return () => clearTimeout(timer);
     }
-    prevClickDenied.current = clickDenied
-  }, [clickDenied])
+    prevClickDenied.current = clickDenied;
+  }, [clickDenied]);
 
   const handleClick = useCallback(
     (e: MouseEvent) => {
-      e.stopPropagation()
+      e.stopPropagation();
       if (onCardClick) {
-        onCardClick()
-        return
+        onCardClick();
+        return;
       }
-      const firstExamine = !wasExamined
+      const firstExamine = !wasExamined;
       if (firstExamine) {
-        setWasExamined(true)
-        onSelect()
+        setWasExamined(true);
+        onSelect();
       }
-      setFlipped((prev) => !prev)
+      setFlipped((prev) => !prev);
     },
     [wasExamined, onSelect, onCardClick],
-  )
+  );
 
-  const frontClass = [
-    styles.face,
-    styles.front,
-    styles[evidence.type],
-  ].join(' ')
+  const frontClass = [styles.face, styles.front, styles[evidence.type]].join(' ');
 
   return (
     <div
@@ -110,20 +106,20 @@ export function EvidenceCard({
       draggable
       onDragStart={onDragStart}
       onContextMenu={(e) => {
-        e.preventDefault()
-        onContextMenu?.(e)
+        e.preventDefault();
+        onContextMenu?.(e);
       }}
       onClick={handleClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          handleClick(e as unknown as MouseEvent)
+          e.preventDefault();
+          handleClick(e as unknown as MouseEvent);
         }
         if (e.key === 'ContextMenu' || (e.key === 'F10' && e.shiftKey)) {
-          e.preventDefault()
-          onContextMenu?.(e as unknown as MouseEvent)
+          e.preventDefault();
+          onContextMenu?.(e as unknown as MouseEvent);
         }
-        onKeyDown?.(e)
+        onKeyDown?.(e);
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -166,11 +162,7 @@ export function EvidenceCard({
             {evidence.type === 'audio' && (
               <div className={styles.previewAudio} data-testid="preview-audio">
                 {[8, 6, 10, 4, 7, 5, 9, 3].map((h, i) => (
-                  <div
-                    key={i}
-                    className={styles.waveformBar}
-                    style={{ height: `${h * 8}%` }}
-                  />
+                  <div key={i} className={styles.waveformBar} style={{ height: `${h * 8}%` }} />
                 ))}
               </div>
             )}
@@ -181,8 +173,8 @@ export function EvidenceCard({
             )}
             {evidence.type === 'text' && (
               <div className={styles.previewText} data-testid="preview-text">
-                {evidence.description.length > 50
-                  ? `${evidence.description.slice(0, 50)}\u2026`
+                {evidence.description.length > 45
+                  ? `${evidence.description.slice(0, 45)}\u2026`
                   : evidence.description}
               </div>
             )}
@@ -201,9 +193,9 @@ export function EvidenceCard({
             draggable={false}
             className={styles.connectHandle}
             onMouseDown={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              onConnectMouseDown?.(e)
+              e.preventDefault();
+              e.stopPropagation();
+              onConnectMouseDown?.(e);
             }}
             data-testid="connect-handle-front"
           />
@@ -233,14 +225,14 @@ export function EvidenceCard({
             draggable={false}
             className={styles.connectHandle}
             onMouseDown={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              onConnectMouseDown?.(e)
+              e.preventDefault();
+              e.stopPropagation();
+              onConnectMouseDown?.(e);
             }}
             data-testid="connect-handle-back"
           />
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,16 +1,30 @@
 @keyframes pulse-trap {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 @keyframes pulse-alert {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 @keyframes phase-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .pixel-card {
@@ -37,7 +51,7 @@
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-ui-sm, 14px);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;

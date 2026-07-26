@@ -1,128 +1,125 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 export interface SpectrogramProps {
-  audioSrc: string
+  audioSrc: string;
 }
 
-const FFT_SIZE = 256
-const FREQ_BANDS = 32
+const FFT_SIZE = 256;
+const FREQ_BANDS = 32;
 
 export function Spectrogram({ audioSrc }: SpectrogramProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const audioRef = useRef<HTMLAudioElement>(null)
-  const ctxRef = useRef<AudioContext | null>(null)
-  const analyserRef = useRef<AnalyserNode | null>(null)
-  const animRef = useRef<number>(0)
-  const [playing, setPlaying] = useState(false)
-  const [finding, setFinding] = useState<string | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const ctxRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const animRef = useRef<number>(0);
+  const [playing, setPlaying] = useState(false);
+  const [finding, setFinding] = useState<string | null>(null);
 
   const initAudio = useCallback(() => {
-    if (ctxRef.current) return
-    const audio = audioRef.current
-    if (!audio) return
+    if (ctxRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    const ctx = new AudioContext()
-    const analyser = ctx.createAnalyser()
-    analyser.fftSize = FFT_SIZE
+    const ctx = new AudioContext();
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = FFT_SIZE;
 
-    const source = ctx.createMediaElementSource(audio)
-    source.connect(analyser)
-    analyser.connect(ctx.destination)
+    const source = ctx.createMediaElementSource(audio);
+    source.connect(analyser);
+    analyser.connect(ctx.destination);
 
-    ctxRef.current = ctx
-    analyserRef.current = analyser
-  }, [])
+    ctxRef.current = ctx;
+    analyserRef.current = analyser;
+  }, []);
 
-  const drawRef = useRef<() => void>(() => {})
+  const drawRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     drawRef.current = () => {
-      const analyser = analyserRef.current
-      const canvas = canvasRef.current
-      if (!analyser || !canvas) return
+      const analyser = analyserRef.current;
+      const canvas = canvasRef.current;
+      if (!analyser || !canvas) return;
 
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
 
-      const bufferLength = analyser.frequencyBinCount
-      const dataArray = new Uint8Array(bufferLength)
-      analyser.getByteFrequencyData(dataArray)
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(dataArray);
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const barWidth = canvas.width / FREQ_BANDS
-      const step = Math.floor(bufferLength / FREQ_BANDS)
+      const barWidth = canvas.width / FREQ_BANDS;
+      const step = Math.floor(bufferLength / FREQ_BANDS);
 
       for (let i = 0; i < FREQ_BANDS; i++) {
-        let sum = 0
+        let sum = 0;
         for (let j = 0; j < step; j++) {
-          sum += dataArray[i * step + j] ?? 0
+          sum += dataArray[i * step + j] ?? 0;
         }
-        const avg = sum / step
-        const h = (avg / 255) * canvas.height
+        const avg = sum / step;
+        const h = (avg / 255) * canvas.height;
 
-        const isSuspicious = i >= 8 && i <= 16
+        const isSuspicious = i >= 8 && i <= 16;
         ctx.fillStyle = isSuspicious
           ? `rgba(255, ${Math.round(170 - avg)}, 0, ${0.4 + avg / 510})`
-          : `rgba(${Math.round(100 + avg * 0.4)}, ${Math.round(200 - avg * 0.4)}, 255, ${0.3 + avg / 510})`
+          : `rgba(${Math.round(100 + avg * 0.4)}, ${Math.round(200 - avg * 0.4)}, 255, ${0.3 + avg / 510})`;
 
-        ctx.fillRect(i * barWidth, canvas.height - h, barWidth - 1, h)
+        ctx.fillRect(i * barWidth, canvas.height - h, barWidth - 1, h);
       }
 
-      ctx.fillStyle = 'rgba(255,68,68,0.6)'
-      ctx.fillRect(8 * barWidth, 0, 9 * barWidth, canvas.height)
-      ctx.fillStyle = '#ff4444'
-      ctx.font = '11px monospace'
-      ctx.fillText('AI ARTIFACT ZONE', 8 * barWidth + 4, 14)
+      ctx.fillStyle = 'rgba(255,68,68,0.6)';
+      ctx.fillRect(8 * barWidth, 0, 9 * barWidth, canvas.height);
+      ctx.fillStyle = '#ff4444';
+      ctx.font = '14px monospace';
+      ctx.fillText('AI ARTIFACT ZONE', 8 * barWidth + 4, 14);
 
-      animRef.current = requestAnimationFrame(() => drawRef.current?.())
-    }
-  }, [])
+      animRef.current = requestAnimationFrame(() => drawRef.current?.());
+    };
+  }, []);
 
   const togglePlay = useCallback(() => {
-    const audio = audioRef.current
-    if (!audio) return
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    initAudio()
+    initAudio();
 
-    const audioCtx = ctxRef.current
+    const audioCtx = ctxRef.current;
     if (audioCtx?.state === 'suspended') {
-      void audioCtx.resume()
+      void audioCtx.resume();
     }
 
     if (audio.paused) {
-      void audio.play()
-      setPlaying(true)
-      animRef.current = requestAnimationFrame(() => drawRef.current?.())
+      void audio.play();
+      setPlaying(true);
+      animRef.current = requestAnimationFrame(() => drawRef.current?.());
     } else {
-      audio.pause()
-      setPlaying(false)
-      cancelAnimationFrame(animRef.current)
+      audio.pause();
+      setPlaying(false);
+      cancelAnimationFrame(animRef.current);
     }
-  }, [initAudio])
+  }, [initAudio]);
 
   useEffect(() => {
-    const audio = audioRef.current
+    const audio = audioRef.current;
     return () => {
-      cancelAnimationFrame(animRef.current)
+      cancelAnimationFrame(animRef.current);
       if (audio) {
-        audio.pause()
+        audio.pause();
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const handleAnalysis = useCallback(() => {
-    setFinding('The 2-4kHz frequency range shows unusually consistent energy distribution with periodic troughs — a signature of AI-generated speech. Human voices have natural micro-variations in this range that the synthesis model failed to replicate.')
-  }, [])
+    setFinding(
+      'The 2-4kHz frequency range shows unusually consistent energy distribution with periodic troughs — a signature of AI-generated speech. Human voices have natural micro-variations in this range that the synthesis model failed to replicate.',
+    );
+  }, []);
 
   return (
     <div data-testid="tool-spectrogram" style={{ padding: '16px' }}>
-      <audio
-        ref={audioRef}
-        src={audioSrc}
-        onEnded={() => setPlaying(false)}
-        preload="auto"
-      />
+      <audio ref={audioRef} src={audioSrc} onEnded={() => setPlaying(false)} preload="auto" />
 
       <canvas
         ref={canvasRef}
@@ -147,7 +144,16 @@ export function Spectrogram({ audioSrc }: SpectrogramProps) {
         </button>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '11px', color: '#666' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginTop: '6px',
+          fontSize: '14px',
+          color: '#666',
+          fontFamily: 'var(--pixel-font)',
+        }}
+      >
         <span>0 Hz</span>
         <span style={{ color: '#ff4444' }}>2 kHz — AI Artifact Zone — 4 kHz</span>
         <span>8 kHz</span>
@@ -163,7 +169,7 @@ export function Spectrogram({ audioSrc }: SpectrogramProps) {
             borderLeft: '3px solid #2ecc71',
             borderRadius: '4px',
             color: '#2ecc71',
-            fontSize: '14px',
+            fontSize: '17px',
             lineHeight: '1.5',
           }}
         >
@@ -171,7 +177,7 @@ export function Spectrogram({ audioSrc }: SpectrogramProps) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 const btnStyle: React.CSSProperties = {
@@ -179,7 +185,8 @@ const btnStyle: React.CSSProperties = {
   color: '#fff',
   border: '1px solid #4a4a8a',
   borderRadius: '6px',
-  padding: '8px 16px',
+  padding: '10px 18px',
   cursor: 'pointer',
-  fontSize: '14px',
-}
+  fontFamily: 'var(--pixel-font)',
+  fontSize: '17px',
+};

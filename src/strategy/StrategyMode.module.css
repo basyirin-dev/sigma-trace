@@ -2,12 +2,61 @@
   animation: screenFlash 0.8s ease-out;
 }
 
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #1a2332;
+  border: 1px solid #2a3a5e;
+  padding: 12px 22px;
+  max-width: 1400px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.dayBox {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+  border: 1px solid #2a3a5e;
+  background: rgba(15, 52, 96, 0.4);
+  padding: 6px 16px;
+}
+
+.dayDivider {
+  width: 1px;
+  height: 48px;
+  background: #3a4a6e;
+  flex-shrink: 0;
+  margin: 0 8px;
+}
+
+.dayNum {
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+  font-family: var(--pixel-font-mono);
+}
+
+.dayLabel {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-text-muted);
+  font-family: var(--pixel-font-mono);
+}
+
 .mainRow {
   padding: 16px;
   width: 100%;
   max-width: 1400px;
   display: flex;
   gap: 20px;
+  flex: 1;
+  min-height: 0;
 }
 
 .canvasCol {
@@ -18,23 +67,96 @@
 .sidebarCol {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  min-width: 340px;
-  max-width: 380px;
+  min-width: 370px;
+  max-width: 410px;
+  border: 1px solid #2a3a5e;
+  padding: 20px;
+  background: rgba(22, 33, 62, 0.6);
+  overflow: hidden;
+  height: 70vh;
+}
+
+.sidebarCol *::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebarCol *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebarCol *::-webkit-scrollbar-thumb {
+  background: #2a3a5e;
+  border-radius: 0;
+}
+
+.sidebarCol *::-webkit-scrollbar-thumb:hover {
+  background: #3a4a6e;
+}
+
+.sidebarFooter {
+  flex-shrink: 0;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2a3a5e transparent;
+  max-height: 180px;
+}
+
+.sidebarFooter::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebarFooter::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebarFooter::-webkit-scrollbar-thumb {
+  background: #2a3a5e;
+  border-radius: 0;
+}
+
+.sidebarFooter::-webkit-scrollbar-thumb:hover {
+  background: #3a4a6e;
 }
 
 @media (max-width: 1200px) {
-  .sidebarCol { min-width: 260px; max-width: 300px; }
+  .sidebarCol {
+    min-width: 280px;
+    max-width: 320px;
+  }
 }
 
 @media (max-width: 768px) {
-  .mainRow { flex-direction: column; padding: 8px; }
-  .sidebarCol { min-width: auto; max-width: none; }
+  .mainRow {
+    flex-direction: column;
+    padding: 8px;
+  }
+  .sidebarCol {
+    min-width: auto;
+    max-width: none;
+    height: auto;
+    max-height: 50vh;
+  }
+  .topBar {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .dayNum {
+    font-size: 32px;
+  }
 }
 
 @media (min-width: 1440px) {
-  .mainRow { max-width: 1600px; }
-  .sidebarCol { min-width: 380px; max-width: 420px; }
+  .mainRow {
+    max-width: 1600px;
+  }
+  .sidebarCol {
+    min-width: 400px;
+    max-width: 440px;
+  }
 }
 
 @keyframes screenFlash {
@@ -44,7 +166,8 @@
   5% {
     opacity: 1;
   }
-  0%, 10% {
+  0%,
+  10% {
     background-color: #f1c40f;
   }
   20% {

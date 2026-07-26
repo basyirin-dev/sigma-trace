@@ -24,13 +24,13 @@
 }
 
 .badge {
-  font-family: monospace;
-  font-size: 14px;
+  font-family: var(--pixel-font);
+  font-size: var(--text-caption, 18px);
   font-weight: 700;
   letter-spacing: 4px;
   color: var(--color-accent);
   text-transform: uppercase;
-  padding: 4px 16px;
+  padding: 6px 20px;
   border: 1px solid var(--color-accent);
 }
 
@@ -41,8 +41,8 @@
 }
 
 .title {
-  font-family: monospace;
-  font-size: 28px;
+  font-family: var(--pixel-font);
+  font-size: var(--text-heading, 32px);
   font-weight: 600;
   color: var(--color-text);
   margin: 0;
@@ -50,9 +50,9 @@
 }
 
 .brief {
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: var(--pixel-font);
+  font-size: var(--text-body, 20px);
+  line-height: var(--leading-relaxed, 1.8);
   color: #aaa;
   margin: 0;
 }
@@ -75,8 +75,8 @@
 .effects {
   display: flex;
   gap: 16px;
-  font-family: monospace;
-  font-size: 13px;
+  font-family: var(--pixel-font-mono);
+  font-size: var(--text-ui-sm, 15px);
   color: var(--color-text-muted);
 }
 
@@ -89,12 +89,12 @@
 
 .actionBtn {
   margin-top: 8px;
-  padding: 12px 32px;
+  padding: 14px 36px;
   background: var(--color-secondary);
   border: none;
   border-radius: 6px;
-  font-family: monospace;
-  font-size: 15px;
+  font-family: var(--pixel-font);
+  font-size: var(--text-caption, 18px);
   font-weight: 700;
   color: var(--color-bg);
   cursor: pointer;
@@ -111,11 +111,23 @@
 }
 
 @keyframes slideFadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.92); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

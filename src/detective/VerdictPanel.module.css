@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: var(--space-md, 16px);
   padding: var(--space-xl, 32px);
-  background: var(--color-surface, #2A2A3E);
+  background: var(--color-surface, #2a2a3e);
   border: var(--pixel-border, 2px solid #333);
   max-width: 520px;
   width: 100%;
@@ -12,7 +12,7 @@
 
 .title {
   font-family: var(--pixel-font);
-  font-size: var(--text-heading, 16px);
+  font-size: var(--text-heading, 28px);
   color: var(--giha-gold, #f39c12);
   text-align: center;
 }
@@ -30,14 +30,17 @@
   flex: 1;
   padding: var(--space-md, 16px) var(--space-sm, 8px);
   font-family: var(--pixel-font);
-  font-size: var(--text-body, 16px);
+  font-size: var(--text-body, 22px);
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 2px solid transparent;
   background: transparent;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    box-shadow 0.15s;
   white-space: nowrap;
 }
 
@@ -78,11 +81,11 @@
   width: 100%;
   min-height: 100px;
   padding: var(--space-sm, 8px) var(--space-md, 16px);
-  font-family: var(--pixel-font-mono);
-  font-size: var(--text-body, 16px);
-  line-height: var(--leading-relaxed, 1.75);
+  font-family: var(--pixel-font);
+  font-size: var(--text-body, 22px);
+  line-height: var(--leading-relaxed, 1.8);
   color: var(--color-text, #e0e0e0);
-  background: var(--color-bg, #1E1E2E);
+  background: var(--color-bg, #1e1e2e);
   border: var(--pixel-border, 2px solid #333);
   resize: vertical;
   outline: none;
@@ -128,7 +131,7 @@
 }
 
 .hint {
-  font-size: 11px;
+  font-size: var(--text-ui-sm, 15px);
   color: var(--color-accent);
   text-align: center;
 }

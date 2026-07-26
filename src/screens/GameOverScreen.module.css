@@ -9,6 +9,12 @@
   background: #0a0a0a;
   animation: fadeIn 0.5s ease-out;
   text-align: center;
+  overflow: hidden;
+}
+
+.screen::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .header {
@@ -31,23 +37,25 @@
   color: var(--color-danger);
   letter-spacing: 6px;
   animation: pulseDanger 1.5s ease-in-out infinite;
+  text-shadow: 2px 2px 0px #660000;
 }
 
 .subtitle {
-  font-family: monospace;
-  font-size: 16px;
+  font-family: var(--pixel-font);
+  font-size: var(--text-body, 22px);
   font-weight: 600;
   color: #c0392b;
   letter-spacing: 4px;
+  text-shadow: 2px 2px 0px #660000;
 }
 
 .message {
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: var(--pixel-font);
+  font-size: var(--text-body, 20px);
+  line-height: var(--leading-relaxed, 1.8);
   color: var(--color-text-muted);
-  max-width: 480px;
-  margin: 0;
+  max-width: 450px;
+  margin: 0 auto;
 }
 
 .postmortem {
@@ -55,50 +63,67 @@
   width: 100%;
   background: #111;
   border: 1px solid #333;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   text-align: left;
 }
 
 .postmortemHeader {
   font-family: monospace;
-  font-size: 11px;
+  font-size: var(--text-ui-sm, 14px);
   font-weight: 700;
   color: var(--color-danger);
   letter-spacing: 2px;
-  padding: 10px 16px;
+  padding: 12px 20px;
   background: #1a1a1a;
   border-bottom: 1px solid #333;
 }
 
 .postmortemBody {
-  padding: 12px 16px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .postmortemLine {
-  font-family: monospace;
-  font-size: 12px;
-  line-height: 1.55;
-  color: #aaa;
+  font-family: var(--pixel-font);
+  font-size: var(--text-body, 17px);
+  line-height: var(--leading-normal, 1.55);
+  color: #bbb;
   margin: 0;
-  padding: 0 0 0 12px;
-  border-left: 2px solid #444;
+  padding: 0 0 0 16px;
+  position: relative;
+}
+
+.postmortemLine::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 6px;
+  height: 6px;
+  background: var(--color-danger);
 }
 
 .tryAgainBtn {
-  padding: 12px 36px;
-  background: var(--color-danger);
-  border: none;
-  border-radius: 6px;
+  padding: 14px 40px;
+  background: #e74c3c;
+  border: 2px solid #c0392b;
+  border-top: 3px solid #ff6b5a;
+  border-bottom: 4px solid #8b0000;
+  border-left: 2px solid #8b0000;
+  border-right: 2px solid #8b0000;
+  border-radius: 0;
   font-family: monospace;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   cursor: pointer;
   transition: background 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .tryAgainBtn:hover {
@@ -111,19 +136,28 @@
 }
 
 .progressNote {
-  font-family: monospace;
-  font-size: 11px;
-  color: #555;
-  max-width: 380px;
+  font-family: var(--pixel-font);
+  font-size: var(--text-ui-sm, 14px);
+  color: #6a7a8a;
+  max-width: 480px;
   margin: 0;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulseDanger {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }

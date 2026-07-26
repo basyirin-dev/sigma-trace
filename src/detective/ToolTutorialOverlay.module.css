@@ -34,8 +34,8 @@
 }
 
 .toolName {
-  font-family: monospace;
-  font-size: 16px;
+  font-family: var(--pixel-font);
+  font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
 }
@@ -43,12 +43,12 @@
 .badge {
   display: inline-block;
   align-self: flex-start;
-  padding: 4px 12px;
+  padding: 6px 14px;
   background: rgba(78, 205, 196, 0.15);
   border: 1px solid var(--color-secondary);
   border-radius: 4px;
-  font-family: monospace;
-  font-size: 11px;
+  font-family: var(--pixel-font);
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-secondary);
   text-transform: uppercase;
@@ -63,8 +63,8 @@
 }
 
 .tipPrefix {
-  font-family: monospace;
-  font-size: 11px;
+  font-family: var(--pixel-font);
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-accent);
   text-transform: uppercase;
@@ -73,8 +73,8 @@
 
 .tipText {
   margin: 6px 0 0 0;
-  font-family: monospace;
-  font-size: 13px;
+  font-family: var(--pixel-font);
+  font-size: 16px;
   line-height: 1.55;
   color: #ccc;
 }
@@ -92,8 +92,8 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-family: monospace;
-  font-size: 12px;
+  font-family: var(--pixel-font);
+  font-size: 15px;
   line-height: 1.5;
   color: #aaa;
 }
@@ -107,12 +107,12 @@
 .gotItBtn {
   display: block;
   width: 100%;
-  padding: 10px 20px;
+  padding: 12px 24px;
   background: var(--color-secondary);
   border: none;
   border-radius: 6px;
-  font-family: monospace;
-  font-size: 14px;
+  font-family: var(--pixel-font);
+  font-size: 17px;
   font-weight: 700;
   color: var(--color-bg);
   cursor: pointer;
@@ -129,11 +129,21 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.92); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

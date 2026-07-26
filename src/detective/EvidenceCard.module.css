@@ -1,14 +1,17 @@
 .card {
   position: absolute;
-  width: 240px;
-  height: 280px;
+  width: 280px;
+  height: 320px;
   z-index: var(--z-content, 10);
   perspective: 600px;
   user-select: none;
 }
 
 @media (max-width: 1024px) {
-  .card { width: 200px; height: 240px; }
+  .card {
+    width: 220px;
+    height: 260px;
+  }
 }
 
 .card:hover {
@@ -31,12 +34,13 @@
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  border: var(--pixel-border, 2px solid #333);
-  background: var(--color-surface-alt, #0f3460);
+  border: 2px solid #d4c5a0;
+  background: #f5f0e1;
   display: flex;
   flex-direction: column;
   padding: var(--space-sm, 8px);
   overflow: hidden;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
 .front {
@@ -49,7 +53,9 @@
 
 .selected .front {
   border-color: var(--color-primary, #4ecdc4);
-  box-shadow: 0 0 8px rgba(78, 205, 196, 0.4);
+  box-shadow:
+    0 0 8px rgba(78, 205, 196, 0.6),
+    2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
 .back {
@@ -74,16 +80,16 @@
   align-items: center;
   gap: 4px;
   font-family: var(--pixel-font);
-  font-size: 13px;
+  font-size: var(--text-caption, 16px);
   font-weight: 600;
   letter-spacing: 1px;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 2px;
   flex-shrink: 0;
 }
 
 .typeBadgeIcon {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .video .typeBadge {
@@ -123,10 +129,10 @@
 .badgeRevealed,
 .badgeRedHerring {
   font-family: var(--pixel-font);
-  font-size: 9px;
+  font-size: var(--text-ui-xs, 11px);
   font-weight: 600;
   letter-spacing: 0.5px;
-  padding: 1px 4px;
+  padding: 2px 6px;
   border-radius: 2px;
   white-space: nowrap;
 }
@@ -160,15 +166,31 @@
 }
 
 .previewVideo {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #111;
+  background: #2a2a3e;
+}
+
+.previewVideo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 3px
+  );
+  pointer-events: none;
 }
 
 .previewAudio {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -176,11 +198,25 @@
   justify-content: center;
   gap: 3px;
   padding: 4px;
-  background: #111;
+  background: #2a2a3e;
+}
+
+.previewAudio::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 3px
+  );
+  pointer-events: none;
 }
 
 .waveformBar {
-  width: 8px;
+  width: 12px;
   background: var(--color-evidence-audio, #f39c12);
   border-radius: 1px 1px 0 0;
   min-height: 4px;
@@ -198,26 +234,41 @@
 .previewText {
   width: 100%;
   height: 100%;
-  font-family: var(--pixel-font-mono);
-  font-size: 11px;
-  line-height: 1.4;
-  color: var(--color-text-muted, #888);
-  padding: var(--space-xs, 4px);
-  background: #111;
+  font-family: var(--pixel-font);
+  font-size: var(--text-ui-sm, 14px);
+  line-height: var(--leading-normal, 1.55);
+  color: #555;
+  padding: var(--space-sm, 8px);
+  background: #ede8d5;
   overflow-y: auto;
 }
 
 .previewMetadata {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #111;
+  background: #2a2a3e;
+}
+
+.previewMetadata::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 3px
+  );
+  pointer-events: none;
 }
 
 .previewIcon {
-  font-size: 28px;
+  font-size: 36px;
   opacity: 0.6;
 }
 
@@ -248,8 +299,8 @@
 
 .label {
   font-family: var(--pixel-font);
-  font-size: 14px;
-  color: var(--color-text, #e0e0e0);
+  font-size: var(--text-caption, 17px);
+  color: #1a1a2e;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -260,16 +311,19 @@
 /* ---- Connect handle ---- */
 
 .connectHandle {
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: var(--giha-gold, #f39c12);
-  border: 3px solid var(--giha-navy, #2c3e50);
+  background: #c0392b;
+  border: 2px solid #1a1a2e;
   flex-shrink: 0;
   cursor: crosshair;
-  opacity: 0.75;
-  transition: opacity 0.15s, transform 0.15s;
-  box-shadow: 0 0 6px rgba(243, 156, 18, 0.4);
+  opacity: 0.85;
+  transition:
+    opacity 0.15s,
+    transform 0.15s,
+    box-shadow 0.15s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   z-index: 10;
 }
 
@@ -278,8 +332,9 @@
 }
 
 .connectHandle:hover {
-  transform: scale(1.5);
+  transform: scale(1.8);
   opacity: 1;
+  box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.6);
 }
 
 /* ---- Back face ---- */
@@ -293,7 +348,7 @@
 
 .backType {
   font-family: var(--pixel-font);
-  font-size: 11px;
+  font-size: var(--text-ui-sm, 14px);
   color: var(--color-text-muted, #888);
   letter-spacing: 1px;
   margin-bottom: 4px;
@@ -302,9 +357,9 @@
 
 .backTitle {
   font-family: var(--pixel-font);
-  font-size: 13px;
+  font-size: var(--text-body, 18px);
   font-weight: 600;
-  color: var(--color-text, #e0e0e0);
+  color: #1a1a2e;
   flex-shrink: 0;
 }
 
@@ -322,18 +377,18 @@
 }
 
 .backDesc {
-  font-family: var(--pixel-font-mono);
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--color-text, #e0e0e0);
+  font-family: var(--pixel-font);
+  font-size: var(--text-ui-sm, 15px);
+  line-height: var(--leading-relaxed, 1.8);
+  color: #2c2c2c;
   margin: 0;
 }
 
 .backDetails {
-  font-family: var(--pixel-font-mono);
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--color-primary, #4ecdc4);
+  font-family: var(--pixel-font);
+  font-size: var(--text-ui-sm, 15px);
+  line-height: var(--leading-relaxed, 1.8);
+  color: #1a6b5a;
   margin: 0;
 }
 
@@ -344,11 +399,22 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 /* ---- Adjacent ---- */
@@ -358,6 +424,11 @@
 }
 
 @media (max-width: 768px) {
-  .card { width: 140px; height: 175px; }
-  .card .previewText { font-size: 10px; }
+  .card {
+    width: 180px;
+    height: 220px;
+  }
+  .card .previewText {
+    font-size: 12px;
+  }
 }

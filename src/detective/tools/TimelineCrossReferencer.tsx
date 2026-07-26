@@ -1,5 +1,5 @@
 export interface TimelineCrossReferencerProps {
-  events: { time: string; label: string }[]
+  events: { time: string; label: string }[];
 }
 
 export function TimelineCrossReferencer({ events }: TimelineCrossReferencerProps) {
@@ -7,7 +7,7 @@ export function TimelineCrossReferencer({ events }: TimelineCrossReferencerProps
     ...e,
     detail: 'detail' in e ? String(e.detail) : '',
     suspicious: 'suspicious' in e ? Boolean(e.suspicious) : false,
-  }))
+  }));
 
   return (
     <div data-testid="tool-timeline-cross-referencer" style={{ padding: '16px' }}>
@@ -37,14 +37,21 @@ export function TimelineCrossReferencer({ events }: TimelineCrossReferencerProps
             />
 
             <div style={{ display: 'flex', gap: '12px', alignItems: 'baseline' }}>
-              <span style={{ color: '#888', fontSize: '11px', fontFamily: 'monospace', minWidth: '80px' }}>
+              <span
+                style={{
+                  color: '#888',
+                  fontSize: '14px',
+                  fontFamily: 'monospace',
+                  minWidth: '80px',
+                }}
+              >
                 {event.time}
               </span>
               <span
                 style={{
                   color: event.suspicious ? '#ff8888' : '#ccc',
                   fontWeight: event.suspicious ? 'bold' : 'normal',
-                  fontSize: '13px',
+                  fontSize: '16px',
                 }}
               >
                 {event.suspicious && '⚠ '}
@@ -52,7 +59,9 @@ export function TimelineCrossReferencer({ events }: TimelineCrossReferencerProps
               </span>
             </div>
             {event.detail && (
-              <div style={{ color: '#666', fontSize: '11px', marginLeft: '92px', marginTop: '2px' }}>
+              <div
+                style={{ color: '#666', fontSize: '14px', marginLeft: '92px', marginTop: '2px' }}
+              >
                 {event.detail}
               </div>
             )}
@@ -67,14 +76,15 @@ export function TimelineCrossReferencer({ events }: TimelineCrossReferencerProps
           background: 'rgba(255, 170, 0, 0.1)',
           borderRadius: '4px',
           borderLeft: '3px solid #f39c12',
-          fontSize: '13px',
+          fontSize: '16px',
           color: '#f0c060',
           lineHeight: '1.5',
         }}
         data-testid="tcr-insight"
       >
-        ⏱ Timeline cross-reference complete. {timeline.filter((e) => e.suspicious).length} of {timeline.length} event(s) flagged.
+        ⏱ Timeline cross-reference complete. {timeline.filter((e) => e.suspicious).length} of{' '}
+        {timeline.length} event(s) flagged.
       </div>
     </div>
-  )
+  );
 }

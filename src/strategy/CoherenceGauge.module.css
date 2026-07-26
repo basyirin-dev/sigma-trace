@@ -1,10 +1,14 @@
 .gauge {
-  display: inline-flex;
-  border: 2px solid #333;
+  display: flex;
+  align-items: center;
+  height: 100%;
   line-height: 0;
+  border: none;
 }
 
 .canvas {
   display: block;
+  height: 80px;
+  width: auto;
   image-rendering: pixelated;
 }

@@ -1,39 +1,28 @@
 .controls {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 6px 16px;
-  background: rgba(22, 33, 62, 0.9);
-  border-bottom: 2px solid #333;
+  gap: 6px;
   font-family: var(--pixel-font-mono);
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+}
+
+.group > button {
+  padding: 0 !important;
+  width: 40px;
+  height: 40px;
+  font-size: 17px !important;
+  min-height: unset !important;
+  min-width: unset !important;
 }
 
 .separator {
   width: 1px;
-  height: 24px;
-  background: #444;
-}
-
-.speedLabel {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-text-muted);
-  margin-right: 2px;
-}
-
-.dayCounter {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
-  white-space: nowrap;
+  height: 36px;
+  background: #3a4a6e;
+  margin: 0 6px;
 }

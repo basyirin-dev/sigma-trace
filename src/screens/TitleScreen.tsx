@@ -1,239 +1,319 @@
-import { useEffect, useState, useRef, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from '@shared/Button'
-import { Modal } from '@shared/Modal'
-import { playMusic, stopMusic } from '@shared/useAudioManager'
-import { hasSave, loadGame, clearSave, getSaveMeta, getSaveRecords } from '@shared/saveManager'
-import { computeCompositeGrade, GRADE_COLORS } from '@shared/badgeUtils'
-import styles from './TitleScreen.module.css'
+import { useEffect, useState, useRef, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@shared/Button';
+import { Modal } from '@shared/Modal';
+import { playMusic, stopMusic } from '@shared/useAudioManager';
+import { hasSave, loadGame, clearSave, getSaveMeta, getSaveRecords } from '@shared/saveManager';
+import { computeCompositeGrade, GRADE_COLORS } from '@shared/badgeUtils';
+import styles from './TitleScreen.module.css';
 
-const MINUTE = 60_000
-const HOUR = 3_600_000
+const MINUTE = 60_000;
+const HOUR = 3_600_000;
 
 function formatTimeAgo(ts: number): string {
-  const elapsed = Date.now() - ts
-  if (elapsed < MINUTE) return 'just now'
-  if (elapsed < HOUR) return `${Math.floor(elapsed / MINUTE)} min ago`
-  if (elapsed < 24 * HOUR) return `${Math.floor(elapsed / HOUR)}h ago`
-  return `${Math.floor(elapsed / (24 * HOUR))}d ago`
+  const elapsed = Date.now() - ts;
+  if (elapsed < MINUTE) return 'just now';
+  if (elapsed < HOUR) return `${Math.floor(elapsed / MINUTE)} min ago`;
+  if (elapsed < 24 * HOUR) return `${Math.floor(elapsed / HOUR)}h ago`;
+  return `${Math.floor(elapsed / (24 * HOUR))}d ago`;
 }
 
-interface Particle {
-  x: number
-  y: number
-  size: number
-  speed: number
-  alpha: number
-  color: string
+interface DataStream {
+  x: number;
+  y: number;
+  speed: number;
+  chars: string[];
+  charIndex: number;
+  alpha: number;
+  color: string;
 }
 
 export function TitleScreen() {
-  const navigate = useNavigate()
-  const [showAbout, setShowAbout] = useState(false)
-  const [showCredits, setShowCredits] = useState(false)
-  const [showHowToPlay, setShowHowToPlay] = useState(false)
-  const [showNewGameConfirm, setShowNewGameConfirm] = useState(false)
-  const [showCorruptSave, setShowCorruptSave] = useState(false)
-  const [showRecords, setShowRecords] = useState(false)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef = useRef(0)
-  const particlesRef = useRef<Particle[]>([])
+  const navigate = useNavigate();
+  const [showAbout, setShowAbout] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showNewGameConfirm, setShowNewGameConfirm] = useState(false);
+  const [showCorruptSave, setShowCorruptSave] = useState(false);
+  const [showRecords, setShowRecords] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const logoCanvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef = useRef(0);
+  const streamsRef = useRef<DataStream[]>([]);
 
-  const saveMeta = useMemo(() => getSaveMeta(), [])
-  const saveRecords = useMemo(() => getSaveRecords(), [])
-
-  useEffect(() => {
-    playMusic('title-bg.mp3')
-    return () => stopMusic()
-  }, [])
+  const saveMeta = useMemo(() => getSaveMeta(), []);
+  const saveRecords = useMemo(() => getSaveRecords(), []);
 
   useEffect(() => {
-    const cvs = canvasRef.current!
-    if (!cvs) return
-    const ctx = cvs.getContext('2d')!
-    if (!ctx) return
+    playMusic('title-bg.mp3');
+    return () => stopMusic();
+  }, []);
 
-    const dpr = window.devicePixelRatio || 1
-    const w = window.innerWidth
-    const h = window.innerHeight
-    cvs.width = w * dpr
-    cvs.height = h * dpr
-    ctx.scale(dpr, dpr)
+  useEffect(() => {
+    const cvs = canvasRef.current!;
+    if (!cvs) return;
+    const ctx = cvs.getContext('2d')!;
+    if (!ctx) return;
 
-    let mouseX = 0
-    let mouseY = 0
+    const dpr = window.devicePixelRatio || 1;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    cvs.width = w * dpr;
+    cvs.height = h * dpr;
+    ctx.scale(dpr, dpr);
 
-    const seed = 42
-    let rng = seed
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const seed = 42;
+    let rng = seed;
     function rand(): number {
-      rng = (rng * 16807) % 2147483647
-      return rng / 2147483647
+      rng = (rng * 16807) % 2147483647;
+      return rng / 2147483647;
     }
 
-    const accentSquares: Array<{ x: number; y: number; size: number; color: string }> = []
+    const accentSquares: Array<{ x: number; y: number; size: number; color: string }> = [];
     for (let i = 0; i < 18; i++) {
       accentSquares.push({
         x: rand() * cvs.width,
         y: rand() * cvs.height,
         size: 12 + Math.floor(rand() * 10),
         color: i % 3 === 0 ? 'rgba(0, 137, 123,' : 'rgba(255, 179, 0,',
-      })
+      });
     }
 
-    particlesRef.current = []
-    for (let i = 0; i < 70; i++) {
-      particlesRef.current.push({
+    const dataChars = '01アイウエオカキクケコサシスセソ'.split('');
+
+    streamsRef.current = [];
+    for (let i = 0; i < 35; i++) {
+      const len = 3 + Math.floor(rand() * 5);
+      const chars: string[] = [];
+      for (let j = 0; j < len; j++) {
+        chars.push(dataChars[Math.floor(rand() * dataChars.length)] ?? '0');
+      }
+      const isTeal = rand() < 0.6;
+      streamsRef.current.push({
         x: rand() * cvs.width,
-        y: rand() * cvs.height,
-        size: 1 + Math.floor(rand() * 2),
-        speed: 0.2 + rand() * 0.4,
-        alpha: 0.04 + rand() * 0.08,
-        color: i % 2 === 0 ? '#ffffff' : '#FFB300',
-      })
+        y: rand() * cvs.height * 2 - cvs.height,
+        speed: 0.3 + rand() * 0.7,
+        chars,
+        charIndex: 0,
+        alpha: 0.15 + rand() * 0.25,
+        color: isTeal ? '#00897B' : '#FFB300',
+      });
     }
 
     function drawPattern(dw: number, dh: number) {
-      const ox = (mouseX / w - 0.5) * 12
-      const oy = (mouseY / h - 0.5) * 8
+      const ox = (mouseX / w - 0.5) * 12;
+      const oy = (mouseY / h - 0.5) * 8;
       for (let row = 0; row < dh; row += 14) {
         for (let col = 0; col < dw; col += 14) {
-          const isDiamond = ((row / 14 + col / 14) % 2) < 0.3
-          const sz = 4 + ((row * 3 + col * 7) % 5)
-          const colorIdx = (row * 5 + col * 3) % 3
-          const color = colorIdx === 0
-            ? `rgba(26, 35, 126, ${0.03 + (sz - 4) * 0.008})`
-            : colorIdx === 1
-              ? `rgba(0, 137, 123, ${0.04 + (sz - 4) * 0.006})`
-              : `rgba(255, 179, 0, ${0.03 + (sz - 4) * 0.005})`
+          const isDiamond = (row / 14 + col / 14) % 2 < 0.3;
+          const sz = 4 + ((row * 3 + col * 7) % 5);
+          const colorIdx = (row * 5 + col * 3) % 3;
+          const color =
+            colorIdx === 0
+              ? `rgba(26, 35, 126, ${0.03 + (sz - 4) * 0.008})`
+              : colorIdx === 1
+                ? `rgba(0, 137, 123, ${0.04 + (sz - 4) * 0.006})`
+                : `rgba(255, 179, 0, ${0.03 + (sz - 4) * 0.005})`;
 
-          ctx.fillStyle = color
+          ctx.fillStyle = color;
           if (isDiamond) {
-            ctx.save()
-            ctx.translate(col + 7 + ox, row + 7 + oy)
-            ctx.rotate(Math.PI / 4)
-            ctx.fillRect(-sz / 2, -sz / 2, sz, sz)
-            ctx.restore()
+            ctx.save();
+            ctx.translate(col + 7 + ox, row + 7 + oy);
+            ctx.rotate(Math.PI / 4);
+            ctx.fillRect(-sz / 2, -sz / 2, sz, sz);
+            ctx.restore();
           } else {
-            ctx.fillRect(col + ox, row + oy, sz, sz)
+            ctx.fillRect(col + ox, row + oy, sz, sz);
           }
         }
       }
 
       for (const sq of accentSquares) {
-        ctx.fillStyle = sq.color + '0.12)'
-        ctx.fillRect(sq.x + ox * 0.5, sq.y + oy * 0.5, sq.size, sq.size)
+        ctx.fillStyle = sq.color + '0.12)';
+        ctx.fillRect(sq.x + ox * 0.5, sq.y + oy * 0.5, sq.size, sq.size);
       }
     }
 
     function animate() {
-      const cw = window.innerWidth
-      const ch = window.innerHeight
-      ctx.clearRect(0, 0, cw, ch)
-      drawPattern(cw, ch)
+      const cw = window.innerWidth;
+      const ch = window.innerHeight;
+      ctx.clearRect(0, 0, cw, ch);
+      drawPattern(cw, ch);
 
-      for (const p of particlesRef.current) {
-        p.y -= p.speed
-        if (p.y + p.size < 0) {
-          p.y = ch + p.size
-          p.x = rand() * cw
+      for (const s of streamsRef.current) {
+        s.y += s.speed;
+        for (let i = 0; i < s.chars.length; i++) {
+          const charY = s.y + i * 14;
+          if (charY < -14 || charY > ch + 14) continue;
+          const fade = i === 0 ? 1.0 : i === s.chars.length - 1 ? 0.2 : 0.6;
+          ctx.globalAlpha = s.alpha * fade;
+          ctx.fillStyle = s.color;
+          ctx.font = '12px monospace';
+          ctx.fillText(s.chars[i] ?? '', s.x, charY);
         }
-        ctx.fillStyle = p.color
-        ctx.globalAlpha = p.alpha
-        ctx.fillRect(p.x, p.y, p.size, p.size)
+        if (s.y > ch + s.chars.length * 14) {
+          s.y = -s.chars.length * 14;
+          s.x = rand() * cw;
+          s.charIndex = 0;
+        }
       }
-      ctx.globalAlpha = 1
+      ctx.globalAlpha = 1;
 
-      rafRef.current = requestAnimationFrame(animate)
+      rafRef.current = requestAnimationFrame(animate);
     }
 
-    rafRef.current = requestAnimationFrame(animate)
+    rafRef.current = requestAnimationFrame(animate);
 
     function onMouseMove(e: MouseEvent) {
-      mouseX = e.clientX
-      mouseY = e.clientY
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     }
-    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mousemove', onMouseMove);
 
     function onResize() {
-      cvs.width = window.innerWidth
-      cvs.height = window.innerHeight
+      cvs.width = window.innerWidth;
+      cvs.height = window.innerHeight;
     }
-    window.addEventListener('resize', onResize)
+    window.addEventListener('resize', onResize);
 
     return () => {
-      cancelAnimationFrame(rafRef.current)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('resize', onResize)
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const cvs = logoCanvasRef.current;
+    if (!cvs) return;
+    const ctx = cvs.getContext('2d');
+    if (!ctx) return;
+
+    const w = 480;
+    const h = 160;
+    cvs.width = w;
+    cvs.height = h;
+
+    const seed = 99;
+    let rng = seed;
+    function rand(): number {
+      rng = (rng * 16807) % 2147483647;
+      return rng / 2147483647;
     }
-  }, [])
+
+    const windows: Array<{ x: number; y: number; on: boolean; tick: number }> = [];
+    for (let i = 0; i < 30; i++) {
+      windows.push({
+        x: 80 + Math.floor(rand() * 320),
+        y: 20 + Math.floor(rand() * 100),
+        on: rand() > 0.5,
+        tick: Math.floor(rand() * 200),
+      });
+    }
+
+    const ctx2 = ctx;
+    function animate() {
+      ctx2.clearRect(0, 0, w, h);
+
+      for (const win of windows) {
+        win.tick++;
+        if (win.tick > 80 + Math.floor(rand() * 120)) {
+          win.on = !win.on;
+          win.tick = 0;
+        }
+        if (win.on) {
+          ctx2.fillStyle = 'rgba(255, 214, 0, 0.6)';
+          ctx2.fillRect(win.x, win.y, 4, 4);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    const raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   function handleNewGame() {
     if (hasSave()) {
-      setShowNewGameConfirm(true)
+      setShowNewGameConfirm(true);
     } else {
-      navigate('/strategy')
+      navigate('/strategy');
     }
   }
 
   function handleConfirmNewGame() {
-    clearSave()
-    setShowNewGameConfirm(false)
-    navigate('/strategy')
+    clearSave();
+    setShowNewGameConfirm(false);
+    navigate('/strategy');
   }
 
   function handleContinue() {
-    const restored = loadGame()
+    const restored = loadGame();
     if (!restored) {
-      setShowCorruptSave(true)
+      setShowCorruptSave(true);
     } else {
-      navigate('/strategy')
+      navigate('/strategy');
     }
   }
 
   function handleDeleteAndStart() {
-    clearSave()
-    setShowCorruptSave(false)
-    navigate('/strategy')
+    clearSave();
+    setShowCorruptSave(false);
+    navigate('/strategy');
   }
 
   return (
     <div className={styles.root}>
-      <canvas
-        ref={canvasRef}
-        className={styles.bgCanvas}
-        data-testid="bg-canvas"
-      />
+      <canvas ref={canvasRef} className={styles.bgCanvas} data-testid="bg-canvas" />
 
       <div className={styles.content}>
-        <img
-          src="/assets/logo/GIHA-Logo.svg"
-          alt="GIHA Logo"
-          className={styles.logo}
-        />
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          <img src="/assets/logo/GIHA-Logo.svg" alt="GIHA Logo" className={styles.logo} />
+          <canvas
+            ref={logoCanvasRef}
+            className={styles.logoOverlay}
+            width={480}
+            height={160}
+            style={{ width: 480, height: 160 }}
+          />
+        </div>
 
-        <p className={styles.subtitle}>
-          A Two-Mode Game for Media &amp; Information Literacy
-        </p>
+        <p className={styles.subtitle}>A Two-Mode Game for Media &amp; Information Literacy</p>
 
         <div className={styles.buttons}>
-          <Button onClick={handleNewGame}>New Game</Button>
+          <Button className={styles.btnPixel} onClick={handleNewGame}>
+            New Game
+          </Button>
           {hasSave() && (
-            <Button variant="primary" onClick={handleContinue}>
+            <Button className={styles.btnPixel} variant="primary" onClick={handleContinue}>
               Continue{saveMeta ? ` (${formatTimeAgo(saveMeta.timestamp)})` : ''}
             </Button>
           )}
-          {saveRecords && (saveRecords.earnedBadges.length > 0 || Object.keys(saveRecords.bestCaseResults).length > 0) && (
-            <Button variant="ghost" onClick={() => setShowRecords(true)}>
-              Records
-            </Button>
-          )}
-          <Button variant="secondary" onClick={() => setShowHowToPlay(true)}>
+          {saveRecords &&
+            (saveRecords.earnedBadges.length > 0 ||
+              Object.keys(saveRecords.bestCaseResults).length > 0) && (
+              <Button
+                className={styles.btnPixel}
+                variant="ghost"
+                onClick={() => setShowRecords(true)}
+              >
+                Records
+              </Button>
+            )}
+          <Button
+            className={styles.btnPixel}
+            variant="secondary"
+            onClick={() => setShowHowToPlay(true)}
+          >
             How to Play
           </Button>
-          <Button variant="ghost" onClick={() => setShowAbout(true)}>
+          <Button className={styles.btnPixel} variant="ghost" onClick={() => setShowAbout(true)}>
             About
           </Button>
-          <Button variant="ghost" onClick={() => setShowCredits(true)}>
+          <Button className={styles.btnPixel} variant="ghost" onClick={() => setShowCredits(true)}>
             Credits
           </Button>
         </div>
@@ -251,7 +331,9 @@ export function TitleScreen() {
         >
           <p>A saved game exists. Starting a new game will delete it.</p>
           <div style={{ display: 'flex', gap: 12, marginTop: 16, justifyContent: 'flex-end' }}>
-            <Button variant="ghost" onClick={() => setShowNewGameConfirm(false)}>Cancel</Button>
+            <Button variant="ghost" onClick={() => setShowNewGameConfirm(false)}>
+              Cancel
+            </Button>
             <Button onClick={handleConfirmNewGame}>Start Fresh</Button>
           </div>
         </Modal>
@@ -263,9 +345,13 @@ export function TitleScreen() {
           isOpen={showCorruptSave}
           onClose={() => setShowCorruptSave(false)}
         >
-          <p>Your save data could not be loaded. It may be from a different version or corrupted.</p>
+          <p>
+            Your save data could not be loaded. It may be from a different version or corrupted.
+          </p>
           <div style={{ display: 'flex', gap: 12, marginTop: 16, justifyContent: 'flex-end' }}>
-            <Button variant="ghost" onClick={() => setShowCorruptSave(false)}>Cancel</Button>
+            <Button variant="ghost" onClick={() => setShowCorruptSave(false)}>
+              Cancel
+            </Button>
             <Button onClick={handleDeleteAndStart}>Delete &amp; Start Fresh</Button>
           </div>
         </Modal>
@@ -273,18 +359,24 @@ export function TitleScreen() {
 
       {showHowToPlay && (
         <Modal title="How to Play" isOpen={showHowToPlay} onClose={() => setShowHowToPlay(false)}>
-          <p><strong>STRATEGY MODE</strong></p>
+          <p>
+            <strong>STRATEGY MODE</strong>
+          </p>
           <p style={{ marginTop: 6, marginBottom: 12 }}>
             Monitor &#x3A3; (coherence) and R&#x2080; (spread rate) in the HUD. Deploy interventions
-            from your budget to reduce R&#x2080; and boost &#x3A3;. Keep &#x3A3; above 40 and R&#x2080; below 1.5
-            to prevent city collapse.
+            from your budget to reduce R&#x2080; and boost &#x3A3;. Keep &#x3A3; above 40 and
+            R&#x2080; below 1.5 to prevent city collapse.
           </p>
-          <p><strong>DETECTIVE MODE</strong></p>
+          <p>
+            <strong>DETECTIVE MODE</strong>
+          </p>
           <p style={{ marginTop: 6, marginBottom: 12 }}>
-            Investigate evidence items using 6 forensic tools. Connect related evidence
-            on the board to build your case. Submit your verdict with a written justification.
+            Investigate evidence items using 6 forensic tools. Connect related evidence on the board
+            to build your case. Submit your verdict with a written justification.
           </p>
-          <p><strong>WIN CONDITION</strong></p>
+          <p>
+            <strong>WIN CONDITION</strong>
+          </p>
           <p style={{ marginTop: 6 }}>
             Successfully solve all 3 disinformation cases while keeping the city of Veritas
             resilient to attacks.
@@ -295,17 +387,17 @@ export function TitleScreen() {
       {showAbout && (
         <Modal title="About GIHA" isOpen={showAbout} onClose={() => setShowAbout(false)}>
           <p>
-            GIHA is an interactive simulation game that puts you in the role of a
-            digital forensics investigator at the Global Information Health Agency.
+            GIHA is an interactive simulation game that puts you in the role of a digital forensics
+            investigator at the Global Information Health Agency.
           </p>
           <p style={{ marginTop: 12 }}>
-            Your mission: protect the city of Veritas from coordinated disinformation
-            campaigns. Monitor information health metrics, deploy interventions, and
-            investigate fabricated evidence &mdash; before the city falls into the sigma-trap.
+            Your mission: protect the city of Veritas from coordinated disinformation campaigns.
+            Monitor information health metrics, deploy interventions, and investigate fabricated
+            evidence &mdash; before the city falls into the sigma-trap.
           </p>
           <p style={{ marginTop: 12 }}>
-            Switch between Strategy Mode (city-wide simulation) and Detective Mode
-            (forensic case analysis) to combat disinformation on every front.
+            Switch between Strategy Mode (city-wide simulation) and Detective Mode (forensic case
+            analysis) to combat disinformation on every front.
           </p>
           <p style={{ marginTop: 12, fontStyle: 'italic', color: '#888' }}>
             Built for the UNESCO Youth Hackathon 2026.
@@ -315,109 +407,180 @@ export function TitleScreen() {
 
       {showCredits && (
         <Modal title="Credits" isOpen={showCredits} onClose={() => setShowCredits(false)}>
-          <p><strong>GIHA &mdash; Global Information Health Agency</strong></p>
+          <p>
+            <strong>GIHA &mdash; Global Information Health Agency</strong>
+          </p>
           <p style={{ marginTop: 8 }}>
             Created for the <strong>UNESCO Youth Hackathon 2026</strong>
           </p>
           <p style={{ marginTop: 12 }}>
-            <strong>Team</strong><br />
-            M1 &mdash; AI/Research: ODE engine, strategy simulation, interventions<br />
+            <strong>Team</strong>
+            <br />
+            M1 &mdash; AI/Research: ODE engine, strategy simulation, interventions
+            <br />
             M2 &mdash; Security/Dev: Scaffold, detective mode, forensics, CI/CD
           </p>
           <p style={{ marginTop: 12 }}>
-            <strong>Tech Stack</strong><br />
+            <strong>Tech Stack</strong>
+            <br />
             React 19, TypeScript 6, Vite 8, Canvas2D, Zustand, Vitest
           </p>
           <p style={{ marginTop: 12 }}>
-            <strong>Assets</strong><br />
-            Pixel Art Top Down Tileset &mdash; Cainos/Penusbmic (Unity Asset Store)<br />
-            Industrial Tileset &mdash; stalkerfish.itch.io<br />
-            Mini-World Sprites &mdash; lnsanity.itch.io<br />
-            Pixel Crawler Free Pack &mdash; Anokolisa<br />
-            32rogues Pack &mdash; Seth Boyles (2024)<br />
-            Complete UI Essential Pack &mdash; Crusenho Agus Hennihuno (CC BY 4.0)<br />
-            Dungeon Tileset II &mdash; 0x72<br />
+            <strong>Assets</strong>
+            <br />
+            Pixel Art Top Down Tileset &mdash; Cainos/Penusbmic (Unity Asset Store)
+            <br />
+            Industrial Tileset &mdash; stalkerfish.itch.io
+            <br />
+            Mini-World Sprites &mdash; lnsanity.itch.io
+            <br />
+            Pixel Crawler Free Pack &mdash; Anokolisa
+            <br />
+            32rogues Pack &mdash; Seth Boyles (2024)
+            <br />
+            Complete UI Essential Pack &mdash; Crusenho Agus Hennihuno (CC BY 4.0)
+            <br />
+            Dungeon Tileset II &mdash; 0x72
+            <br />
             BoldPixels Font &mdash; YukiPixels (CC BY-SA 4.0)
           </p>
-          <p style={{ marginTop: 12, color: '#888' }}>
-            Hosted on Netlify. Open source.
-          </p>
+          <p style={{ marginTop: 12, color: '#888' }}>Hosted on Netlify. Open source.</p>
         </Modal>
       )}
 
-      {showRecords && saveRecords && (() => {
-        const compositeGrade = computeCompositeGrade(saveRecords.bestCaseResults, saveRecords.completedCases)
-        const gradeColor = GRADE_COLORS[compositeGrade] ?? '#e74c3c'
-        return (
-          <Modal title="Records" isOpen={showRecords} onClose={() => setShowRecords(false)}>
-            <div style={{ textAlign: 'center', marginBottom: 16 }}>
-              <div style={{ fontSize: 36, fontWeight: 700, color: gradeColor, fontFamily: 'monospace' }}>
-                {compositeGrade}
+      {showRecords &&
+        saveRecords &&
+        (() => {
+          const compositeGrade = computeCompositeGrade(
+            saveRecords.bestCaseResults,
+            saveRecords.completedCases,
+          );
+          const gradeColor = GRADE_COLORS[compositeGrade] ?? '#e74c3c';
+          return (
+            <Modal title="Records" isOpen={showRecords} onClose={() => setShowRecords(false)}>
+              <div style={{ textAlign: 'center', marginBottom: 16 }}>
+                <div
+                  style={{
+                    fontSize: 36,
+                    fontWeight: 700,
+                    color: gradeColor,
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {compositeGrade}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: '#888',
+                    textTransform: 'uppercase',
+                    letterSpacing: 1,
+                  }}
+                >
+                  Best Composite Grade
+                </div>
               </div>
-              <div style={{ fontSize: 11, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
-                Best Composite Grade
-              </div>
-            </div>
 
-            {saveRecords.earnedBadges.length > 0 && (
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 11, color: '#4ecdc4', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 8 }}>
-                  Badges Earned
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {saveRecords.earnedBadges.map((badgeId) => {
-                    const labels: Record<string, { name: string; icon: string }> = {
-                      'fact-checker': { name: 'Fact Checker', icon: '\uD83D\uDD0D' },
-                      'deepfake-hunter': { name: 'Deepfake Hunter', icon: '\uD83C\uDFAC' },
-                      'voice-of-truth': { name: 'Voice of Truth', icon: '\uD83D\uDCDE' },
-                      'master-analyst': { name: 'Master Analyst', icon: '\uD83C\uDFC6' },
-                    }
-                    const b = labels[badgeId] ?? { name: badgeId, icon: '\uD83C\uDF1F' }
-                    return (
-                      <span key={badgeId} style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 4,
-                        padding: '4px 10px', background: 'rgba(78,205,196,0.1)',
-                        border: '1px solid rgba(78,205,196,0.3)', borderRadius: 20,
-                        fontSize: 12, fontFamily: 'monospace', color: '#4ecdc4',
-                      }}>
-                        <span>{b.icon}</span>
-                        <span>{b.name}</span>
-                      </span>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
-
-            {Object.keys(saveRecords.bestCaseResults).length > 0 && (
-              <div>
-                <div style={{ fontSize: 11, color: '#aaa', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 8 }}>
-                  Best Case Grades
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {['case-01', 'case-02', 'case-03'].map((caseId) => {
-                    const grade = saveRecords.bestCaseResults[caseId]
-                    const labels: Record<string, string> = { 'case-01': 'Case 1', 'case-02': 'Case 2', 'case-03': 'Case 3' }
-                    return (
-                      <div key={caseId} style={{
-                        display: 'flex', justifyContent: 'space-between',
-                        padding: '6px 10px', background: 'var(--color-surface-alt, #1a1a2e)',
-                        border: '1px solid #333', borderRadius: 6,
-                        fontFamily: 'monospace', fontSize: 13,
-                      }}>
-                        <span style={{ color: '#aaa' }}>{labels[caseId]}</span>
-                        <span style={{ color: grade ? GRADE_COLORS[grade] ?? '#e74c3c' : '#555', fontWeight: 700 }}>
-                          {grade ?? '\u2014'}
+              {saveRecords.earnedBadges.length > 0 && (
+                <div style={{ marginBottom: 16 }}>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: '#4ecdc4',
+                      textTransform: 'uppercase',
+                      letterSpacing: 2,
+                      marginBottom: 8,
+                    }}
+                  >
+                    Badges Earned
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                    {saveRecords.earnedBadges.map((badgeId) => {
+                      const labels: Record<string, { name: string; icon: string }> = {
+                        'fact-checker': { name: 'Fact Checker', icon: '\uD83D\uDD0D' },
+                        'deepfake-hunter': { name: 'Deepfake Hunter', icon: '\uD83C\uDFAC' },
+                        'voice-of-truth': { name: 'Voice of Truth', icon: '\uD83D\uDCDE' },
+                        'master-analyst': { name: 'Master Analyst', icon: '\uD83C\uDFC6' },
+                      };
+                      const b = labels[badgeId] ?? { name: badgeId, icon: '\uD83C\uDF1F' };
+                      return (
+                        <span
+                          key={badgeId}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 4,
+                            padding: '4px 10px',
+                            background: 'rgba(78,205,196,0.1)',
+                            border: '1px solid rgba(78,205,196,0.3)',
+                            borderRadius: 20,
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: '#4ecdc4',
+                          }}
+                        >
+                          <span>{b.icon}</span>
+                          <span>{b.name}</span>
                         </span>
-                      </div>
-                    )
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-          </Modal>
-        )
-      })()}
+              )}
+
+              {Object.keys(saveRecords.bestCaseResults).length > 0 && (
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: '#aaa',
+                      textTransform: 'uppercase',
+                      letterSpacing: 2,
+                      marginBottom: 8,
+                    }}
+                  >
+                    Best Case Grades
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {['case-01', 'case-02', 'case-03'].map((caseId) => {
+                      const grade = saveRecords.bestCaseResults[caseId];
+                      const labels: Record<string, string> = {
+                        'case-01': 'Case 1',
+                        'case-02': 'Case 2',
+                        'case-03': 'Case 3',
+                      };
+                      return (
+                        <div
+                          key={caseId}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            padding: '6px 10px',
+                            background: 'var(--color-surface-alt, #1a1a2e)',
+                            border: '1px solid #333',
+                            borderRadius: 6,
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                          }}
+                        >
+                          <span style={{ color: '#aaa' }}>{labels[caseId]}</span>
+                          <span
+                            style={{
+                              color: grade ? (GRADE_COLORS[grade] ?? '#e74c3c') : '#555',
+                              fontWeight: 700,
+                            }}
+                          >
+                            {grade ?? '\u2014'}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </Modal>
+          );
+        })()}
     </div>
-  )
+  );
 }

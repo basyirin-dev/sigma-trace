@@ -1,18 +1,18 @@
-import { type ReactNode, useCallback } from 'react'
-import { Tooltip } from './Tooltip'
-import { playSfx } from './useAudioManager'
-import styles from './Button.module.css'
+import { type ReactNode, useCallback } from 'react';
+import { Tooltip } from './Tooltip';
+import { playSfx } from './useAudioManager';
+import styles from './Button.module.css';
 
 interface ButtonProps {
-  children: ReactNode
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  loading?: boolean
-  disabled?: boolean
-  tooltip?: string
-  onClick?: () => void
-  className?: string
-  testId?: string
+  children: ReactNode;
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost' | 'pixel';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+  disabled?: boolean;
+  tooltip?: string;
+  onClick?: () => void;
+  className?: string;
+  testId?: string;
 }
 
 export function Button({
@@ -34,12 +34,12 @@ export function Button({
     className ?? '',
   ]
     .filter(Boolean)
-    .join(' ')
+    .join(' ');
 
   const handleClick = useCallback(() => {
-    playSfx('button-click')
-    onClick?.()
-  }, [onClick])
+    playSfx('button-click');
+    onClick?.();
+  }, [onClick]);
 
   const button = (
     <button
@@ -52,11 +52,11 @@ export function Button({
       {loading && <span className={styles.spinner} data-testid="spinner" />}
       {children}
     </button>
-  )
+  );
 
   if (tooltip) {
-    return <Tooltip content={tooltip}>{button}</Tooltip>
+    return <Tooltip content={tooltip}>{button}</Tooltip>;
   }
 
-  return button
+  return button;
 }

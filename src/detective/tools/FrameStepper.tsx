@@ -1,80 +1,82 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 export interface FrameStepperProps {
-  videoSrc: string
+  videoSrc: string;
 }
 
-const STEP_FRAME = 1 / 30
+const STEP_FRAME = 1 / 30;
 
 export function FrameStepper({ videoSrc }: FrameStepperProps) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [playing, setPlaying] = useState(false)
-  const [currentFrame, setCurrentFrame] = useState(0)
-  const [totalFrames, setTotalFrames] = useState(0)
-  const [finding, setFinding] = useState<string | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [currentFrame, setCurrentFrame] = useState(0);
+  const [totalFrames, setTotalFrames] = useState(0);
+  const [finding, setFinding] = useState<string | null>(null);
 
   useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
+    const video = videoRef.current;
+    if (!video) return;
 
     const onMeta = () => {
-      const fps = 30
-      const total = Math.floor(video.duration * fps)
-      setTotalFrames(total)
-    }
-    video.addEventListener('loadedmetadata', onMeta)
-    return () => video.removeEventListener('loadedmetadata', onMeta)
-  }, [])
+      const fps = 30;
+      const total = Math.floor(video.duration * fps);
+      setTotalFrames(total);
+    };
+    video.addEventListener('loadedmetadata', onMeta);
+    return () => video.removeEventListener('loadedmetadata', onMeta);
+  }, []);
 
   const syncFrame = useCallback(() => {
-    const video = videoRef.current
-    if (!video) return
-    const fps = 30
-    const frame = Math.floor(video.currentTime * fps)
-    setCurrentFrame(frame)
+    const video = videoRef.current;
+    if (!video) return;
+    const fps = 30;
+    const frame = Math.floor(video.currentTime * fps);
+    setCurrentFrame(frame);
     if (frame >= 120 && frame <= 150) {
-      setFinding('Lip-sync mismatch detected at frames 120-150: audio and video tracks are offset by approximately 3 frames, consistent with AI-generated deepfake assembly.')
+      setFinding(
+        'Lip-sync mismatch detected at frames 120-150: audio and video tracks are offset by approximately 3 frames, consistent with AI-generated deepfake assembly.',
+      );
     }
-  }, [])
+  }, []);
 
   const togglePlay = useCallback(() => {
-    const video = videoRef.current
-    if (!video) return
+    const video = videoRef.current;
+    if (!video) return;
     if (video.paused) {
-      void video.play()
-      setPlaying(true)
+      void video.play();
+      setPlaying(true);
     } else {
-      video.pause()
-      setPlaying(false)
+      video.pause();
+      setPlaying(false);
     }
-  }, [])
+  }, []);
 
   const step = useCallback((dir: -1 | 1) => {
-    const video = videoRef.current
-    if (!video) return
-    video.pause()
-    setPlaying(false)
-    const newTime = Math.max(0, Math.min(video.duration, video.currentTime + dir * STEP_FRAME))
-    video.currentTime = newTime
-  }, [])
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    setPlaying(false);
+    const newTime = Math.max(0, Math.min(video.duration, video.currentTime + dir * STEP_FRAME));
+    video.currentTime = newTime;
+  }, []);
 
   const seekTo = useCallback((frame: number) => {
-    const video = videoRef.current
-    if (!video) return
-    const fps = 30
-    video.currentTime = frame / fps
-  }, [])
+    const video = videoRef.current;
+    if (!video) return;
+    const fps = 30;
+    video.currentTime = frame / fps;
+  }, []);
 
   const handleTimelineClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const fraction = x / rect.width
-      const frame = Math.floor(fraction * totalFrames)
-      seekTo(frame)
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const fraction = x / rect.width;
+      const frame = Math.floor(fraction * totalFrames);
+      seekTo(frame);
     },
     [totalFrames, seekTo],
-  )
+  );
 
   return (
     <div data-testid="tool-frame-stepper" style={{ padding: '16px' }}>
@@ -90,12 +92,19 @@ export function FrameStepper({ videoSrc }: FrameStepperProps) {
       />
 
       <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '12px' }}>
-        <button onClick={() => step(-1)} data-testid="fs-step-back" style={btnStyle}>{'◀'}</button>
+        <button onClick={() => step(-1)} data-testid="fs-step-back" style={btnStyle}>
+          {'◀'}
+        </button>
         <button onClick={togglePlay} data-testid="fs-play" style={btnStyle}>
           {playing ? '⏸' : '▶'}
         </button>
-        <button onClick={() => step(1)} data-testid="fs-step-forward" style={btnStyle}>{'▶'}</button>
-        <span data-testid="fs-frame-counter" style={{ color: '#ccc', marginLeft: '8px', fontFamily: 'monospace' }}>
+        <button onClick={() => step(1)} data-testid="fs-step-forward" style={btnStyle}>
+          {'▶'}
+        </button>
+        <span
+          data-testid="fs-frame-counter"
+          style={{ color: '#ccc', marginLeft: '8px', fontFamily: 'monospace' }}
+        >
           Frame {currentFrame} / {totalFrames}
         </span>
       </div>
@@ -138,7 +147,14 @@ export function FrameStepper({ videoSrc }: FrameStepperProps) {
         )}
       </div>
 
-      <div style={{ marginTop: '8px', fontSize: '12px', color: '#666' }}>
+      <div
+        style={{
+          marginTop: '8px',
+          fontSize: '15px',
+          color: '#666',
+          fontFamily: 'var(--pixel-font)',
+        }}
+      >
         Tip: Step through frames 120-150 to spot the lip-sync mismatch
       </div>
 
@@ -152,7 +168,7 @@ export function FrameStepper({ videoSrc }: FrameStepperProps) {
             borderLeft: '3px solid #2ecc71',
             borderRadius: '4px',
             color: '#2ecc71',
-            fontSize: '14px',
+            fontSize: '17px',
             lineHeight: '1.5',
           }}
         >
@@ -160,7 +176,7 @@ export function FrameStepper({ videoSrc }: FrameStepperProps) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 const btnStyle: React.CSSProperties = {
@@ -168,8 +184,9 @@ const btnStyle: React.CSSProperties = {
   color: '#fff',
   border: '1px solid #4a4a8a',
   borderRadius: '6px',
-  padding: '8px 16px',
+  padding: '10px 18px',
   cursor: 'pointer',
-  fontSize: '16px',
+  fontFamily: 'var(--pixel-font)',
+  fontSize: '17px',
   minWidth: '44px',
-}
+};

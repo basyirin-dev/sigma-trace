@@ -1,97 +1,114 @@
-import { useEffect, useRef, useCallback, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useGameStore, useSimulationStore } from '@shared/stores'
-import { playSfx, stopMusic } from '@shared/useAudioManager'
-import { computeBadges, computeCompositeGrade, GRADE_COLORS, badgeIdsFromBadges } from '@shared/badgeUtils'
-import styles from './VictoryScreen.module.css'
+import { useEffect, useRef, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useGameStore, useSimulationStore } from '@shared/stores';
+import { playSfx, stopMusic } from '@shared/useAudioManager';
+import {
+  computeBadges,
+  computeCompositeGrade,
+  GRADE_COLORS,
+  badgeIdsFromBadges,
+} from '@shared/badgeUtils';
+import styles from './VictoryScreen.module.css';
 
 export function VictoryScreen() {
-  const navigate = useNavigate()
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const navigate = useNavigate();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    stopMusic()
-    playSfx('victory')
-  }, [])
+    stopMusic();
+    playSfx('victory');
+  }, []);
 
-  const sigma = useGameStore((s) => s.sigma)
-  const r0 = useGameStore((s) => s.r0)
-  const budget = useGameStore((s) => s.budget)
-  const completedCases = useGameStore((s) => s.completedCases)
-  const caseResults = useGameStore((s) => s.caseResults)
-  const appliedInterventions = useGameStore((s) => s.appliedInterventions)
-  const setEarnedBadges = useGameStore((s) => s.setEarnedBadges)
-  const earnedBadges = useGameStore((s) => s.earnedBadges)
-  const reset = useGameStore((s) => s.reset)
-  const tick = useSimulationStore((s) => s.tick)
+  const sigma = useGameStore((s) => s.sigma);
+  const r0 = useGameStore((s) => s.r0);
+  const budget = useGameStore((s) => s.budget);
+  const completedCases = useGameStore((s) => s.completedCases);
+  const caseResults = useGameStore((s) => s.caseResults);
+  const appliedInterventions = useGameStore((s) => s.appliedInterventions);
+  const setEarnedBadges = useGameStore((s) => s.setEarnedBadges);
+  const earnedBadges = useGameStore((s) => s.earnedBadges);
+  const reset = useGameStore((s) => s.reset);
+  const tick = useSimulationStore((s) => s.tick);
 
-  const compositeGrade = computeCompositeGrade(caseResults, completedCases)
-  const badges = useMemo(() => computeBadges(caseResults, appliedInterventions, completedCases), [caseResults, appliedInterventions, completedCases])
-  const gradeColor = GRADE_COLORS[compositeGrade] ?? '#e74c3c'
+  const compositeGrade = computeCompositeGrade(caseResults, completedCases);
+  const badges = useMemo(
+    () => computeBadges(caseResults, appliedInterventions, completedCases),
+    [caseResults, appliedInterventions, completedCases],
+  );
+  const gradeColor = GRADE_COLORS[compositeGrade] ?? '#e74c3c';
 
   useEffect(() => {
     if (badges.length > 0) {
-      const ids = badgeIdsFromBadges(badges)
-      const existing = earnedBadges
-      const merged = [...new Set([...existing, ...ids])]
+      const ids = badgeIdsFromBadges(badges);
+      const existing = earnedBadges;
+      const merged = [...new Set([...existing, ...ids])];
       if (merged.length > existing.length || ids.length !== existing.length) {
-        setEarnedBadges(merged)
+        setEarnedBadges(merged);
       }
     }
-  }, [badges, earnedBadges, setEarnedBadges])
+  }, [badges, earnedBadges, setEarnedBadges]);
 
   const handlePlayAgain = () => {
-    reset()
-    navigate('/', { replace: true })
-  }
+    reset();
+    navigate('/', { replace: true });
+  };
 
   const handleContinue = () => {
-    navigate('/strategy', { replace: true })
-  }
+    navigate('/strategy', { replace: true });
+  };
 
   const handleShare = useCallback(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    canvas.width = 400
-    canvas.height = 500
+    canvas.width = 400;
+    canvas.height = 500;
 
-    ctx.fillStyle = '#1a1a2e'
-    ctx.fillRect(0, 0, 400, 500)
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, 400, 500);
 
-    ctx.fillStyle = '#f39c12'
-    ctx.font = 'bold 24px monospace'
-    ctx.textAlign = 'center'
-    ctx.fillText('GIHA — Scorecard', 200, 40)
+    ctx.fillStyle = '#f39c12';
+    ctx.font = 'bold 24px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('GIHA — Scorecard', 200, 40);
 
-    ctx.fillStyle = '#2ecc71'
-    ctx.font = '48px monospace'
-    ctx.fillText(`Grade ${compositeGrade}`, 200, 100)
+    ctx.fillStyle = '#2ecc71';
+    ctx.font = '48px monospace';
+    ctx.fillText(`Grade ${compositeGrade}`, 200, 100);
 
-    ctx.font = '14px monospace'
-    ctx.fillStyle = '#ccc'
-    ctx.fillText(`Media Literacy: ${sigma}`, 200, 145)
-    ctx.fillText(`Spread Rate: ${r0.toFixed(2)}`, 200, 168)
-    ctx.fillText(`Budget: ${budget}`, 200, 191)
-    ctx.fillText(`Cases Solved: ${completedCases}/3`, 200, 214)
-    ctx.fillText(`Interventions Deployed: ${appliedInterventions.length}`, 200, 237)
-    ctx.fillText(`Ticks Survived: ${tick}`, 200, 260)
+    ctx.font = '14px monospace';
+    ctx.fillStyle = '#ccc';
+    ctx.fillText(`Media Literacy: ${sigma}`, 200, 145);
+    ctx.fillText(`Spread Rate: ${r0.toFixed(2)}`, 200, 168);
+    ctx.fillText(`Budget: ${budget}`, 200, 191);
+    ctx.fillText(`Cases Solved: ${completedCases}/3`, 200, 214);
+    ctx.fillText(`Interventions Deployed: ${appliedInterventions.length}`, 200, 237);
+    ctx.fillText(`Ticks Survived: ${tick}`, 200, 260);
 
-    ctx.fillStyle = '#888'
-    ctx.font = '12px monospace'
-    ctx.fillText(`Achievements: ${badges.map((b) => b.name).join(', ') || 'None'}`, 200, 300)
+    ctx.fillStyle = '#888';
+    ctx.font = '12px monospace';
+    ctx.fillText(`Achievements: ${badges.map((b) => b.name).join(', ') || 'None'}`, 200, 300);
 
-    ctx.fillStyle = '#555'
-    ctx.font = '10px monospace'
-    ctx.fillText('Generated by GIHA — Hackathon 2026', 200, 460)
+    ctx.fillStyle = '#555';
+    ctx.font = '10px monospace';
+    ctx.fillText('Generated by GIHA — Hackathon 2026', 200, 460);
 
-    const link = document.createElement('a')
-    link.download = 'giha-scorecard.png'
-    link.href = canvas.toDataURL('image/png')
-    link.click()
-  }, [sigma, r0, budget, completedCases, appliedInterventions.length, tick, badges, compositeGrade])
+    const link = document.createElement('a');
+    link.download = 'giha-scorecard.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }, [
+    sigma,
+    r0,
+    budget,
+    completedCases,
+    appliedInterventions.length,
+    tick,
+    badges,
+    compositeGrade,
+  ]);
 
   return (
     <div className={styles.screen} data-testid="victory-screen">
@@ -108,7 +125,7 @@ export function VictoryScreen() {
 
       <p className={styles.subtitle}>
         {sigma >= 80 && r0 < 0.8
-          ? 'Veritas is stable. The Shadow Collective\'s network has been exposed. The city will recover — not because disinfo was eliminated, but because its citizens learned to question, verify, and think critically.'
+          ? "Veritas is stable. The Shadow Collective's network has been exposed. The city will recover — not because disinfo was eliminated, but because its citizens learned to question, verify, and think critically."
           : 'Veritas survived, but the city remains fragile. The Shadow Collective retreated, not because they were defeated, but because their operation was exposed. True resilience takes time.'}
       </p>
 
@@ -156,25 +173,17 @@ export function VictoryScreen() {
       <div className={styles.lessons}>
         <div className={styles.lessonsHeader}>MIL Lessons Applied</div>
         <ul className={styles.lessonsList}>
-          <li>Always verify evidence through multiple independent analyses</li>
+          <li>Verify evidence through multiple independent analyses</li>
           <li>Metadata and timestamps reveal manipulation history</li>
-          <li>Cross-referencing sources detects coordinated disinformation</li>
+          <li>Cross-referencing sources detects coordinated disinfo</li>
         </ul>
       </div>
 
       <div className={styles.actionsRow}>
-        <button
-          className={styles.shareBtn}
-          onClick={handleShare}
-          data-testid="share-btn"
-        >
+        <button className={styles.shareBtn} onClick={handleShare} data-testid="share-btn">
           Share Scorecard
         </button>
-        <button
-          className={styles.continueBtn}
-          onClick={handleContinue}
-          data-testid="continue-btn"
-        >
+        <button className={styles.continueBtn} onClick={handleContinue} data-testid="continue-btn">
           Continue Playing
         </button>
         <button
@@ -186,5 +195,5 @@ export function VictoryScreen() {
         </button>
       </div>
     </div>
-  )
+  );
 }
