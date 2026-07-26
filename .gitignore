@@ -23,3 +23,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Large sound files (exceed GitHub 100MB limit)
+public/sounds/
+public/assets/*.zip
