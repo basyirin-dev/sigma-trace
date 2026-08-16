@@ -1,7 +1,19 @@
 % GIHA proposal design system
 \usepackage{geometry}
+\usepackage{graphicx}
 \usepackage{caption}
 \captionsetup{font=small, labelfont=bf, justification=centering}
+
+% Unicode chars not in Latin Modern -> math/text equivalents
+\usepackage{newunicodechar}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{·}{\textperiodcentered}
 
 % Color + table styling
 \usepackage[table]{xcolor}
