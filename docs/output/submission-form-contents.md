@@ -10,13 +10,13 @@ before upload (see 12.4).
 
 ## 1. Team Information
 
-| Field          | Value                                                                                                                                               |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Team name      | GIHA Team                                                                                                                                           |
-| Members        | 2 (within the 2–6 allowed)                                                                                                                          |
-| Member 1       | Basyirin Amsyar bin Basri — Game Developer & Proposal Writer                                                                                        |
-| Member 2       | Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi — Video Editor                                                                                        |
-| Team statement | We are a game developer and a video editor who combined our skills to build GIHA — a game that teaches systems thinking AND hands-on investigation. |
+| Field          | Value                                                                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Team name      | GIHA Team                                                                                                                           |
+| Members        | 2 (within the 2–6 allowed)                                                                                                          |
+| Member 1       | Basyirin Amsyar bin Basri                                                                                                           |
+| Member 2       | Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi                                                                                       |
+| Team statement | We are two youth builders who combined our skills to create GIHA — a game that teaches systems thinking AND hands-on investigation. |
 
 ## 2. Project Information
 
@@ -33,7 +33,7 @@ before upload (see 12.4).
 > GIHA: The Game is a free, two-mode web game that builds Media and Information
 > Literacy by making players both city manager and forensic investigator. In
 > Strategy Mode, players manage a simulated city's
-> information health through an ODE-driven model of how disinformation spreads.
+> information health through a discrete-time simulation of how disinformation spreads.
 > In Detective Mode, they investigate fabricated evidence — deepfakes, cloned
 > voices, misattributed photos — using six forensic tools that teach real
 > verification skills. Built by two youth developers, GIHA requires no account,
@@ -65,7 +65,7 @@ before upload (see 12.4).
 
 > GIHA is a static single-page application built with React 19, TypeScript 6
 > (strict mode), and Vite 8. Strategy Mode renders a pixel-art city simulation
-> on Canvas2D driven by a pure-TypeScript ODE solver (S/E/I/R compartments with
+> on Canvas2D driven by a pure-TypeScript discrete-time solver (S/E/I/R compartments with
 > R₀ and σ-coherence dynamics). Detective Mode runs entirely on static JSON case
 > data with procedurally generated forensics. State is managed with Zustand.
 > The project ships with 650+ Vitest tests, a GitHub Actions CI pipeline, and

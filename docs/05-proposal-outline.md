@@ -8,8 +8,8 @@
 
 ## Section 1: Team Members
 
-- **M1 — Game Developer & Proposal Writer:** Basyirin Amsyar bin Basri
-- **M2 — Video Editor:** Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi
+- Basyirin Amsyar bin Basri
+- Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi
 
 ---
 

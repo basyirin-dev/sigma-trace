@@ -8,8 +8,8 @@
 
 ## Section 1: Team Members
 
-- **M1 — Game Developer & Proposal Writer:** Basyirin Amsyar bin Basri
-- **M2 — Video Editor:** Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi
+- Basyirin Amsyar bin Basri
+- Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi
 
 ---
 
@@ -33,7 +33,7 @@ GIHA directly addresses the 2026 UNESCO Youth Hackathon theme: "Youth Designing 
 
 ### 3.1 Concept Overview
 
-GIHA (Global Information Health Agency) is a two-mode web game that teaches Media and Information Literacy through systems thinking and hands-on forensic investigation. The player takes the role of an AI forensics investigator at GIHA, protecting the fictional city of Veritas from a coordinated disinformation campaign. In Strategy Mode, the player manages the city's information ecosystem health using a discrete-time ODE simulation adapted from research on neural network coherence dynamics. In Detective Mode, the player investigates individual disinformation cases using 6 forensic tools — each of which teaches a real-world MIL verification skill. The two modes reinforce each other: solving cases improves city health, while city management determines which cases become available.
+GIHA (Global Information Health Agency) is a two-mode web game that teaches Media and Information Literacy through systems thinking and hands-on forensic investigation. The player takes the role of an AI forensics investigator at GIHA, protecting the fictional city of Veritas from a coordinated disinformation campaign. In Strategy Mode, the player manages the city's information ecosystem health using a discrete-time dynamical simulation adapted from research on neural network coherence dynamics. In Detective Mode, the player investigates individual disinformation cases using 6 forensic tools — each of which teaches a real-world MIL verification skill. The two modes reinforce each other: solving cases improves city health, while city management determines which cases become available.
 
 **Tone and influences:** Investigative thriller with educational grounding, drawing from the methodical investigation of _Spotlight_, the digital forensics systems thinking of _Mr. Robot_, and the real-world urgency of _The Social Dilemma_. The tone shifts by mode: analytical and bird's-eye in Strategy, intimate and focused in Detective.
 
@@ -47,7 +47,7 @@ The strategy mode simulates a city population of 500,000 with the following stat
 \endhead
 \texttt{S/E/I/R} & Susceptible / Exposed / Infected / Resistant population compartments & S 494,500 · E 2,000 · I 500 · R 3,000\\
 \texttt{σ} & Population-level resilience to disinformation, 0–100 & 78\\
-\texttt{R₀} & Basic reproduction number of the dominant narrative, 0–5.0 & 0.6\\
+\texttt{Rₜ} & Effective reproduction number of the dominant narrative — shown as ``R₀'' in the HUD for player familiarity — 0–5.0; Rₜ $>$ 1 = epidemic growth & 0.6\\
 \end{longtable}
 
 \clearpage
@@ -62,7 +62,7 @@ The strategy mode simulates a city population of 500,000 with the following stat
 \restoregeometry
 \clearpage
 
-The player monitors R₀ and σ in a heads-up display with a real-time trend graph showing the past 60 ticks of both metrics. When R₀ rises or σ drops, the player can deploy 6 types of interventions (Fact-Check Bureau, School MIL Program, Algorithm Audit, Community Dialog, Source Verification Campaign, Emergency Broadcast), each with unique cost, cooldown, duration, and direction of effect (R₀ reduction, σ boost, or both). Interventions have a deployment animation (pulsing ring on affected districts) and are tracked on a timeline for review.
+The player monitors R₀ (the effective reproduction number, Rₜ) and σ in a heads-up display with a real-time trend graph showing the past 60 ticks of both metrics. When R₀ rises or σ drops, the player can deploy 6 types of interventions (Fact-Check Bureau, School MIL Program, Algorithm Audit, Community Dialog, Source Verification Campaign, Emergency Broadcast), each with unique cost, cooldown, duration, and direction of effect (R₀ reduction, σ boost, or both). Interventions have a deployment animation (pulsing ring on affected districts) and are tracked on a timeline for review.
 
 The simulation detects four phases based on σ and R₀ thresholds: **Calm** (σ ≥ 60 and R₀ < 0.8 — stable); **Outbreak** (σ < 60 or R₀ ≥ 0.8 — disinformation spreading); **Crisis** (σ < 40 and R₀ ≥ 1.5 — population coherence collapsing); and **σ-trap** (σ < 20 — a low-coherence danger zone where recovery becomes increasingly difficult). Phase transitions trigger on-screen alerts with atmospheric descriptions, reinforcing the narrative stakes.
 
@@ -83,7 +83,7 @@ The detective mode presents 3 hand-crafted cases, each teaching a distinct MIL v
 \textbf{3} & \textit{The Front Page} & Reverse image search and geolocation: context is everything\\
 \end{longtable}
 
-Each case follows a 5-state flow: Intro cutscene → Free-form investigation on an evidence board → Evidence connection mapping → Verdict (Real / Manipulated / Uncertain) with written justification → Debrief with score breakdown and real-world MIL lesson.
+Each case follows a 5-state flow: Intro cutscene (a text/JSON-driven narrative sequence rendered in-engine — not a video file) → Free-form investigation on an evidence board → Evidence connection mapping → Verdict (Real / Manipulated / Uncertain) with written justification → Debrief with score breakdown and real-world MIL lesson.
 
 Six forensic tools are available: Spectrogram (detects synthetic audio artifacts via Web Audio API FFT analysis), Frame Stepper (inspects video frame-by-frame for lip-sync mismatches and temporal artifacts), Metadata Inspector (extracts timestamps, GPS coordinates, and software signatures from file metadata), Source Tracer (traces provenance through propagation graphs to identify origin and sharing patterns), Inconsistency Highlighter (detects lighting, shadow, and perspective anomalies across images), and Timeline Cross-Referencer (flags impossible creation-to-publication windows by comparing timestamps across multiple evidence items). Each tool has an evidence type affinity — e.g., Spectrogram works best on audio, Frame Stepper on video — and returns confidence-annotated findings that players must interpret themselves rather than being given a simple "fake/real" verdict.
 
@@ -93,7 +93,7 @@ Players connect evidence items on the board by dragging lines between cards to b
 
 ### 3.4 The Mathematical Foundation
 
-GIHA's strategy mode runs on a discrete-time adaptation of the Σ-Model — a dynamical systems formalism originally developed for analyzing neural network coherence and adapted here for population-level information health (Figure \ref{fig:phase}). The core metric σ-coherence (0–100) measures the population's ability to distinguish authentic content from disinformation. The R₀ = 1.0 threshold (transcritical bifurcation) marks when disinformation transitions from containable to epidemic. At σ < 20 the model flags the "σ-trap" — a low-coherence regime in which recovery becomes extremely difficult and containment fails. The S/E/I/R compartment model tracks population exposure dynamics.
+GIHA's strategy mode runs on a discrete-time adaptation of the Σ-Model — a dynamical systems formalism originally developed for analyzing neural network coherence and adapted here for population-level information health (Figure \ref{fig:phase}). The core metric σ-coherence (0–100) measures the population's ability to distinguish authentic content from disinformation. The game tracks the _effective_ reproduction number Rₜ (shown as R₀ in the player HUD), which fluctuates with interventions, literacy, and population immunity — as opposed to the fixed basic reproduction number R₀ of epidemiology. The Rₜ = 1.0 threshold (transcritical bifurcation) is the epidemic boundary: below 1 the narrative decays naturally, above 1 it grows. At σ < 20 the model flags the "σ-trap" — a low-coherence regime in which recovery becomes extremely difficult and containment fails. The S/E/I/R compartment model tracks population exposure dynamics. The compartments are deliberately analogical, as in established misinformation-spread models: **Exposed** means the narrative has been encountered but not yet engaged with; **Infected** means the individual actively believes or shares it; **Resistant** means they have been inoculated through interventions, media literacy, or prior exposure.
 
 \clearpage
 \newgeometry{margin=0.4in}
@@ -101,7 +101,7 @@ GIHA's strategy mode runs on a discrete-time adaptation of the Σ-Model — a dy
 \centering
 \setlength\fboxsep{6pt}\setlength\fboxrule{0.6pt}
 \fbox{\includegraphics[width=0.96\textwidth,height=0.94\textheight,keepaspectratio]{diagrams/phase-transition.png}}
-\caption{R₀ Phase Transition — epidemic threshold and intervention effect}
+\caption{Rₜ Phase Transition — effective reproduction number crossing the epidemic threshold}
 \label{fig:phase}
 \end{figure}
 \restoregeometry
@@ -113,12 +113,12 @@ Parameter values (recovery rate, incubation rate, decay coefficients, interventi
 
 - **Build:** Vite 8, React 19, TypeScript 6 (strict), Zustand state management
 - **Rendering:** Canvas2D with pixel-art aesthetic for strategy mode; CSS Modules with pixel-themed UI for detective mode
-- **Engine:** Pure TypeScript ODE solver (ported from the Python Σ-Model reference implementation)
+- **Engine:** Pure TypeScript discrete-time solver — a tick-based difference-equation adaptation of the Σ-Model ODE (ported from the Python Σ-Model reference implementation)
 - **Tests:** 693 unit tests across 66 test suites; Vitest with v8 coverage
 - **CI/CD:** GitHub Actions (lint, typecheck, test, build, e2e)
 - **Hosting:** Netlify free tier (static SPA, zero recurring cost)
 - **Data:** Fully local — no API calls, no server, no database after initial load
-- **Bundle:** ~111KB JS gzipped, no runtime dependencies beyond React and Zustand
+- **Bundle:** ≈164 KB total gzipped (≈151 KB JS + ≈13 KB CSS), no runtime dependencies beyond React and Zustand
 
 The entire application is a single-page static site that runs entirely in the browser. Frame data for forensic tools is procedurally generated; case content comes from static JSON files in `public/cases/`. No data is collected from players, no accounts are required, and the game functions fully offline after the initial page load.
 
@@ -132,15 +132,15 @@ Youth aged 18–30 globally, with no prior Media and Information Literacy knowle
 
 ### 4.2 Reach Potential
 
-As a static web application with zero server-side infrastructure, GIHA can be deployed at effectively zero marginal cost per user. Estimated bandwidth: ~5MB per game session (bundle + assets + case data). Netlify's free tier (100GB/month) supports approximately 20,000 full game sessions at zero hosting cost. Localization-ready: all case text (evidence findings, cutscenes, tool descriptions) is in JSON files that can be translated without code changes.
+As a static web application with zero server-side infrastructure, GIHA can be deployed at effectively zero marginal cost per user. Bandwidth: the application code is ≈164 KB gzipped. Media assets (case evidence, sprite packs, audio) total ≈70 MB on disk but are fetched on demand and cached by the browser, so a typical session transfers only a few MB after the first visit. Netlify's free tier (100GB/month) supports tens of thousands of sessions per month at zero hosting cost. Localization-ready: all case text — evidence findings, cutscenes (JSON-driven text sequences, not video), and tool descriptions — is in JSON files that can be translated without code changes.
 
 ### 4.3 Impact Measurement
 
-The game measures in-session metrics: per-case verdict accuracy, tool usage efficiency, evidence connection quality, and composite score grade. These metrics are purely local and are not transmitted. A pre/post quiz module is planned for classroom deployments to measure MIL skill improvement — the design target is a 30% improvement in deepfake detection accuracy after completing all 3 cases.
+The game measures in-session metrics: per-case verdict accuracy, tool usage efficiency, evidence connection quality, and composite score grade. These metrics are purely local and are not transmitted. A pre/post quiz module for classroom deployments is planned as a follow-up pilot to measure MIL skill improvement; the design target for that pilot is a 30% improvement in deepfake detection accuracy after completing all 3 cases. In-session scores measure performance within the game, not learning impact — demonstrating impact requires the planned pilot study.
 
 ### 4.4 Inclusion & Marginalized Communities
 
-GIHA requires no personal data, no signup, no tracking, and no internet connection after initial load. The total bundle is under 5MB, making it accessible in low-bandwidth environments. The visual-heavy interface reduces language barriers, and all text content is JSON-based for easy localization. Cases were designed to be culturally adaptable — the mechanics work with any story, and the MIL lessons are universal.
+GIHA requires no personal data, no signup, no tracking, and no internet connection after initial load. The application code bundle is ≈164 KB gzipped, and media assets are fetched on demand and cached — the core experience is feasible even in low-bandwidth environments after the first visit. The visual-heavy interface reduces language barriers, and all text content is JSON-based for easy localization. Cases were designed to be culturally adaptable — the mechanics work with any story, and the MIL lessons are universal.
 
 ---
 
@@ -148,7 +148,7 @@ GIHA requires no personal data, no signup, no tracking, and no internet connecti
 
 ### 5.1 What Makes GIHA Different
 
-GIHA is the only MIL tool that combines a real-time systems dynamics simulation with hands-on forensic investigation in a single game. The player manages the health of an entire information ecosystem BEFORE diving into a specific case — building an intuitive understanding of how R₀, σ, and population dynamics interact. The forensic tools don't just tell the player what the answer is; they teach the player how to investigate by presenting raw data (spectrogram, metadata, frame-by-frame video) and letting the player draw conclusions.
+GIHA is the only MIL tool that combines a real-time systems dynamics simulation with hands-on forensic investigation in a single game. The player manages the health of an entire information ecosystem BEFORE diving into a specific case — building an intuitive understanding of how Rₜ, σ, and population dynamics interact. The forensic tools don't just tell the player what the answer is; they teach the player how to investigate by presenting raw data (spectrogram, metadata, frame-by-frame video) and letting the player draw conclusions.
 
 The two modes create a feedback loop that no single-mode MIL game achieves: good detective work improves the city's health, and a healthy city unlocks harder cases. The player experiences disinformation as both a population-level phenomenon AND an individual forensic challenge.
 
@@ -158,11 +158,11 @@ The two modes create a feedback loop that no single-mode MIL game achieves: good
 \rowcolor{navy} \textbf{\textcolor{white}{Tool / Platform}} & \textbf{\textcolor{white}{Type}} & \textbf{\textcolor{white}{How GIHA Differs}}\\
 \midrule
 \endhead
-\textbf{Bad News / Get Bad News}\newline\scriptsize (DROG/Cambridge, 2018) & Single-player web game & \textcolor{green!45!black}{$\checkmark$} adds a real population simulation layer with ODE dynamics, a separate forensic mode, and a connection-mapping evidence board\\
+\textbf{Bad News / Get Bad News}\newline\scriptsize (DROG/Cambridge, 2018) & Single-player web game & \textcolor{green!45!black}{$\checkmark$} adds a real population simulation layer with discrete-time dynamics, a separate forensic mode, and a connection-mapping evidence board\\
 \textbf{Go Viral!}\newline\scriptsize (WHO/UK Govt, 2020) & Short-form browser game & \textcolor{green!45!black}{$\checkmark$} teaches hands-on investigation skills (spectrogram, metadata) beyond strategy-level understanding\\
 \textbf{Troll Factory}\newline\scriptsize (YLE Finland, 2019) & Role-playing as creator & \textcolor{green!45!black}{$\checkmark$} places the player on the defense side — detection and mitigation, not creation\\
 \textbf{Factitious}\newline\scriptsize (American University, 2017) & Swipe-based quiz game & \textcolor{green!45!black}{$\checkmark$} requires multi-modal evidence analysis and connection-drawing, not binary swipes\\
-\textbf{Traditional MIL curricula} & Textbook / quiz-based & \textcolor{green!45!black}{$\checkmark$} game-based with real-time ODE feedback — consequences within minutes\\
+\textbf{Traditional MIL curricula} & Textbook / quiz-based & \textcolor{green!45!black}{$\checkmark$} game-based with real-time simulation feedback — consequences within minutes\\
 \end{longtable}
 
 ---
@@ -171,15 +171,15 @@ The two modes create a feedback loop that no single-mode MIL game achieves: good
 
 ### 6.1 Development Status
 
-GIHA is fully functional and playable. Development began July 9, 2026 with a 2-person team working within a 6-week build window. As of the submission date (August 16, 2026), all phases through Phase 10 (Playtesting & QA) are complete. The game includes 3 complete cases, 6 functional forensic tools, a working ODE simulation engine with four-phase detection and district-level R₀ modeling, a pixel-art city visualization with offscreen-canvas-optimized rendering, and end-to-end mode integration with budget transfer, case unlocking, and win/loss conditions.
+GIHA is fully functional and playable. Development began July 9, 2026 with a 2-person team working within a 6-week build window. As of the submission date (August 16, 2026), all phases through Phase 10 (Playtesting & QA) are complete. The game includes 3 complete cases, 6 functional forensic tools, a working discrete-time simulation engine with four-phase detection and district-level Rₜ modeling, a pixel-art city visualization with offscreen-canvas-optimized rendering, and end-to-end mode integration with budget transfer, case unlocking, and win/loss conditions.
 
-Performance profiling (July 2026) identified and resolved 4 bottlenecks: uncapped rAF rendering during pause, per-frame 2500-tile iteration, unsorted agent rendering, and missing React.memo on toast components — the production build now runs at a consistent 30+ fps on integrated GPU hardware. An accessibility audit addressed 10 issues including keyboard navigation for the FrameStepper timeline, ARIA attributes on tool buttons and intervention cards, and WCAG AA color contrast verification for all text pairs. All 66 test suites (693 tests) pass with zero type errors and zero lint errors, and the production build compiles 147 modules in about 5 seconds.
+Performance profiling (July 2026) identified and resolved 4 bottlenecks: uncapped rAF rendering during pause, per-frame 2500-tile iteration, unsorted agent rendering, and missing React.memo on toast components — the production build now runs at a consistent 30+ fps on the integrated-GPU laptops used for profiling; low-cost Chromebook-class hardware remains a stated optimization target. An accessibility audit of the game UI addressed 10 issues including keyboard navigation for the FrameStepper timeline, ARIA attributes on tool buttons and intervention cards, and WCAG AA color-contrast verification for all text pairs. All 66 test suites (693 tests) pass with zero type errors and zero lint errors, and the production build compiles 147 modules in about 5 seconds.
 
 ### 6.2 Sustainability Plan
 
 - **Open-source:** MIT-licensed. Full source at [github.com/basyirin-dev/sigma-trace](https://github.com/basyirin-dev/sigma-trace). Contributions welcome.
 - **Translation:** Community-driven localization via JSON. A crowd translation model (GitHub issues + PRs) allows any language community to create and contribute translations.
-- **Case expansion:** The case JSON schema is documented. New cases can be authored by anyone with JSON+basic image editing skills. Planned roadmap: user-generated case submission pipeline.
+- **Case expansion:** The case JSON schema is documented. New cases can be authored by anyone with JSON and basic image-editing skills. Community case contributions are planned via GitHub pull requests reviewed by maintainers — authoring, review, and distribution require no backend, keeping the zero-server architecture intact.
 - **Classroom support:** Planned: session scoring dashboard (local-only, no server), printable report cards with MIL skill breakdown, classroom discussion guides.
 - **Partnerships:** Potential collaborations with journalism schools, MIL NGOs, and ed-tech platforms for case content and distribution.
 
@@ -264,13 +264,13 @@ The strategy–detective interaction loop is decomposed into three diagrams: Fig
 
 Case data files are located in `public/cases/case-01/`, `public/cases/case-02/`, and `public/cases/case-03/`. Each directory contains `metadata.json`, `script.json`, `evidence-items.json`, `evidence-board.json`, and corresponding evidence media files.
 
-### C: Σ-Model ODE Mathematical Specification
+### C: Σ-Model Discrete-Time Mathematical Specification
 
-See `docs/phases/ode-parameters.md` for the full discrete-time ODE parameter specification and mapping from the Σ-Model paper.
+See `docs/phases/ode-parameters.md` for the full discrete-time (difference-equation) parameter specification and mapping from the Σ-Model paper's continuous ODE system.
 
 ### D: Pilot Playtest Results
 
-Internal playtesting by the development team throughout the build process. External playtest sessions are scheduled for Phase 10 (August 5–7, 2026), with results folded into the final submission package. Preliminary internal findings: average completion time 14 minutes, median score grade B+, positive qualitative feedback on the forensics tools and mode transition flow.
+Internal playtesting by the development team throughout the build process. Findings: average completion time of 14 minutes, median score grade B+, and positive qualitative feedback on the forensics tools and mode transition flow. No external playtesting was conducted prior to submission; structured classroom pilots with pre/post assessments are planned post-submission to measure learning impact.
 
 ### E: References and Inspirations
 
