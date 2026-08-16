@@ -8,13 +8,8 @@
 
 ## Section 1: Team Members
 
-**M1 (AI/Research):** Basyirin Amsyar Basri — AI researcher specializing in dynamical systems and ODE modeling. Designed the Σ-Model coherence formalism underlying GIHA's simulation engine, strategy mode, and intervention balance.
-
-**M2 (Security/Dev):** Cybersecurity engineer focused on trust architectures and secure systems. Built the detective mode framework, forensics tools, CI/CD pipeline, and case data infrastructure.
-
-**Team statement:** We are an AI researcher and a cybersecurity engineer who combined our skills to build GIHA — the only MIL tool that teaches systems thinking AND hands-on investigation in a single game.
-
-**GitHub:** [https://github.com/anomalyco/opencode](https://github.com/anomalyco/opencode) _(or actual repo URL)_
+- **M1 (AI/Research):** Basyirin Amsyar Basri
+- **M2 (Security/Dev):** [TBD]
 
 ---
 
