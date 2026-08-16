@@ -1,4 +1,4 @@
-# GIHA: UNESCO Submission Proposal
+# GIHA: The Game — UNESCO Submission Proposal
 
 **Format:** PDF, ≤10MB
 **Language:** English

@@ -1,7 +1,8 @@
 {
-  "name": "giha",
+  "name": "giha-the-game",
   "private": true,
   "version": "0.0.0",
+  "description": "GIHA: The Game — two-mode MIL (Media & Information Literacy) education game for the UNESCO Youth Hackathon 2026",
   "type": "module",
   "scripts": {
     "dev": "vite",

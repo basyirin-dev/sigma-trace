@@ -20,19 +20,19 @@ before upload (see 12.4).
 
 ## 2. Project Information
 
-| Field             | Value                                        |
-| ----------------- | -------------------------------------------- |
-| Project title     | GIHA (Global Information Health Agency)      |
-| Solution category | Games & Interactive (education through play) |
-| Live demo         | https://sigma-trace.netlify.app              |
-| GitHub            | https://github.com/basyirin-dev/sigma-trace  |
-| Target audience   | Youth aged 14–24                             |
+| Field             | Value                                                                    |
+| ----------------- | ------------------------------------------------------------------------ |
+| Project title     | GIHA: The Game (in-game agency: GIHA — Global Information Health Agency) |
+| Solution category | Games & Interactive (education through play)                             |
+| Live demo         | https://sigma-trace.netlify.app                                          |
+| GitHub            | https://github.com/basyirin-dev/sigma-trace                              |
+| Target audience   | Youth aged 14–24                                                         |
 
 ### Brief description (~100 words)
 
-> GIHA (Global Information Health Agency) is a free, two-mode web game that
-> builds Media and Information Literacy by making players both city manager and
-> forensic investigator. In Strategy Mode, players manage a simulated city's
+> GIHA: The Game is a free, two-mode web game that builds Media and Information
+> Literacy by making players both city manager and forensic investigator. In
+> Strategy Mode, players manage a simulated city's
 > information health through an ODE-driven model of how disinformation spreads.
 > In Detective Mode, they investigate fabricated evidence — deepfakes, cloned
 > voices, misattributed photos — using six forensic tools that teach real

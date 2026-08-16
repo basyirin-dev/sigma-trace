@@ -1,4 +1,4 @@
-# GIHA: UNESCO Submission Proposal
+# GIHA: The Game — UNESCO Submission Proposal
 
 **Format:** PDF, ≤10MB
 **Language:** English
@@ -14,7 +14,7 @@
 
 **Team statement:** We are an AI researcher and a cybersecurity engineer who combined our skills to build GIHA — the only MIL tool that teaches systems thinking AND hands-on investigation in a single game.
 
-**GitHub:** [https://github.com/anomalyco/opencode](https://github.com/anomalyco/opencode) *(or actual repo URL)*
+**GitHub:** [https://github.com/anomalyco/opencode](https://github.com/anomalyco/opencode) _(or actual repo URL)_
 
 ---
 
@@ -40,17 +40,17 @@ GIHA directly addresses the 2026 UNESCO Youth Hackathon theme: "Youth Designing 
 
 GIHA (Global Information Health Agency) is a two-mode web game that teaches Media and Information Literacy through systems thinking and hands-on forensic investigation. The player takes the role of an AI forensics investigator at GIHA, protecting the fictional city of Veritas from a coordinated disinformation campaign. In Strategy Mode, the player manages the city's information ecosystem health using a discrete-time ODE simulation adapted from research on neural network coherence dynamics. In Detective Mode, the player investigates individual disinformation cases using 6 forensic tools — each of which teaches a real-world MIL verification skill. The two modes reinforce each other: solving cases improves city health, while city management determines which cases become available.
 
-**Tone and influences:** Investigative thriller with educational grounding, drawing from the methodical investigation of *Spotlight*, the digital forensics systems thinking of *Mr. Robot*, and the real-world urgency of *The Social Dilemma*. The tone shifts by mode: analytical and bird's-eye in Strategy, intimate and focused in Detective.
+**Tone and influences:** Investigative thriller with educational grounding, drawing from the methodical investigation of _Spotlight_, the digital forensics systems thinking of _Mr. Robot_, and the real-world urgency of _The Social Dilemma_. The tone shifts by mode: analytical and bird's-eye in Strategy, intimate and focused in Detective.
 
 ### 3.2 The Strategy Mode
 
 The strategy mode simulates a city population of 500,000 with the following state variables:
 
-| Variable | Description |
-|----------|-------------|
-| S/E/I/R | Susceptible / Exposed / Infected / Resistant population compartments |
-| σ (σ-coherence) | Population-level resilience to disinformation, 0–100 |
-| R₀ | Basic reproduction number of the dominant narrative, 0–5.0 |
+| Variable        | Description                                                          |
+| --------------- | -------------------------------------------------------------------- |
+| S/E/I/R         | Susceptible / Exposed / Infected / Resistant population compartments |
+| σ (σ-coherence) | Population-level resilience to disinformation, 0–100                 |
+| R₀              | Basic reproduction number of the dominant narrative, 0–5.0           |
 
 The player monitors R₀ and σ in a heads-up display. When R₀ rises or σ drops, the player can deploy 6 types of interventions (Fact-Check Bureau, School MIL Program, Algorithm Audit, Community Dialog, Source Verification Campaign, Emergency Broadcast), each with unique cost, cooldown, duration, and direction of effect (R₀ reduction, σ boost, or both).
 
@@ -60,11 +60,11 @@ The city is visualized as a top-down pixel art tile grid (50×50 tiles, 20px eac
 
 The detective mode presents 3 hand-crafted cases, each teaching a distinct MIL verification skill:
 
-| Case | Title | MIL Lesson |
-|:----:|-------|------------|
-| 1 | The Viral Mayor | Deepfake detection through multi-modal analysis (audio spectrogram + frame inspection + metadata) |
-| 2 | Grandma's Distress Call | AI voice cloning awareness: verify urgent requests through independent channels |
-| 3 | The Front Page | Reverse image search and geolocation: context is everything |
+| Case | Title                   | MIL Lesson                                                                                        |
+| :--: | ----------------------- | ------------------------------------------------------------------------------------------------- |
+|  1   | The Viral Mayor         | Deepfake detection through multi-modal analysis (audio spectrogram + frame inspection + metadata) |
+|  2   | Grandma's Distress Call | AI voice cloning awareness: verify urgent requests through independent channels                   |
+|  3   | The Front Page          | Reverse image search and geolocation: context is everything                                       |
 
 Each case follows a 5-state flow: Intro cutscene → Free-form investigation on an evidence board → Evidence connection mapping → Verdict (Real / Manipulated / Uncertain) with written justification → Debrief with score breakdown and real-world MIL lesson.
 
@@ -123,13 +123,13 @@ The two modes create a feedback loop that no single-mode MIL game achieves: good
 
 ### 5.2 Comparison to Existing Solutions
 
-| Tool/Platform | Type | How GIHA Differs |
-|:--------------|:----:|:-----------------|
+| Tool/Platform                                      |                              Type                               | How GIHA Differs                                                                                                                                |
+| :------------------------------------------------- | :-------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Bad News / Get Bad News** (DROG/Cambridge, 2018) | Single-player web game, one mode (social media feed simulation) | GIHA adds a real population simulation layer with ODE dynamics, a separate forensic investigation mode, and a connection-mapping evidence board |
-| **Go Viral!** (WHO/UK Govt, 2020) | Short-form browser game teaching prebunking | GIHA teaches hands-on investigation skills (spectrogram reading, metadata inspection) in addition to the strategy-level understanding |
-| **Troll Factory** (YLE Finland, 2019) | Role-playing as a disinformation creator | GIHA places the player on the DEFENSE side — not how to create disinfo, but how to detect and mitigate it |
-| **Factitious** (American University, 2017) | Swipe-based news authenticity game | GIHA requires multi-modal evidence analysis and connection-drawing, not binary swipe decisions |
-| **Traditional MIL curricula** | Textbook/quiz-based | GIHA is game-based with real-time ODE feedback — the player feels the consequences of their decisions within minutes, not weeks |
+| **Go Viral!** (WHO/UK Govt, 2020)                  |           Short-form browser game teaching prebunking           | GIHA teaches hands-on investigation skills (spectrogram reading, metadata inspection) in addition to the strategy-level understanding           |
+| **Troll Factory** (YLE Finland, 2019)              |            Role-playing as a disinformation creator             | GIHA places the player on the DEFENSE side — not how to create disinfo, but how to detect and mitigate it                                       |
+| **Factitious** (American University, 2017)         |               Swipe-based news authenticity game                | GIHA requires multi-modal evidence analysis and connection-drawing, not binary swipe decisions                                                  |
+| **Traditional MIL curricula**                      |                       Textbook/quiz-based                       | GIHA is game-based with real-time ODE feedback — the player feels the consequences of their decisions within minutes, not weeks                 |
 
 ---
 
@@ -166,38 +166,42 @@ GIHA is built by youth (both members under 30), designed for youth engagement (1
 
 ### 7.2 Alignment with UNESCO MIL Values
 
-| UNESCO MIL Principle | How GIHA Addresses It |
-|----------------------|----------------------|
-| Freedom of expression | Enables informed participation by building critical information-consumption skills |
-| Diversity and inclusion | No-cost browser access; visual-heavy design reduces language barriers; JSON-based localization |
-| Peace-building | Directly counters disinformation that has been documented to spark real-world violence |
-| Youth empowerment | Player takes the role of an investigator who makes real decisions — not a passive consumer of content |
-| Digital citizenship | Teaches the skills needed to participate in digital society safely and effectively |
+| UNESCO MIL Principle    | How GIHA Addresses It                                                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| Freedom of expression   | Enables informed participation by building critical information-consumption skills                    |
+| Diversity and inclusion | No-cost browser access; visual-heavy design reduces language barriers; JSON-based localization        |
+| Peace-building          | Directly counters disinformation that has been documented to spark real-world violence                |
+| Youth empowerment       | Player takes the role of an investigator who makes real decisions — not a passive consumer of content |
+| Digital citizenship     | Teaches the skills needed to participate in digital society safely and effectively                    |
 
 ---
 
 ## Appendices
 
 ### A: Architecture Diagram
+
 See `docs/02-technical-architecture.md` for the full technical architecture document.
 
 ### B: Case Design Documents
+
 Case data files are located in `public/cases/case-01/`, `public/cases/case-02/`, and `public/cases/case-03/`. Each directory contains `metadata.json`, `script.json`, `evidence-items.json`, `evidence-board.json`, and corresponding evidence media files.
 
 ### C: Σ-Model ODE Mathematical Specification
+
 See `docs/phases/ode-parameters.md` for the full discrete-time ODE parameter specification and mapping from the Σ-Model paper.
 
 ### D: Pilot Playtest Results
+
 Internal playtesting by the development team throughout the build process. External playtest sessions scheduled for Phase 10 (August 5-7, 2026). Preliminary findings: average completion time 14 minutes, median score grade B+, positive qualitative feedback on the forensics tools and mode transition flow.
 
 ### E: References and Inspirations
 
-1. Roozenbeek, J., & van der Linden, S. (2019). "Fake news game confers psychological resistance against online misinformation." *Nature Communications*, 10(1), 1-10.
-2. Basol, M., Roozenbeek, J., & van der Linden, S. (2020). "Good News about Bad News: Gamified Inoculation Boosts Confidence and Cognitive Immunity Against Fake News." *Journal of Cognition*, 3(1), 1-15.
+1. Roozenbeek, J., & van der Linden, S. (2019). "Fake news game confers psychological resistance against online misinformation." _Nature Communications_, 10(1), 1-10.
+2. Basol, M., Roozenbeek, J., & van der Linden, S. (2020). "Good News about Bad News: Gamified Inoculation Boosts Confidence and Cognitive Immunity Against Fake News." _Journal of Cognition_, 3(1), 1-15.
 3. UNESCO. (2021). "Media and Information Literacy Curriculum for Educators and Learners." UNESCO Publishing.
 4. Sunstein, C. R. (2009). "Going to Extremes: How Like Minds Unite and Divide." Oxford University Press.
-5. Pennycook, G., & Rand, D. G. (2021). "The Psychology of Fake News." *Trends in Cognitive Sciences*, 25(5), 388-402.
+5. Pennycook, G., & Rand, D. G. (2021). "The Psychology of Fake News." _Trends in Cognitive Sciences_, 25(5), 388-402.
 
 ---
 
-*Submitted to UNESCO Youth Hackathon 2026 — "Youth Designing the Future of MIL"*
+_Submitted to UNESCO Youth Hackathon 2026 — "Youth Designing the Future of MIL"_

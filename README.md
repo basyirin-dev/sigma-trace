@@ -1,4 +1,4 @@
-# σ-Trace (GIHA)
+# GIHA: The Game
 
 [![CI](https://github.com/basyirin-dev/sigma-trace/actions/workflows/ci.yml/badge.svg)](https://github.com/basyirin-dev/sigma-trace/actions/workflows/ci.yml)
 [![Deploy](https://img.shields.io/badge/deploy-netlify-00C7B7?logo=netlify)](https://sigma-trace.netlify.app)
