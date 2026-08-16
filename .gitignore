@@ -31,3 +31,7 @@ public/assets/*.zip
 # Large video files (exceed GitHub 100MB limit) — repo root only
 /*.mov
 /*.mp4
+
+# Submission artifacts (large, never committed)
+/submission-package/
+/giha-submission-2026.zip

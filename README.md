@@ -10,6 +10,20 @@ Players alternate between **Strategy Mode** (city-scale simulation with Canvas2D
 
 ---
 
+## UNESCO Youth Hackathon 2026
+
+Built for the **UNESCO Youth Hackathon 2026** — _"Youth Designing the Future of MIL"_ —
+by a two-person youth team (an AI researcher and a cybersecurity engineer).
+
+- **Category:** Games & Interactive
+- **Theme fit:** Strategy Mode teaches systems thinking about how disinformation
+  spreads (R₀, σ-coherence, interventions); Detective Mode teaches hands-on
+  verification skills (spectrogram, frame stepping, metadata, source tracing).
+- **Submission:** see [`docs/output/submission-form-contents.md`](docs/output/submission-form-contents.md)
+  and the `v1.0.0-submission` release tag.
+
+---
+
 ## Installation
 
 ### Prerequisites
@@ -36,17 +50,17 @@ npm run dev
 
 ### Available Scripts
 
-| Command | Action |
-|---------|--------|
-| `npm run dev` | Start development server (Vite) |
-| `npm run build` | Type-check + build for production |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run ESLint on all source files |
-| `npm run typecheck` | Run TypeScript strict type checks |
-| `npm test` | Run Vitest unit tests (697+ tests) |
-| `npm run test:e2e` | Run Playwright E2E tests (6 test cases) |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run format` | Format code with Prettier |
+| Command              | Action                                  |
+| -------------------- | --------------------------------------- |
+| `npm run dev`        | Start development server (Vite)         |
+| `npm run build`      | Type-check + build for production       |
+| `npm run preview`    | Preview production build locally        |
+| `npm run lint`       | Run ESLint on all source files          |
+| `npm run typecheck`  | Run TypeScript strict type checks       |
+| `npm test`           | Run Vitest unit tests (697+ tests)      |
+| `npm run test:e2e`   | Run Playwright E2E tests (6 test cases) |
+| `npm run test:watch` | Run tests in watch mode                 |
+| `npm run format`     | Format code with Prettier               |
 
 ### Dev Mode
 
@@ -108,16 +122,16 @@ sigma-trace/
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Build | Vite 8 |
-| UI | React 19 |
-| State | Zustand |
-| Strategy rendering | Canvas2D (pixel art) |
-| Language | TypeScript 6 (strict) |
-| Test | Vitest + Playwright + v8 coverage |
-| CI | GitHub Actions |
-| Hosting | Netlify (static SPA) |
+| Layer              | Technology                        |
+| ------------------ | --------------------------------- |
+| Build              | Vite 8                            |
+| UI                 | React 19                          |
+| State              | Zustand                           |
+| Strategy rendering | Canvas2D (pixel art)              |
+| Language           | TypeScript 6 (strict)             |
+| Test               | Vitest + Playwright + v8 coverage |
+| CI                 | GitHub Actions                    |
+| Hosting            | Netlify (static SPA)              |
 
 ---
 
