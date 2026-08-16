@@ -316,6 +316,8 @@ export function EvidenceBoard({
               className={styles.menu}
               style={{ left: contextMenu.x, top: contextMenu.y }}
               onClick={(e) => e.stopPropagation()}
+              role="menu"
+              aria-label="Evidence actions"
             >
               <div className={styles.menuHeader} data-testid="menu-header">
                 {evidenceMap.get(contextMenu.evidenceId)?.label ?? 'Inspect'}
@@ -354,6 +356,7 @@ export function EvidenceBoard({
                 <button
                   className={styles.popoverClose}
                   onClick={() => setToolResult(null)}
+                  aria-label="Close"
                   data-testid="popover-close"
                 >
                   x

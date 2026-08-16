@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 575" font-family="DejaVu Sans, sans-serif">
+  <title>Strategy mode workflow: city simulation, monitor metrics, deploy one of six interventions, ODE update, repeating each tick; outcomes and thresholds summarized in one grouped panel</title>
+
+  <!-- Title -->
+  <text x="350" y="26" font-size="15" font-weight="bold" fill="#1A365D" text-anchor="middle">Strategy Mode Workflow</text>
+
+  <!-- City Simulation -->
+  <rect x="110" y="56" width="480" height="56" rx="8" fill="#E8F4FC" stroke="#2C5282" stroke-width="2"/>
+  <text x="350" y="80" font-size="15" font-weight="bold" fill="#1A365D" text-anchor="middle">City Simulation</text>
+  <text x="350" y="102" font-size="12" fill="#4A5568" text-anchor="middle">monitor R₀, σ, population</text>
+  <line x1="350" y1="112" x2="350" y2="132" stroke="#4A5568" stroke-width="1.5"/>
+  <polygon points="344,128 350,138 356,128" fill="#4A5568"/>
+
+  <!-- Monitor Metrics -->
+  <rect x="110" y="136" width="480" height="56" rx="8" fill="#E8F4FC" stroke="#2C5282" stroke-width="2"/>
+  <text x="350" y="160" font-size="15" font-weight="bold" fill="#1A365D" text-anchor="middle">Monitor Metrics</text>
+  <text x="350" y="182" font-size="12" fill="#4A5568" text-anchor="middle">watch σ-trap and R₀ danger</text>
+  <line x1="350" y1="192" x2="350" y2="212" stroke="#4A5568" stroke-width="1.5"/>
+  <polygon points="344,208 350,218 356,208" fill="#4A5568"/>
+
+  <!-- Deploy Intervention (expanded) -->
+  <rect x="60" y="216" width="580" height="126" rx="8" fill="#E8F4FC" stroke="#2C5282" stroke-width="2"/>
+  <text x="350" y="240" font-size="15" font-weight="bold" fill="#1A365D" text-anchor="middle">Deploy Intervention (6 types)</text>
+  <text x="180" y="266" font-size="11" fill="#4A5568">• Fact-Check Bureau</text>
+  <text x="180" y="286" font-size="11" fill="#4A5568">• School MIL Program</text>
+  <text x="180" y="306" font-size="11" fill="#4A5568">• Algorithm Audit</text>
+  <text x="520" y="266" font-size="11" fill="#4A5568">• Community Dialog</text>
+  <text x="520" y="286" font-size="11" fill="#4A5568">• Source Verification Campaign</text>
+  <text x="520" y="306" font-size="11" fill="#4A5568">• Emergency Broadcast</text>
+  <line x1="350" y1="342" x2="350" y2="362" stroke="#4A5568" stroke-width="1.5"/>
+  <polygon points="344,358 350,368 356,358" fill="#4A5568"/>
+
+  <!-- ODE Update -->
+  <rect x="110" y="366" width="480" height="56" rx="8" fill="#E8F4FC" stroke="#2C5282" stroke-width="2"/>
+  <text x="350" y="390" font-size="15" font-weight="bold" fill="#1A365D" text-anchor="middle">ODE Update</text>
+  <text x="350" y="412" font-size="12" fill="#4A5568" text-anchor="middle">S/E/I/R + R₀ + σ recomputed</text>
+
+  <!-- Loop back (dashed), label chip on the line -->
+  <path d="M590,394 L660,394 L660,84 L596,84" fill="none" stroke="#4A5568" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <polygon points="592,79 602,84 592,89" fill="#4A5568"/>
+  <rect x="629" y="230" width="62" height="16" rx="3" fill="#F2F2F2"/>
+  <text x="660" y="242" font-size="10.5" fill="#4A5568" text-anchor="middle">each tick</text>
+
+  <!-- Outcomes & thresholds: one grouped panel, primary then secondary -->
+  <text x="350" y="440" font-size="12" font-weight="bold" fill="#1A365D" text-anchor="middle">Outcomes &amp; thresholds</text>
+  <rect x="70" y="448" width="560" height="116" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Primary: Win / Lose -->
+  <rect x="88" y="460" width="250" height="54" rx="6" fill="#F0FFF4" stroke="#38A169" stroke-width="1.5"/>
+  <text x="102" y="482" font-size="12.5" font-weight="bold" fill="#276749">Win: σ ≥ 70 &amp; R₀ &lt; 1.2</text>
+  <text x="102" y="502" font-size="11" fill="#276749">3 cases · 30 stable ticks</text>
+  <rect x="362" y="460" width="250" height="54" rx="6" fill="#FFF5F5" stroke="#E53E3E" stroke-width="1.5"/>
+  <text x="376" y="482" font-size="12.5" font-weight="bold" fill="#9B2C2C">Lose: R₀ &gt; 2.0 for 40 ticks</text>
+  <text x="376" y="502" font-size="11" fill="#9B2C2C">citywide or per district</text>
+
+  <!-- Secondary: Case unlocks / Budget -->
+  <rect x="88" y="522" width="250" height="34" rx="6" fill="#EBF8FF" stroke="#3182CE" stroke-width="1"/>
+  <text x="102" y="544" font-size="10.5" fill="#2B6CB0">Case unlocks · σ ≥ 40 / tick ≥ 80</text>
+  <rect x="362" y="522" width="250" height="34" rx="6" fill="#FAF5FF" stroke="#805AD5" stroke-width="1"/>
+  <text x="376" y="544" font-size="10.5" fill="#553C9A">Budget · income + case bonuses</text>
+</svg>

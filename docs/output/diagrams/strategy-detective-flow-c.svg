@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 500" font-family="DejaVu Sans, sans-serif">
+  <title>Detective mode investigation cycle: select one of six forensic tools, connect evidence on the board, then submit a verdict; correct verdicts improve city health, incorrect verdicts decrease city resilience</title>
+
+  <!-- ===================== 1 · TOOL SELECTION ===================== -->
+  <text x="20" y="56" font-size="14" font-weight="bold" fill="#004D40">1 · Select a forensic tool</text>
+  <rect x="10" y="66" width="320" height="340" rx="10" fill="#F4FAF9" stroke="#B2DFDB" stroke-width="1"/>
+
+  <!-- row 1: Spectrogram, Frame Stepper -->
+  <rect x="20" y="76" width="140" height="100" rx="6" fill="#FFFFFF" stroke="#00695C" stroke-width="1.5"/>
+  <path d="M74,106 Q78,97 82,106 Q86,115 90,106 Q94,97 98,106 Q102,115 106,106" fill="none" stroke="#00695C" stroke-width="1.5"/>
+  <text x="90" y="134" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Spectrogram</text>
+  <text x="90" y="160" font-size="11.5" fill="#455A64" text-anchor="middle">audio artifacts</text>
+
+  <rect x="170" y="76" width="140" height="100" rx="6" fill="#FFFFFF" stroke="#00695C" stroke-width="1.5"/>
+  <rect x="229" y="97" width="22" height="18" rx="2" fill="none" stroke="#00695C" stroke-width="1.5"/>
+  <polygon points="240,101 240,111 247,106" fill="#00695C"/>
+  <text x="240" y="134" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Frame Stepper</text>
+  <text x="240" y="160" font-size="11.5" fill="#455A64" text-anchor="middle">video lip-sync</text>
+
+  <!-- row 2: Metadata Inspector, Source Tracer -->
+  <rect x="20" y="186" width="140" height="100" rx="6" fill="#FFFFFF" stroke="#00695C" stroke-width="1.5"/>
+  <path d="M77,208 L97,208 Q102,208 102,213 L102,224 L90,217 L77,224 Z" fill="none" stroke="#00695C" stroke-width="1.5"/>
+  <circle cx="84" cy="213" r="1.6" fill="#00695C"/>
+  <text x="90" y="236" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Metadata</text>
+  <text x="90" y="250" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Inspector</text>
+  <text x="90" y="268" font-size="11.5" fill="#455A64" text-anchor="middle">EXIF · GPS · time</text>
+
+  <rect x="170" y="186" width="140" height="100" rx="6" fill="#FFFFFF" stroke="#00695C" stroke-width="1.5"/>
+  <line x1="229" y1="222" x2="240" y2="208" stroke="#00695C" stroke-width="1.5"/>
+  <line x1="240" y1="208" x2="251" y2="222" stroke="#00695C" stroke-width="1.5"/>
+  <circle cx="229" cy="224" r="3.5" fill="#00695C"/>
+  <circle cx="251" cy="224" r="3.5" fill="#00695C"/>
+  <circle cx="240" cy="206" r="3.5" fill="#00695C"/>
+  <text x="240" y="244" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Source Tracer</text>
+  <text x="240" y="270" font-size="11.5" fill="#455A64" text-anchor="middle">propagation graph</text>
+
+  <!-- row 3: Inconsistency Highlighter, Timeline Cross-Referencer -->
+  <rect x="20" y="296" width="140" height="100" rx="6" fill="#FFFFFF" stroke="#00695C" stroke-width="1.5"/>
+  <polygon points="90,318 79,334 101,334" fill="none" stroke="#E53E3E" stroke-width="1.5"/>
+  <line x1="90" y1="324" x2="90" y2="329" stroke="#E53E3E" stroke-width="1.5"/>
+  <circle cx="90" cy="331" r="1.2" fill="#E53E3E"/>
+  <text x="90" y="346" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Inconsistency</text>
+  <text x="90" y="360" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Highlighter</text>
+  <text x="90" y="378" font-size="11.5" fill="#455A64" text-anchor="middle">lighting anomalies</text>
+
+  <rect x="170" y="296" width="140" height="100" rx="6" fill="#FFFFFF" stroke="#00695C" stroke-width="1.5"/>
+  <circle cx="240" cy="326" r="10" fill="none" stroke="#00695C" stroke-width="1.5"/>
+  <line x1="240" y1="326" x2="240" y2="319" stroke="#00695C" stroke-width="1.5"/>
+  <line x1="240" y1="326" x2="245" y2="329" stroke="#00695C" stroke-width="1.5"/>
+  <text x="240" y="346" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Timeline</text>
+  <text x="240" y="360" font-size="13" font-weight="bold" fill="#004D40" text-anchor="middle">Cross-Referencer</text>
+  <text x="240" y="378" font-size="11.5" fill="#455A64" text-anchor="middle">creation times</text>
+
+  <!-- ===================== 2 · EVIDENCE BOARD ===================== -->
+  <text x="350" y="56" font-size="14" font-weight="bold" fill="#004D40">2 · Connect evidence</text>
+  <rect x="340" y="66" width="230" height="260" rx="10" fill="#F4FAF9" stroke="#B2DFDB" stroke-width="1"/>
+  <rect x="350" y="76" width="210" height="230" rx="6" fill="#F7F3E8" stroke="#D6CDB8" stroke-width="1.5"/>
+  <line x1="414" y1="140" x2="524" y2="132" stroke="#8B7E5E" stroke-width="1.5"/>
+  <line x1="414" y1="140" x2="414" y2="236" stroke="#8B7E5E" stroke-width="1.5"/>
+  <line x1="524" y1="132" x2="524" y2="228" stroke="#8B7E5E" stroke-width="1.5"/>
+  <rect x="364" y="108" width="100" height="56" rx="3" fill="#FFFFFF" stroke="#C53030" stroke-width="1"/>
+  <circle cx="414" cy="110" r="3" fill="#E53E3E"/>
+  <text x="414" y="142" font-size="11" fill="#4A5568" text-anchor="middle">Video</text>
+  <rect x="474" y="100" width="100" height="56" rx="3" fill="#FFFFFF" stroke="#C53030" stroke-width="1"/>
+  <circle cx="524" cy="102" r="3" fill="#E53E3E"/>
+  <text x="524" y="134" font-size="11" fill="#4A5568" text-anchor="middle">Audio</text>
+  <rect x="364" y="208" width="100" height="56" rx="3" fill="#FFFFFF" stroke="#C53030" stroke-width="1"/>
+  <circle cx="414" cy="210" r="3" fill="#E53E3E"/>
+  <text x="414" y="242" font-size="11" fill="#4A5568" text-anchor="middle">Metadata</text>
+  <rect x="474" y="200" width="100" height="56" rx="3" fill="#FFFFFF" stroke="#C53030" stroke-width="1"/>
+  <circle cx="524" cy="202" r="3" fill="#E53E3E"/>
+  <text x="524" y="234" font-size="11" fill="#4A5568" text-anchor="middle">Timeline</text>
+  <text x="455" y="292" font-size="11.5" font-style="italic" fill="#8B7E5E" text-anchor="middle">evidence board</text>
+
+  <!-- ===================== 3 · VERDICT & SCORING ===================== -->
+  <text x="590" y="56" font-size="14" font-weight="bold" fill="#004D40">3 · Verdict &amp; scoring</text>
+  <rect x="580" y="66" width="350" height="50" rx="8" fill="#DD6B20"/>
+  <text x="755" y="90" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Submit Verdict</text>
+  <text x="755" y="108" font-size="10.5" fill="#FFFFFF" text-anchor="middle">Real / Manipulated / Uncertain</text>
+
+  <!-- Success branch -->
+  <line x1="720" y1="116" x2="720" y2="134" stroke="#38A169" stroke-width="1.5"/>
+  <polygon points="715,130 720,140 725,130" fill="#38A169"/>
+  <rect x="650" y="138" width="140" height="30" rx="15" fill="#38A169"/>
+  <text x="720" y="158" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✓ Verdict correct</text>
+  <line x1="720" y1="168" x2="720" y2="182" stroke="#38A169" stroke-width="1.5"/>
+  <polygon points="715,178 720,188 725,178" fill="#38A169"/>
+  <rect x="650" y="184" width="140" height="80" rx="4" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1"/>
+  <rect x="656" y="200" width="12" height="60" fill="#3182CE"/>
+  <rect x="676" y="240" width="12" height="20" fill="#3182CE"/>
+  <rect x="696" y="234" width="12" height="26" fill="#3182CE"/>
+  <rect x="716" y="244" width="12" height="16" fill="#3182CE"/>
+  <rect x="736" y="248" width="12" height="12" fill="#3182CE"/>
+  <text x="662" y="196" font-size="8.5" fill="#4A5568" text-anchor="middle">50</text>
+  <text x="682" y="236" font-size="8.5" fill="#4A5568" text-anchor="middle">10</text>
+  <text x="702" y="230" font-size="8.5" fill="#4A5568" text-anchor="middle">15</text>
+  <text x="722" y="240" font-size="8.5" fill="#4A5568" text-anchor="middle">10</text>
+  <text x="742" y="244" font-size="8.5" fill="#4A5568" text-anchor="middle">5</text>
+  <text x="720" y="276" font-size="9.5" fill="#718096" text-anchor="middle">score weights (%)</text>
+  <line x1="720" y1="278" x2="720" y2="292" stroke="#38A169" stroke-width="1.5"/>
+  <polygon points="715,288 720,298 725,288" fill="#38A169"/>
+  <rect x="640" y="296" width="160" height="30" rx="15" fill="#319795"/>
+  <text x="720" y="316" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">City health improved</text>
+
+  <!-- Failure branch -->
+  <line x1="860" y1="116" x2="860" y2="134" stroke="#E53E3E" stroke-width="1.5"/>
+  <polygon points="855,130 860,140 865,130" fill="#E53E3E"/>
+  <rect x="790" y="138" width="140" height="30" rx="15" fill="#E53E3E"/>
+  <text x="860" y="158" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">× Incorrect verdict</text>
+  <line x1="860" y1="168" x2="860" y2="182" stroke="#E53E3E" stroke-width="1.5"/>
+  <polygon points="855,178 860,188 865,178" fill="#E53E3E"/>
+  <rect x="795" y="184" width="130" height="46" rx="6" fill="#FFF5F5" stroke="#E53E3E" stroke-width="1.5"/>
+  <text x="860" y="206" font-size="11.5" font-weight="bold" fill="#9B2C2C" text-anchor="middle">City resilience</text>
+  <text x="860" y="222" font-size="11.5" font-weight="bold" fill="#9B2C2C" text-anchor="middle">decreased</text>
+  <line x1="860" y1="230" x2="860" y2="242" stroke="#E53E3E" stroke-width="1.5"/>
+  <polygon points="855,238 860,248 865,238" fill="#E53E3E"/>
+  <rect x="795" y="246" width="130" height="26" rx="6" fill="#FFF0F0" stroke="#FC8181" stroke-width="1"/>
+  <text x="860" y="264" font-size="10.5" fill="#9B2C2C" text-anchor="middle">R₀ rises · σ falls</text>
+</svg>

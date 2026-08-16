@@ -1,0 +1,39 @@
+flowchart TD
+    Start([Player Starts Game]) --> StratMode[Strategy Mode<br/>City Simulation]
+    StratMode --> Monitor{Monitor R₀ & σ}
+    Monitor -->|R₀ rising / σ dropping| Deploy[Deploy Intervention<br/>- Fact-Check Bureau<br/>- School MIL Program<br/>- Algorithm Audit<br/>- Community Dialog<br/>- Source Verification<br/>- Emergency Broadcast]
+    Deploy --> SimTick[Simulation Tick<br/>ODE Engine Updates<br/>S/E/I/R + R₀ + σ]
+    SimTick --> Check{Case Available?}
+    Check -->|Yes| Transition[Mode Transition]
+    Check -->|No| Monitor
+    
+    Transition --> DetMode[Detective Mode<br/>Investigative Forensics]
+    DetMode --> Tools{Apply Tools}
+    Tools -->|Spectrogram| Audio[Analyze Audio Artifacts]
+    Tools -->|Frame Stepper| Video[Inspect Video Frame-by-Frame]
+    Tools -->|Metadata Inspector| Meta[Extract EXIF, GPS, Timestamps]
+    Tools -->|Source Tracer| Provenance[Trace Propagation Path]
+    Tools -->|Inconsistency Highlighter| Visual[Detect Lighting/Shadow Anomalies]
+    Tools -->|Timeline Cross-Referencer| Timeline[Cross-Reference Creation Time]
+    
+    Audio --> Connect[Connect Evidence Items<br/>Build Relationship Map]
+    Video --> Connect
+    Meta --> Connect
+    Provenance --> Connect
+    Visual --> Connect
+    Timeline --> Connect
+    
+    Connect --> Verdict{Submit Verdict}
+    Verdict -->|Real / Manipulated| Score[Scoring Engine<br/>Accuracy + Tools + Connections + Justification]
+    Verdict -->|Uncertain| Score
+    
+    Score --> Results{Outcome}
+    Results -->|Pass| Reward[Budget Bonus + R₀ Reduction + σ Boost]
+    Results -->|Fail| Penalty[R₀ Increase + σ Drop]
+    
+    Reward --> StratMode
+    Penalty --> StratMode
+    
+    Monitor -->|σ < 20<br/>σ-trap| GameOver[Game Over<br/>Coherence Collapsed]
+    Monitor -->|R₀ > 2.0 for 40 ticks| GameOver
+    StratMode -->|σ > 70, R₀ < 1.2<br/>3 cases solved| Victory[Victory<br/>City Saved!]

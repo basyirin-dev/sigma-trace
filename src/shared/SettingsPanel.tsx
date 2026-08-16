@@ -1,67 +1,63 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAudioStore, useGameStore, useSimulationStore } from './stores'
-import { clearSave } from './saveManager'
-import { Modal } from './Modal'
-import styles from './SettingsPanel.module.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAudioStore, useGameStore, useSimulationStore } from './stores';
+import { clearSave } from './saveManager';
+import { Modal } from './Modal';
+import styles from './SettingsPanel.module.css';
 
 export interface SettingsPanelProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
-  const navigate = useNavigate()
-  const musicVolume = useAudioStore((s) => s.musicVolume)
-  const sfxVolume = useAudioStore((s) => s.sfxVolume)
-  const muted = useAudioStore((s) => s.muted)
-  const showFps = useAudioStore((s) => s.showFps)
-  const setMusicVolume = useAudioStore((s) => s.setMusicVolume)
-  const setSfxVolume = useAudioStore((s) => s.setSfxVolume)
-  const toggleMute = useAudioStore((s) => s.toggleMute)
-  const toggleFps = useAudioStore((s) => s.toggleFps)
+  const navigate = useNavigate();
+  const musicVolume = useAudioStore((s) => s.musicVolume);
+  const sfxVolume = useAudioStore((s) => s.sfxVolume);
+  const muted = useAudioStore((s) => s.muted);
+  const showFps = useAudioStore((s) => s.showFps);
+  const setMusicVolume = useAudioStore((s) => s.setMusicVolume);
+  const setSfxVolume = useAudioStore((s) => s.setSfxVolume);
+  const toggleMute = useAudioStore((s) => s.toggleMute);
+  const toggleFps = useAudioStore((s) => s.toggleFps);
 
-  const [showResetConfirm, setShowResetConfirm] = useState(false)
-  const [showExitConfirm, setShowExitConfirm] = useState(false)
-  const [showRestartConfirm, setShowRestartConfirm] = useState(false)
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const [showRestartConfirm, setShowRestartConfirm] = useState(false);
 
   const handleReset = () => {
-    useGameStore.getState().reset()
-    useSimulationStore.getState().resetSimulation()
-    clearSave()
-    setShowResetConfirm(false)
-    onClose()
-  }
+    useGameStore.getState().reset();
+    useSimulationStore.getState().resetSimulation();
+    clearSave();
+    setShowResetConfirm(false);
+    onClose();
+  };
 
   const handleRestartStrategy = () => {
-    useGameStore.getState().resetStrategyOnly()
-    useSimulationStore.getState().resetSimulation()
-    setShowRestartConfirm(false)
-    onClose()
-  }
+    useGameStore.getState().resetStrategyOnly();
+    useSimulationStore.getState().resetSimulation();
+    setShowRestartConfirm(false);
+    onClose();
+  };
 
   const handleFullscreen = () => {
     if (document.fullscreenElement) {
-      void document.exitFullscreen()
+      void document.exitFullscreen();
     } else {
-      void document.documentElement.requestFullscreen()
+      void document.documentElement.requestFullscreen();
     }
-  }
+  };
 
   const handleMainMenu = () => {
-    setShowExitConfirm(true)
-  }
+    setShowExitConfirm(true);
+  };
 
   return (
     <Modal title="Settings" isOpen={isOpen} onClose={onClose}>
       <div className={styles.panel} data-testid="settings-panel">
         <div className={styles.row}>
           <label className={styles.label}>Main Menu</label>
-          <button
-            className={styles.actionBtn}
-            onClick={handleMainMenu}
-            data-testid="main-menu-btn"
-          >
+          <button className={styles.actionBtn} onClick={handleMainMenu} data-testid="main-menu-btn">
             Go to Title Screen
           </button>
         </div>
@@ -100,8 +96,11 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
         </div>
 
         <div className={styles.row}>
-          <label className={styles.label}>Mute All Audio</label>
+          <label className={styles.label} htmlFor="mute-checkbox">
+            Mute All Audio
+          </label>
           <input
+            id="mute-checkbox"
             type="checkbox"
             checked={muted}
             onChange={toggleMute}
@@ -110,8 +109,11 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
         </div>
 
         <div className={styles.row}>
-          <label className={styles.label}>Show FPS Counter</label>
+          <label className={styles.label} htmlFor="fps-checkbox">
+            Show FPS Counter
+          </label>
           <input
+            id="fps-checkbox"
             type="checkbox"
             checked={showFps}
             onChange={toggleFps}
@@ -137,8 +139,8 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
           <button
             className={styles.actionBtn}
             onClick={() => {
-              useGameStore.getState().resetStrategyTutorial()
-              onClose()
+              useGameStore.getState().resetStrategyTutorial();
+              onClose();
             }}
             data-testid="replay-tutorial-btn"
           >
@@ -176,7 +178,11 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
             variant="confirm"
             confirmLabel="Leave"
             cancelLabel="Stay"
-            onConfirm={() => { setShowExitConfirm(false); onClose(); navigate('/', { replace: true }) }}
+            onConfirm={() => {
+              setShowExitConfirm(false);
+              onClose();
+              navigate('/', { replace: true });
+            }}
           >
             <p>Unsaved progress will be lost. Are you sure?</p>
           </Modal>
@@ -209,5 +215,5 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
         )}
       </div>
     </Modal>
-  )
+  );
 }

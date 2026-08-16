@@ -118,6 +118,7 @@ export function InterventionCard({
       onClick={isCooldown || isLocked ? undefined : onDeploy}
       role="button"
       tabIndex={isCooldown || isLocked ? -1 : 0}
+      aria-disabled={isCooldown || isLocked}
       onKeyDown={(e) => {
         if (!isCooldown && !isLocked && (e.key === 'Enter' || e.key === ' ')) {
           onDeploy();

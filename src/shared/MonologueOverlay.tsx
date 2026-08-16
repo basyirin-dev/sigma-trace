@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { usePlaytestStore } from './stores/usePlaytestStore'
+import { useEffect } from 'react';
+import { usePlaytestStore } from './stores/usePlaytestStore';
 
 const OVERLAY_STYLE: Record<string, React.CSSProperties> = {
   backdrop: {
@@ -34,31 +34,40 @@ const OVERLAY_STYLE: Record<string, React.CSSProperties> = {
     color: '#666',
     marginTop: 16,
   },
-}
+};
 
-const AUTO_DISMISS_DELAY = 4000
+const AUTO_DISMISS_DELAY = 4000;
 
 export function MonologueOverlay() {
-  const activeMonologue = usePlaytestStore((s) => s.activeMonologue)
-  const dismissMonologue = usePlaytestStore((s) => s.dismissMonologue)
+  const activeMonologue = usePlaytestStore((s) => s.activeMonologue);
+  const dismissMonologue = usePlaytestStore((s) => s.dismissMonologue);
 
   useEffect(() => {
-    if (!activeMonologue) return
-    const timer = setTimeout(() => dismissMonologue(), AUTO_DISMISS_DELAY)
-    return () => clearTimeout(timer)
-  }, [activeMonologue, dismissMonologue])
+    if (!activeMonologue) return;
+    const timer = setTimeout(() => dismissMonologue(), AUTO_DISMISS_DELAY);
+    return () => clearTimeout(timer);
+  }, [activeMonologue, dismissMonologue]);
 
-  if (!activeMonologue) return null
+  if (!activeMonologue) return null;
 
   return (
     <div
       style={OVERLAY_STYLE.backdrop}
       onClick={() => dismissMonologue()}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+          e.preventDefault();
+          dismissMonologue();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label="Dismiss monologue"
     >
       <div style={OVERLAY_STYLE.box} onClick={(e) => e.stopPropagation()}>
         <div style={OVERLAY_STYLE.text}>{activeMonologue}</div>
         <div style={OVERLAY_STYLE.clue}>Click anywhere to dismiss</div>
       </div>
     </div>
-  )
+  );
 }

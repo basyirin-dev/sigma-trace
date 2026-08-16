@@ -1,6 +1,7 @@
 export {
   createDistrictTiles,
   renderTileGlow,
+  invalidateGlowCache,
   GRID_COLS,
   GRID_ROWS,
   TILE_SIZE,
@@ -15,6 +16,7 @@ export {
   createAgent,
   recolorByPopulation,
   setHotspotCenter,
+  markAgentsDirty,
 } from './renderAgents';
 export type { Agent } from './renderAgents';
 export { renderHeatmap, renderDistrictPulse, computeDistrictQuadrants } from './renderHeatmap';
@@ -32,4 +34,9 @@ export {
   MAX_R0,
 } from './renderR0Trend';
 export { renderInterventionRings, computeRingThickness } from './renderInterventionRings';
-export { renderMap, preloadMapAssets, renderDistrictLabels } from './renderMap';
+export {
+  renderMap,
+  preloadMapAssets,
+  renderDistrictLabels,
+  invalidateStaticMap,
+} from './renderMap';

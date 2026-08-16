@@ -180,15 +180,26 @@ export function VictoryScreen() {
       </div>
 
       <div className={styles.actionsRow}>
-        <button className={styles.shareBtn} onClick={handleShare} data-testid="share-btn">
+        <button
+          className={styles.shareBtn}
+          onClick={handleShare}
+          type="button"
+          data-testid="share-btn"
+        >
           Share Scorecard
         </button>
-        <button className={styles.continueBtn} onClick={handleContinue} data-testid="continue-btn">
+        <button
+          className={styles.continueBtn}
+          onClick={handleContinue}
+          type="button"
+          data-testid="continue-btn"
+        >
           Continue Playing
         </button>
         <button
           className={styles.playAgainBtn}
           onClick={handlePlayAgain}
+          type="button"
           data-testid="play-again-btn"
         >
           Play Again

@@ -33,6 +33,7 @@ export function Toolbelt({
             data-testid={`tool-btn-${tool.id}`}
             data-active={isActive}
             data-used={isUsed}
+            aria-pressed={isActive}
           >
             <span className={styles.toolIcon}>{tool.icon}</span>
             <span className={styles.toolLabel}>{tool.label}</span>

@@ -168,6 +168,7 @@ export function updateAgents(
       }
     }
   }
+  agentsNeedSort = true;
 }
 
 export function recolorByPopulation(agents: Agent[], population: PopulationState): void {
@@ -232,8 +233,20 @@ function shadeColor(color: string, amount: number): string {
   return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
 }
 
+let agentsNeedSort = true;
+
+export function markAgentsDirty(): void {
+  agentsNeedSort = true;
+}
+
 export function renderAgents(ctx: CanvasRenderingContext2D, agents: Agent[]): void {
-  const sorted = [...agents].sort((a, b) => a.y - b.y);
+  let sorted: Agent[];
+  if (agentsNeedSort) {
+    sorted = [...agents].sort((a, b) => a.y - b.y);
+    agentsNeedSort = false;
+  } else {
+    sorted = agents;
+  }
   const now = performance.now();
   const blinkPhase = Math.floor(now / 400) % 2 === 0;
 

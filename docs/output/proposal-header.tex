@@ -1,0 +1,27 @@
+% GIHA proposal design system
+\usepackage{geometry}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf, justification=centering}
+
+% Color + table styling
+\usepackage[table]{xcolor}
+\definecolor{navy}{HTML}{1A365D}
+\rowcolors{2}{white}{black!4}
+\renewcommand{\arraystretch}{1.35}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amssymb}
+
+% Typography hierarchy
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{navy}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{navy!80!black}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{black!75}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{20pt}{8pt}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% Paragraph rhythm
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}

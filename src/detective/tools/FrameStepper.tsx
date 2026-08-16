@@ -111,6 +111,21 @@ export function FrameStepper({ videoSrc }: FrameStepperProps) {
 
       <div
         onClick={handleTimelineClick}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            seekTo(Math.max(0, currentFrame - 1));
+          } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            seekTo(Math.min(totalFrames, currentFrame + 1));
+          }
+        }}
+        tabIndex={0}
+        role="slider"
+        aria-label="Video timeline"
+        aria-valuemin={0}
+        aria-valuemax={totalFrames}
+        aria-valuenow={currentFrame}
         data-testid="fs-timeline"
         style={{
           marginTop: '8px',

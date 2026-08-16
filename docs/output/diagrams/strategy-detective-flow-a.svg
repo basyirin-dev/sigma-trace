@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 490" font-family="DejaVu Sans, sans-serif">
+  <title>High-level mode transition flow: start, enter strategy mode, when a case becomes available switch to detective mode, and if victory conditions are met the game ends in victory, otherwise continue monitoring; failure conditions lead to game over</title>
+
+  <!-- Start -->
+  <rect x="330" y="20" width="100" height="34" rx="17" fill="#EDF2F7" stroke="#4A5568" stroke-width="1.5"/>
+  <text x="380" y="42" font-size="14" font-weight="bold" fill="#2D3748" text-anchor="middle">Start</text>
+  <line x1="380" y1="54" x2="380" y2="70" stroke="#4A5568" stroke-width="2"/>
+  <polygon points="374,66 380,76 386,66" fill="#4A5568"/>
+
+  <!-- Strategy Mode -->
+  <rect x="280" y="76" width="200" height="74" rx="10" fill="#3182CE"/>
+  <text x="380" y="104" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Strategy Mode</text>
+  <text x="380" y="126" font-size="14" fill="#FFFFFF" text-anchor="middle">city simulation</text>
+  <text x="380" y="142" font-size="14" fill="#FFFFFF" text-anchor="middle">ODE engine</text>
+  <line x1="380" y1="150" x2="380" y2="164" stroke="#4A5568" stroke-width="2"/>
+  <polygon points="374,160 380,170 386,160" fill="#4A5568"/>
+
+  <!-- Case Available? -->
+  <rect x="280" y="170" width="200" height="60" rx="10" fill="#DD6B20"/>
+  <text x="380" y="198" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Case Available?</text>
+  <text x="380" y="218" font-size="14" fill="#FFFFFF" text-anchor="middle">unlock rules met?</text>
+  <line x1="380" y1="230" x2="380" y2="244" stroke="#4A5568" stroke-width="2"/>
+  <polygon points="374,240 380,250 386,240" fill="#4A5568"/>
+
+  <!-- Detective Mode -->
+  <rect x="280" y="250" width="200" height="74" rx="10" fill="#319795"/>
+  <text x="380" y="278" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Detective Mode</text>
+  <text x="380" y="300" font-size="14" fill="#FFFFFF" text-anchor="middle">forensic</text>
+  <text x="380" y="316" font-size="14" fill="#FFFFFF" text-anchor="middle">investigation</text>
+  <line x1="380" y1="324" x2="380" y2="338" stroke="#4A5568" stroke-width="2"/>
+  <polygon points="374,334 380,344 386,334" fill="#4A5568"/>
+
+  <!-- Victory? -->
+  <rect x="280" y="344" width="200" height="64" rx="10" fill="#DD6B20"/>
+  <text x="380" y="370" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Victory?</text>
+  <text x="380" y="390" font-size="14" fill="#FFFFFF" text-anchor="middle">3 cases · σ ≥ 70</text>
+  <text x="380" y="406" font-size="14" fill="#FFFFFF" text-anchor="middle">R₀ &lt; 1.2 · 30 ticks</text>
+  <line x1="380" y1="408" x2="380" y2="422" stroke="#4A5568" stroke-width="2"/>
+  <polygon points="374,418 380,428 386,418" fill="#4A5568"/>
+
+  <!-- VICTORY -->
+  <rect x="280" y="428" width="200" height="44" rx="22" fill="#38A169"/>
+  <text x="380" y="456" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">VICTORY</text>
+
+  <!-- GAME OVER -->
+  <rect x="540" y="428" width="180" height="44" rx="22" fill="#E53E3E"/>
+  <text x="630" y="456" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">GAME OVER</text>
+
+  <!-- Feedback loop: Victory? No -> Strategy Mode (dashed) -->
+  <path d="M280,376 L200,376 L200,113 L274,113" fill="none" stroke="#4A5568" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="270,108 280,113 270,118" fill="#4A5568"/>
+  <text x="192" y="370" font-size="14" fill="#4A5568" text-anchor="end">Continue monitoring</text>
+
+  <!-- Failure: Strategy Mode -> GAME OVER (dashed red) -->
+  <path d="M480,113 L620,113 L620,422" fill="none" stroke="#E53E3E" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="615,418 620,428 625,418" fill="#E53E3E"/>
+  <text x="560" y="106" font-size="14" fill="#C53030" text-anchor="middle">σ-trap / R₀ too high</text>
+</svg>

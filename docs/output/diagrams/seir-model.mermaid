@@ -1,0 +1,13 @@
+flowchart LR
+    S[Susceptible<br/>Population] -->|Exposure to<br/>disinformation| E[Exposed<br/>Incubating]
+    E -->|σ-coherence<br/>fails| I[Infected<br/>Believing & Sharing]
+    I -->|Intervention/<br/>time| R[Resistant<br/>Immunized]
+    R -.->|σ decays| S
+    
+    S2[σ-coherence]:::sigma -.->|Protective factor| E
+    R2[σ-coherence boost<br/>from interventions]:::sigma -.->|Strengthens| R
+    
+    I2[R₀]:::r0 -.->|Spread rate| I
+    
+    classDef sigma fill:#9B59B6,color:#fff
+    classDef r0 fill:#E74C3C,color:#fff

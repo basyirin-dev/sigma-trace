@@ -1,4 +1,12 @@
-import { useState, useCallback, useEffect, useRef, type MouseEvent, type DragEvent } from 'react';
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  memo,
+  type MouseEvent,
+  type DragEvent,
+} from 'react';
 import styles from './EvidenceCard.module.css';
 
 export type EvidenceType = 'video' | 'audio' | 'image' | 'text' | 'metadata';
@@ -46,7 +54,7 @@ const TYPE_ICONS: Record<EvidenceType, string> = {
   metadata: '\u2699',
 };
 
-export function EvidenceCard({
+export const EvidenceCard = memo(function EvidenceCard({
   evidence,
   selected,
   onSelect,
@@ -235,4 +243,4 @@ export function EvidenceCard({
       </div>
     </div>
   );
-}
+});

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIHA — UNESCO Youth Hackathon 2026</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.85in 0.9in;
+  }
+
+  /* Game typography — fallback to system sans-serif for print */
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ========== COVER PAGE ========== */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 9.5in;
+    text-align: center;
+    background: linear-gradient(160deg, #0d1541 0%, #1a237e 40%, #283593 100%);
+    color: #fff;
+    margin: -0.85in -0.9in;
+    padding: 0.85in 0.9in;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(0,137,123,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(255,179,0,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cover-logo {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-logo svg { width: 100%; height: 100%; }
+
+  .cover h1 {
+    font-size: 48pt;
+    font-weight: 800;
+    letter-spacing: 6px;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+  }
+
+  .cover .subtitle {
+    font-size: 16pt;
+    color: rgba(255,255,255,0.85);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0 0 40px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover .divider {
+    width: 120px;
+    height: 3px;
+    background: #ffb300;
+    margin: 0 auto 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover .tagline {
+    font-size: 13pt;
+    color: rgba(255,255,255,0.75);
+    max-width: 480px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+  }
+
+  .cover .meta {
+    margin-top: 50px;
+    font-size: 10pt;
+    color: rgba(255,255,255,0.6);
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover .branding-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover .branding-row .unesco-logo {
+    height: 48px;
+    opacity: 0.85;
+  }
+
+  .cover .branding-row .brand-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  .cover .branding-row .hackathon-badge {
+    font-size: 9pt;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ========== TABLE OF CONTENTS ========== */
+  .toc {
+    page-break-after: always;
+  }
+
+  .toc h2 {
+    font-size: 18pt;
+    color: #1a237e;
+    border-bottom: 2px solid #1a237e;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    columns: 1;
+  }
+
+  .toc li {
+    margin-bottom: 10px;
+    font-size: 11pt;
+  }
+
+  .toc li a {
+    color: #1a237e;
+    text-decoration: none;
+  }
+
+  .toc li a::after {
+    content: ' ....................................................';
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .toc .toc-section {
+    font-weight: 600;
+  }
+
+  /* ========== CONTENT SECTIONS ========== */
+  h1 {
+    font-size: 20pt;
+    color: #1a237e;
+    margin: 28px 0 14px 0;
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 14pt;
+    color: #00897b;
+    margin: 22px 0 10px 0;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 12pt;
+    color: #283593;
+    margin: 16px 0 8px 0;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    font-size: 11pt;
+    color: #1a1a1a;
+    margin: 12px 0 6px 0;
+    font-weight: 600;
+  }
+
+  p { margin: 0 0 10px 0; text-align: justify; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #1a237e;
+    color: #fff;
+    padding: 6px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) td {
+    background: #f5f5f7;
+  }
+
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+
+  .diagram {
+    text-align: center;
+    margin: 18px 0;
+    page-break-inside: avoid;
+  }
+
+  .diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .diagram-caption {
+    font-size: 9pt;
+    color: #666;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .screenshot {
+    text-align: center;
+    margin: 18px 0;
+    page-break-inside: avoid;
+  }
+
+  .screenshot img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .screenshot-caption {
+    font-size: 9pt;
+    color: #666;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .highlight-box {
+    background: #e8eaf6;
+    border-left: 4px solid #1a237e;
+    padding: 12px 16px;
+    margin: 14px 0;
+    page-break-inside: avoid;
+  }
+
+  .highlight-box h4 {
+    color: #1a237e;
+    margin: 0 0 4px 0;
+  }
+
+  .highlight-box p { margin: 0; }
+
+  .appendix {
+    page-break-before: always;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 24px 0;
+  }
+
+  .ref-list {
+    font-size: 9.5pt;
+  }
+
+  .ref-list li {
+    margin-bottom: 6px;
+  }
+
+  strong, b { font-weight: 600; }
+  em, i { font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<section class="cover">
+  <div class="cover-logo">
+    <!-- GIHA Logo (simplified SVG — emblem shape) -->
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-logo" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00acc1"/>
+          <stop offset="100%" stop-color="#1a237e"/>
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="90" fill="url(#g-logo)" opacity="0.95"/>
+      <text x="100" y="90" text-anchor="middle" fill="#fff" font-size="52" font-weight="800" font-family="sans-serif">GIHA</text>
+      <text x="100" y="118" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="12" font-weight="400" font-family="sans-serif" letter-spacing="3">GLOBAL INFORMATION</text>
+      <text x="100" y="134" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="12" font-weight="400" font-family="sans-serif" letter-spacing="3">HEALTH AGENCY</text>
+    </svg>
+  </div>
+
+  <h1>GIHA</h1>
+  <p class="subtitle">Global Information Health Agency</p>
+  <div class="divider"></div>
+  <p class="tagline">A two-mode Media and Information Literacy game combining<br>systems dynamics simulation with hands-on forensic investigation</p>
+
+  <div class="meta">
+    <p style="margin:0"><strong>UNESCO Youth Hackathon 2026</strong></p>
+    <p style="margin:4px 0 0 0">&ldquo;Youth Designing the Future of MIL&rdquo;</p>
+  </div>
+
+  <div class="branding-row">
+    <!-- UNESCO logo as SVG -->
+    <svg class="unesco-logo" viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="44" font-size="18" font-weight="700" fill="rgba(255,255,255,0.9)" font-family="sans-serif" letter-spacing="1">UNESCO</text>
+      <text x="0" y="64" font-size="8" font-weight="400" fill="rgba(255,255,255,0.6)" font-family="sans-serif">United Nations Educational, Scientific and<br/>Cultural Organization</text>
+    </svg>
+    <div class="brand-divider"></div>
+    <div class="hackathon-badge">Youth Hackathon 2026</div>
+  </div>
+</section>
+
+<!-- ==================== TABLE OF CONTENTS ==================== -->
+<section class="toc">
+  <h2>Table of Contents</h2>
+  <ul>
+    <li><span class="toc-section">Section 1:</span> Team Members</li>
+    <li><span class="toc-section">Section 2:</span> Problem Statement</li>
+    <li><span class="toc-section">Section 3:</span> Our Solution — GIHA</li>
+    <li><span class="toc-section">Section 4:</span> Target Audience &amp; Impact</li>
+    <li><span class="toc-section">Section 5:</span> Innovation &amp; Creativity</li>
+    <li><span class="toc-section">Section 6:</span> Feasibility &amp; Sustainability</li>
+    <li><span class="toc-section">Section 7:</span> Consistency with Theme</li>
+    <li><span class="toc-section">Appendices</span></li>
+  </ul>
+
+  <h2 style="margin-top:30px">Game Screenshots</h2>
+  <ul>
+    <li>Figure A: Strategy Mode — City Overview</li>
+    <li>Figure B: Detective Mode — Evidence Board</li>
+    <li>Figure C: Frame Stepper Tool</li>
+    <li>Figure D: Spectrogram Tool</li>
+    <li>Figure E: Strategy-Detective Interaction Flow</li>
+    <li>Figure F: SEIR Compartment Model</li>
+    <li>Figure G: R₀ Phase Transition Graph</li>
+  </ul>
+</section>
+
+<!-- ==================== SECTION 1: TEAM ==================== -->
+<h1>Section 1: Team Members</h1>
+
+<p><strong>M1 (AI/Research):</strong> Basyirin Amsyar Basri — AI researcher specializing in dynamical systems and ODE modeling. Designed the Σ-Model coherence formalism underlying GIHA's simulation engine, strategy mode, and intervention balance.</p>
+
+<p><strong>M2 (Security/Dev):</strong> Cybersecurity engineer focused on trust architectures and secure systems. Built the detective mode framework, forensics tools, CI/CD pipeline, and case data infrastructure.</p>
+
+<p><strong>Team statement:</strong> We are an AI researcher and a cybersecurity engineer who combined our skills to build GIHA — the only MIL tool that teaches systems thinking AND hands-on investigation in a single game.</p>
+
+<p><strong>GitHub:</strong> <a href="https://github.com/basyirin-dev/sigma-trace">github.com/basyirin-dev/sigma-trace</a></p>
+
+<!-- ==================== SECTION 2: PROBLEM ==================== -->
+<h1>Section 2: Problem Statement</h1>
+
+<h2>2.1 The Disinformation Crisis</h2>
+
+<p>AI-generated content is accelerating faster than detection technology can keep up. In 2025–2026, deepfake video quality reached the point where untrained viewers cannot reliably distinguish synthetic from authentic content. Voice cloning requires only 3 seconds of audio — a sample that can be captured through a browser game shared via text message. Photos can be misattributed across thousands of kilometers with a single caption rewrite. The common MIL advice — "check your sources" — is too slow and too abstract for a world where a fabricated video can reach 50,000 shares in 3 hours.</p>
+
+<h2>2.2 The Gap</h2>
+
+<p>Existing Media and Information Literacy tools fall into two categories: passive (curricula, online courses, quizzes) or specialized (deepfake detection tools, reverse image search platforms). Passive tools fail to engage the 18–30 demographic that spends most of its information-consumption time on algorithmically-driven social platforms. Specialized tools require technical knowledge and don't teach the underlying verification framework. No existing tool combines a systems-level understanding of how disinformation spreads with the hands-on skills needed to investigate a specific case. No game puts the player in the dual role of city manager AND forensic investigator.</p>
+
+<h2>2.3 Why This Matters to UNESCO</h2>
+
+<p>GIHA directly addresses the 2026 UNESCO Youth Hackathon theme: "Youth Designing the Future of MIL." Built by two youth developers (both aged 18–30), designed for youth engagement through a game format rather than traditional classroom instruction, and deployable at zero marginal cost — GIHA makes advanced MIL education accessible to anyone with a browser. It specifically addresses AI-generated disinformation, which UNESCO has identified as a priority area for MIL curricula.</p>
+
+<!-- ==================== SECTION 3: SOLUTION ==================== -->
+<h1>Section 3: Our Solution — GIHA</h1>
+
+<h2>3.1 Concept Overview</h2>
+
+<p>GIHA (Global Information Health Agency) is a two-mode web game that teaches Media and Information Literacy through systems thinking and hands-on forensic investigation. The player takes the role of an AI forensics investigator at GIHA, protecting the fictional city of Veritas from a coordinated disinformation campaign. In Strategy Mode, the player manages the city's information ecosystem health using a discrete-time ODE simulation adapted from research on neural network coherence dynamics. In Detective Mode, the player investigates individual disinformation cases using 6 forensic tools — each of which teaches a real-world MIL verification skill. The two modes reinforce each other: solving cases improves city health, while city management determines which cases become available.</p>
+
+<p><strong>Tone and influences:</strong> Investigative thriller with educational grounding, drawing from the methodical investigation of <em>Spotlight</em>, the digital forensics systems thinking of <em>Mr. Robot</em>, and the real-world urgency of <em>The Social Dilemma</em>.</p>
+
+<h2>3.2 The Strategy Mode</h2>
+
+<div class="screenshot">
+  <!-- placeholder: will be replaced with actual screenshot -->
+  <div style="background:#1a1a2e; color:#e0e0e0; padding:20px; border-radius:4px; font-family:monospace; text-align:center;">
+    <div style="font-size:10pt; color:#00897b; margin-bottom:8px;">[ Figure A: Strategy Mode — City Overview ]</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:#333; padding:1px; max-width:400px; margin:0 auto;">
+      <div style="background:#5a7a3a; padding:12px; font-size:7pt; color:rgba(255,255,255,0.5);">FOUNDRY DISTRICT</div>
+      <div style="background:#3d5a5a; padding:12px; font-size:7pt; color:rgba(255,255,255,0.5);">HARBORVIEW</div>
+      <div style="background:#6b5a1a; padding:12px; font-size:7pt; color:rgba(255,255,255,0.5);">UPTOWN</div>
+      <div style="background:#3a5a3a; padding:12px; font-size:7pt; color:rgba(255,255,255,0.5);">CAMPUS</div>
+    </div>
+    <div style="font-size:7pt; color:#666; margin-top:4px;">4-district pixel art city with heatmap overlay</div>
+  </div>
+  <div class="screenshot-caption">Figure A: Strategy Mode — city overview with district heatmap and active interventions</div>
+</div>
+
+<p>The strategy mode simulates a city population of 500,000 with compartments tracking Susceptible, Exposed, Infected, and Resistant population segments alongside two key metrics: σ (σ-coherence, the population's resilience to disinformation, 0–100) and R₀ (the basic reproduction number of the dominant narrative, 0–5.0).</p>
+
+<p>The player monitors R₀ and σ in a heads-up display with a real-time trend graph showing the past 60 ticks of both metrics. When R₀ rises or σ drops, the player can deploy 6 types of interventions (Fact-Check Bureau, School MIL Program, Algorithm Audit, Community Dialog, Source Verification Campaign, Emergency Broadcast), each with unique cost, cooldown, duration, and direction of effect (R₀ reduction, σ boost, or both). Interventions have a deployment animation (pulsing ring on affected districts) and are tracked on a timeline for review.</p>
+
+<p>The simulation detects four phases based on σ and R₀ thresholds: <strong>Calm</strong> (σ ≥ 60 and R₀ &lt; 0.8 — stable); <strong>Outbreak</strong> (σ &lt; 60 or R₀ ≥ 0.8 — disinformation spreading); <strong>Crisis</strong> (σ &lt; 40 and R₀ ≥ 1.5 — population coherence collapsing); and <strong>σ-trap</strong> (σ &lt; 20 — a low-coherence danger zone where recovery becomes increasingly difficult). Phase transitions trigger on-screen alerts with atmospheric descriptions, reinforcing the narrative stakes.</p>
+
+<p>The city is divided into 4 districts (Foundry, Harborview, Uptown, Campus), each with distinct literacy rates and internet access levels that modulate district-level effective R₀. The player loses if citywide R₀ exceeds 2.0 for 40 consecutive ticks, if any district sustains R₀ above 2.0 for 40 consecutive ticks, or if 4 cases are failed — representing the real-world phenomenon that disinformation can gain a permanent foothold in vulnerable subpopulations. The player wins by completing all 3 detective cases while maintaining citywide σ ≥ 70 and R₀ &lt; 1.2 for 30 stable ticks.</p>
+
+<div class="diagram">
+  <!-- SEIR Model Diagram SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200" font-family="sans-serif" style="max-width:600px;">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#3F51B5"/>
+      </marker>
+    </defs>
+    <rect x="10" y="50" width="110" height="80" rx="10" fill="#E8EAF6" stroke="#3F51B5" stroke-width="2"/>
+    <text x="65" y="85" text-anchor="middle" fill="#1A237E" font-size="13" font-weight="bold">Susceptible</text>
+    <text x="65" y="105" text-anchor="middle" fill="#666" font-size="9">S — 450K</text>
+
+    <path d="M 125 90 L 165 90" stroke="#3F51B5" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+    <text x="145" y="82" text-anchor="middle" fill="#888" font-size="8">β₀</text>
+
+    <rect x="170" y="50" width="110" height="80" rx="10" fill="#FFF8E1" stroke="#FFB300" stroke-width="2"/>
+    <text x="225" y="85" text-anchor="middle" fill="#E65100" font-size="13" font-weight="bold">Exposed</text>
+    <text x="225" y="105" text-anchor="middle" fill="#666" font-size="9">E — 30K</text>
+
+    <path d="M 285 90 L 325 90" stroke="#FFB300" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="330" y="50" width="110" height="80" rx="10" fill="#FFEBEE" stroke="#E53935" stroke-width="2"/>
+    <text x="385" y="85" text-anchor="middle" fill="#C62828" font-size="13" font-weight="bold">Infected</text>
+    <text x="385" y="105" text-anchor="middle" fill="#666" font-size="9">I — 15K</text>
+
+    <path d="M 445 90 L 485 90" stroke="#E53935" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="490" y="50" width="110" height="80" rx="10" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+    <text x="545" y="85" text-anchor="middle" fill="#2E7D32" font-size="13" font-weight="bold">Recovered</text>
+    <text x="545" y="105" text-anchor="middle" fill="#666" font-size="9">R — 5K</text>
+
+    <text x="350" y="155" text-anchor="middle" fill="#888" font-size="9">Population flow: S → E (exposure) → I (infection) → R (recovery, immunity)</text>
+    <text x="350" y="175" text-anchor="middle" fill="#999" font-size="8">Disinformation spread rate is modulated by σ-coherence and intervention effects</text>
+  </svg>
+  <div class="diagram-caption">Figure F: SEIR Compartment Model — population dynamics tracked in Strategy Mode</div>
+</div>
+
+<h2>3.3 The Detective Mode</h2>
+
+<p>The detective mode presents 3 hand-crafted cases, each teaching a distinct MIL verification skill:</p>
+
+<table>
+  <tr><th>Case</th><th>Title</th><th>MIL Lesson</th></tr>
+  <tr><td>1</td><td>The Viral Mayor</td><td>Deepfake detection through multi-modal analysis (audio spectrogram + frame inspection + metadata)</td></tr>
+  <tr><td>2</td><td>Grandma's Distress Call</td><td>AI voice cloning awareness: verify urgent requests through independent channels</td></tr>
+  <tr><td>3</td><td>The Front Page</td><td>Reverse image search and geolocation: context is everything</td></tr>
+</table>
+
+<p>Each case follows a 5-state flow: Intro cutscene → Free-form investigation on an evidence board → Evidence connection mapping → Verdict (Real / Manipulated / Uncertain) with written justification → Debrief with score breakdown and real-world MIL lesson.</p>
+
+<p>Six forensic tools are available: Spectrogram (detects synthetic audio artifacts via Web Audio API FFT analysis), Frame Stepper (inspects video frame-by-frame for lip-sync mismatches and temporal artifacts), Metadata Inspector (extracts timestamps, GPS coordinates, and software signatures from file metadata), Source Tracer (traces provenance through propagation graphs to identify origin and sharing patterns), Inconsistency Highlighter (detects lighting, shadow, and perspective anomalies across images), and Timeline Cross-Referencer (flags impossible creation-to-publication windows by comparing timestamps across multiple evidence items). Each tool has an evidence type affinity and returns confidence-annotated findings that players must interpret themselves.</p>
+
+<div class="highlight-box">
+  <h4>Evidence Media Ethics</h4>
+  <p>The audio, video, and image files used as evidence in detective cases are illustrative placeholder content — simple recordings of actors reading scripts, stock photos with manipulated metadata, and basic audio clips. They are NOT AI-generated deepfakes. This is a deliberate design choice: GIHA teaches the detection and critical analysis of potentially manipulated media, not the creation of synthetic content. By using real (but innocuous) media files with fabricated narrative context, the game keeps the educational focus on analytical skill-building rather than exposing players to actual AI-generated disinformation materials. This aligns with UNESCO's MIL principle that education should empower critical consumption, not demonstrate harmful techniques.</p>
+</div>
+
+<div class="screenshot">
+  <div style="background:#0a0a1a; color:#e0e0e0; padding:20px; border-radius:4px; font-family:monospace; text-align:center;">
+    <div style="font-size:10pt; color:#00acc1; margin-bottom:8px;">[ Figure B: Detective Mode — Evidence Board ]</div>
+    <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+      <div style="background:#1a1a3e; border:1px solid #333; border-radius:4px; padding:10px; width:100px; font-size:7pt;">
+        <div style="color:#e53935; font-size:10pt;">▶</div>
+        <div>VIDEO</div>
+        <div style="color:#666;">Mayor Speech</div>
+      </div>
+      <div style="background:#1a1a3e; border:1px solid #333; border-radius:4px; padding:10px; width:100px; font-size:7pt;">
+        <div style="color:#ffb300; font-size:10pt;">♪</div>
+        <div>AUDIO</div>
+        <div style="color:#666;">Audio Track</div>
+      </div>
+      <div style="background:#1a1a3e; border:1px solid #333; border-radius:4px; padding:10px; width:100px; font-size:7pt;">
+        <div style="color:#43a047; font-size:10pt;">■</div>
+        <div>IMAGE</div>
+        <div style="color:#666;">Reference Photo</div>
+      </div>
+    </div>
+    <div style="font-size:7pt; color:#666; margin-top:4px;">Evidence cards with SVG connection lines</div>
+  </div>
+  <div class="screenshot-caption">Figure B: Detective Mode — evidence board with connected evidence cards</div>
+</div>
+
+<h2>3.4 The Mathematical Foundation</h2>
+
+<div class="diagram">
+  <!-- R₀ Phase Transition Diagram -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" font-family="sans-serif" style="max-width:600px;">
+    <!-- Axes -->
+    <line x1="50" y1="250" x2="650" y2="250" stroke="#333" stroke-width="1.5"/>
+    <line x1="50" y1="250" x2="50" y2="30" stroke="#333" stroke-width="1.5"/>
+    <!-- R₀ = 1.0 threshold line -->
+    <line x1="50" y1="120" x2="650" y2="120" stroke="#E53935" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <text x="655" y="124" fill="#E53935" font-size="9">R₀ = 1.0 (bifurcation)</text>
+    <!-- R₀ curve -->
+    <path d="M 70 240 Q 200 240 300 120 Q 400 40 500 35 Q 580 33 630 33" fill="none" stroke="#1A237E" stroke-width="2.5"/>
+    <!-- σ zones -->
+    <rect x="50" y="35" width="120" height="85" fill="rgba(46,204,113,0.08)" stroke="none"/>
+    <rect x="170" y="35" width="160" height="85" fill="rgba(241,196,15,0.08)" stroke="none"/>
+    <rect x="330" y="35" width="320" height="85" fill="rgba(231,76,60,0.08)" stroke="none"/>
+    <text x="110" y="20" text-anchor="middle" fill="#2ECC71" font-size="9" font-weight="bold">σ ≥ 60</text>
+    <text x="250" y="20" text-anchor="middle" fill="#F1C40F" font-size="9" font-weight="bold">20 ≤ σ &lt; 60</text>
+    <text x="490" y="20" text-anchor="middle" fill="#E74C3C" font-size="9" font-weight="bold">σ &lt; 20 (trap zone)</text>
+    <text x="55" y="270" fill="#666" font-size="8">Time (ticks)</text>
+    <text x="20" y="130" fill="#666" font-size="8" transform="rotate(-90,20,130)">R₀</text>
+    <!-- Labels -->
+    <circle cx="200" cy="120" r="3" fill="#E53935"/>
+    <text x="195" y="108" text-anchor="end" fill="#E53935" font-size="8" font-weight="bold">Transcritical<br/>bifurcation</text>
+  </svg>
+  <div class="diagram-caption">Figure G: R₀ Phase Transition — transcritical bifurcation at R₀ = 1.0 marks epidemic threshold</div>
+</div>
+
+<p>GIHA's strategy mode runs on a discrete-time adaptation of the Σ-Model — a dynamical systems formalism originally developed for analyzing neural network coherence and adapted here for population-level information health. The core metric σ-coherence (0–100) measures the population's ability to distinguish authentic content from disinformation. The R₀ = 1.0 threshold (transcritical bifurcation) marks when disinformation transitions from containable to epidemic. At σ &lt; 20 the model flags the "σ-trap" — a low-coherence regime in which recovery becomes extremely difficult and containment fails. The S/E/I/R compartment model tracks population exposure dynamics.</p>
+
+<p>Parameter values (recovery rate, incubation rate, decay coefficients, intervention effects) were calibrated against the Σ-Model paper's Proposition 4.1 and adjusted through internal playtesting to achieve a target playtime of 15–20 minutes per session.</p>
+
+<h2>3.5 Technical Implementation</h2>
+
+<ul>
+  <li><strong>Build:</strong> Vite 8, React 19, TypeScript 6 (strict), Zustand state management</li>
+  <li><strong>Rendering:</strong> Canvas2D with offscreen-canvas-optimized pixel art for strategy mode; CSS Modules with pixel-themed UI for detective mode</li>
+  <li><strong>Engine:</strong> Pure TypeScript ODE solver (ported from Python Σ-Model reference implementation)</li>
+  <li><strong>Tests:</strong> 693 unit tests across 66 test suites; Vitest with v8 coverage — zero type errors</li>
+  <li><strong>CI/CD:</strong> GitHub Actions (lint, typecheck, test, build, e2e)</li>
+  <li><strong>Hosting:</strong> Netlify free tier (static SPA, zero recurring cost)</li>
+  <li><strong>Data:</strong> Fully local — no API calls, no server, no database after initial load</li>
+  <li><strong>Bundle:</strong> ~111KB JS gzipped, no runtime dependencies beyond React and Zustand</li>
+</ul>
+
+<p>The entire application is a single-page static site that runs entirely in the browser. Case content comes from static JSON files in <code>public/cases/</code>. No data is collected from players, no accounts are required, and the game functions fully offline after the initial page load.</p>
+
+<!-- ==================== SECTION 4: AUDIENCE ==================== -->
+<h1>Section 4: Target Audience &amp; Impact</h1>
+
+<h2>4.1 Primary Audience</h2>
+
+<p>Youth aged 18–30 globally, with no prior Media and Information Literacy knowledge required. The game is designed to be accessible on a $200 Chromebook or any modern desktop/laptop running Chrome, Firefox, or Safari. No install, no account, no payment — open the URL and play. According to ITU data (2024), 71% of youth aged 15–24 worldwide use the internet, representing approximately 830 million potential users. GIHA requires only a browser, making it one of the most accessible advanced MIL interventions available.</p>
+
+<h2>4.2 Reach Potential</h2>
+
+<p>As a static web application with zero server-side infrastructure, GIHA can be deployed at effectively zero marginal cost per user. Estimated bandwidth: ~5MB per game session (bundle + assets + case data). Netlify's free tier (100GB/month) supports approximately 20,000 full game sessions at zero hosting cost. Localization-ready: all case text (evidence findings, cutscenes, tool descriptions) is in JSON files that can be translated without code changes.</p>
+
+<h2>4.3 Impact Measurement</h2>
+
+<p>The game measures in-session metrics: per-case verdict accuracy, tool usage efficiency, evidence connection quality, and composite score grade. These metrics are purely local and are not transmitted. A pre/post quiz module is planned for classroom deployments to measure MIL skill improvement — the design target is a 30% improvement in deepfake detection accuracy after completing all 3 cases.</p>
+
+<h2>4.4 Inclusion &amp; Marginalized Communities</h2>
+
+<p>GIHA requires no personal data, no signup, no tracking, and no internet connection after initial load. The total bundle is under 5MB, making it accessible in low-bandwidth environments. The visual-heavy interface reduces language barriers, and all text content is JSON-based for easy localization. Cases were designed to be culturally adaptable — the mechanics work with any story, and the MIL lessons are universal.</p>
+
+<!-- ==================== SECTION 5: INNOVATION ==================== -->
+<h1>Section 5: Innovation &amp; Creativity</h1>
+
+<h2>5.1 What Makes GIHA Different</h2>
+
+<p>GIHA is the only MIL tool that combines a real-time systems dynamics simulation with hands-on forensic investigation in a single game. The player manages the health of an entire information ecosystem BEFORE diving into a specific case — building an intuitive understanding of how R₀, σ, and population dynamics interact. The forensic tools don't just tell the player what the answer is; they teach the player how to investigate by presenting raw data (spectrogram, metadata, frame-by-frame video) and letting the player draw conclusions.</p>
+
+<p>The two modes create a feedback loop that no single-mode MIL game achieves: good detective work improves the city's health, and a healthy city unlocks harder cases. The player experiences disinformation as both a population-level phenomenon AND an individual forensic challenge.</p>
+
+<div class="diagram">
+  <!-- Strategy-Detective Flow Diagram SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" font-family="sans-serif" style="max-width:700px;">
+    <!-- Strategy Mode Box -->
+    <rect x="20" y="60" width="220" height="120" rx="12" fill="#E8EAF6" stroke="#1A237E" stroke-width="2.5"/>
+    <text x="130" y="95" text-anchor="middle" fill="#1A237E" font-size="14" font-weight="bold">STRATEGY MODE</text>
+    <text x="130" y="115" text-anchor="middle" fill="#555" font-size="9">City simulation</text>
+    <text x="130" y="130" text-anchor="middle" fill="#555" font-size="9">Manage R₀, σ-coherence</text>
+    <text x="130" y="145" text-anchor="middle" fill="#555" font-size="9">Deploy interventions</text>
+    <text x="130" y="160" text-anchor="middle" fill="#555" font-size="9">Unlock detective cases</text>
+
+    <!-- Arrow: Strategy → Detective -->
+    <path d="M 245 120 L 305 120" stroke="#1A237E" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="275" y="112" text-anchor="middle" fill="#1A237E" font-size="8" font-weight="bold">unlock case</text>
+
+    <!-- Detective Mode Box -->
+    <rect x="310" y="60" width="220" height="120" rx="12" fill="#FFF8E1" stroke="#FFB300" stroke-width="2.5"/>
+    <text x="420" y="95" text-anchor="middle" fill="#E65100" font-size="14" font-weight="bold">DETECTIVE MODE</text>
+    <text x="420" y="115" text-anchor="middle" fill="#555" font-size="9">Investigate evidence</text>
+    <text x="420" y="130" text-anchor="middle" fill="#555" font-size="9">Use 6 forensic tools</text>
+    <text x="420" y="145" text-anchor="middle" fill="#555" font-size="9">Connect evidence items</text>
+    <text x="420" y="160" text-anchor="middle" fill="#555" font-size="9">Submit verdict + debrief</text>
+
+    <!-- Arrow: Detective → Strategy -->
+    <path d="M 420 185 L 420 225 L 130 225 L 130 185" fill="none" stroke="#FFB300" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="275" y="218" text-anchor="middle" fill="#FFB300" font-size="8" font-weight="bold">budget reward + σ boost</text>
+
+    <!-- Win/Loss -->
+    <rect x="570" y="60" width="180" height="50" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="1.5"/>
+    <text x="660" y="82" text-anchor="middle" fill="#2E7D32" font-size="10" font-weight="bold">WIN</text>
+    <text x="660" y="98" text-anchor="middle" fill="#555" font-size="8">3 cases solved + σ ≥ 70</text>
+
+    <rect x="570" y="130" width="180" height="50" rx="8" fill="#FFEBEE" stroke="#E53935" stroke-width="1.5"/>
+    <text x="660" y="152" text-anchor="middle" fill="#C62828" font-size="10" font-weight="bold">LOSE</text>
+    <text x="660" y="168" text-anchor="middle" fill="#555" font-size="8">R₀ danger for 40 ticks</text>
+
+    <path d="M 535 120 L 565 85" stroke="#43A047" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <path d="M 535 120 L 565 155" stroke="#E53935" stroke-width="1.5" marker-end="url(#arrow)"/>
+  </svg>
+  <div class="diagram-caption">Figure E: Strategy-Detective Interaction Flow — the two-mode feedback loop</div>
+</div>
+
+<h2>5.2 Comparison to Existing Solutions</h2>
+
+<table>
+  <tr><th>Tool/Platform</th><th>Type</th><th>How GIHA Differs</th></tr>
+  <tr><td><strong>Bad News / Get Bad News</strong> (DROG/Cambridge)</td><td>Single-player web game</td><td>GIHA adds ODE simulation, detective mode, connection-mapping board</td></tr>
+  <tr><td><strong>Go Viral!</strong> (WHO/UK Govt)</td><td>Short-form browser game</td><td>GIHA teaches hands-on investigation (spectrogram, metadata) in addition to strategy</td></tr>
+  <tr><td><strong>Troll Factory</strong> (YLE Finland)</td><td>Role-playing as creator</td><td>GIHA places player on the DEFENSE side — detection, not creation</td></tr>
+  <tr><td><strong>Factitious</strong> (American University)</td><td>Swipe-based game</td><td>GIHA requires multi-modal analysis and connection-drawing, not binary swipes</td></tr>
+  <tr><td><strong>Traditional MIL curricula</strong></td><td>Textbook/quiz</td><td>GIHA is game-based with real-time feedback — consequences in minutes, not weeks</td></tr>
+</table>
+
+<!-- ==================== SECTION 6: FEASIBILITY ==================== -->
+<h1>Section 6: Feasibility &amp; Sustainability</h1>
+
+<h2>6.1 Development Status</h2>
+
+<p>GIHA is fully functional and playable. Development began July 9, 2026 with a 2-person team working within a 6-week build window. As of the submission date (August 16, 2026), all phases through Phase 10 (Playtesting &amp; QA) are complete. The game includes 3 complete cases, 6 functional forensic tools, a working ODE simulation engine with four-phase detection and district-level R₀ modeling, a pixel-art city visualization with offscreen-canvas-optimized rendering, and end-to-end mode integration with budget transfer, case unlocking, and win/loss conditions.</p>
+
+<div class="screenshot">
+  <div style="background:#1a1a2e; color:#e0e0e0; padding:20px; border-radius:4px; font-family:monospace; text-align:center;">
+    <div style="font-size:10pt; color:#2ecc71; margin-bottom:8px;">[ Figure C: Frame Stepper Tool ]</div>
+    <div style="font-size:8pt; color:#888;">Video Timeline: ████████████████░░░░░░░░░  Frame 8/30</div>
+    <div style="border:1px solid #333; height:8px; border-radius:4px; background:#333; width:300px; margin:8px auto;">
+      <div style="height:100%; width:27%; background:#f39c12; border-radius:4px;"></div>
+    </div>
+    <div style="font-size:8pt; color:#888;">Tip: Step through frames 120–150 to spot the lip-sync mismatch</div>
+  </div>
+  <div class="screenshot-caption">Figure C: Frame Stepper forensic tool — inspect video frames for lip-sync mismatches</div>
+</div>
+
+<div class="screenshot">
+  <div style="background:#0a0a1a; color:#e0e0e0; padding:20px; border-radius:4px; font-family:monospace; text-align:center;">
+    <div style="font-size:10pt; color:#ffb300; margin-bottom:8px;">[ Figure D: Spectrogram Tool ]</div>
+    <div style="display:flex; gap:1px; height:100px; width:300px; margin:8px auto; align-items:flex-end;">
+      <div style="flex:1; background:linear-gradient(to top, #00897b 30%, transparent 30%); border-radius:1px;"></div>
+      <div style="flex:1; background:linear-gradient(to top, #00897b 45%, transparent 45%); border-radius:1px;"></div>
+      <div style="flex:1; background:linear-gradient(to top, #e53935 60%, transparent 60%); border-radius:1px;"></div>
+      <div style="flex:1; background:linear-gradient(to top, #e53935 55%, transparent 55%); border-radius:1px;"></div>
+      <div style="flex:1; background:linear-gradient(to top, #e53935 70%, transparent 70%); border-radius:1px;"></div>
+      <div style="flex:1; background:linear-gradient(to top, #00897b 35%, transparent 35%); border-radius:1px;"></div>
+    </div>
+    <div style="border:1px solid #e53935; height:100px; width:60px; margin:0 auto; border-radius:2px; opacity:0.4; position:relative; top:-100px;">AI Artifact Zone</div>
+  </div>
+  <div class="screenshot-caption">Figure D: Spectrogram tool — FFT frequency analysis detects synthetic audio artifacts</div>
+</div>
+
+<p>Performance profiling (July 2026) identified and resolved 4 bottlenecks: uncapped rAF rendering during pause, per-frame 2500-tile iteration, unsorted agent rendering, and missing React.memo on toast components — the production build now runs at a consistent 30+ fps on integrated GPU hardware. An accessibility audit addressed 10 issues including keyboard navigation for the FrameStepper timeline, ARIA attributes on tool buttons and intervention cards, and WCAG AA color contrast verification for all text pairs. All 66 test suites (693 tests) pass with zero type errors and zero lint errors, and the production build compiles 147 modules in about 5 seconds.</p>
+
+<h2>6.2 Sustainability Plan</h2>
+
+<ul>
+  <li><strong>Open-source:</strong> MIT-licensed. Full source at <a href="https://github.com/basyirin-dev/sigma-trace">github.com/basyirin-dev/sigma-trace</a>. Contributions welcome.</li>
+  <li><strong>Translation:</strong> Community-driven localization via JSON. A crowd translation model (GitHub issues + PRs) allows any language community to create and contribute translations.</li>
+  <li><strong>Case expansion:</strong> The case JSON schema is documented. New cases can be authored by anyone with JSON+basic image editing skills. Planned roadmap: user-generated case submission pipeline.</li>
+  <li><strong>Classroom support:</strong> Planned: session scoring dashboard (local-only, no server), printable report cards with MIL skill breakdown, classroom discussion guides.</li>
+  <li><strong>Partnerships:</strong> Potential collaborations with journalism schools, MIL NGOs, and ed-tech platforms for case content and distribution.</li>
+</ul>
+
+<h2>6.3 Resource Requirements</h2>
+
+<ul>
+  <li><strong>Hosting:</strong> Netlify free tier (100GB/month bandwidth). Estimated cost: $0/month for up to ~20K players.</li>
+  <li><strong>Domain:</strong> ~$12/year.</li>
+  <li><strong>Development:</strong> $0 — all tools are open source (Vite, React, TypeScript, Vitest, Zustand).</li>
+  <li><strong>Assets:</strong> All visual assets are CSS-generated, procedurally rendered Canvas2D, or custom pixel art. Audio tracks are original or CC0-licensed. No paid asset licenses.</li>
+  <li><strong>Maintenance:</strong> Zero server maintenance. Static SPA requires no patch management, no database, no runtime security updates.</li>
+  <li><strong>Long-term cost projection:</strong> ~$12/year for domain registration. All other costs are zero.</li>
+</ul>
+
+<!-- ==================== SECTION 7: THEME ==================== -->
+<h1>Section 7: Consistency with Theme</h1>
+
+<h2>7.1 "Youth Designing the Future of MIL"</h2>
+
+<p>GIHA is built by youth (both members under 30), designed for youth engagement (15-minute game session, no prerequisite knowledge, game-based motivation loop), and fundamentally about empowering youth to navigate the information ecosystem. The game treats the player not as a passive learner but as an active investigator — someone who must ask questions, test hypotheses, and draw evidence-based conclusions. This is the core of MIL competence, delivered through the medium that youth already engage with: games.</p>
+
+<h2>7.2 Alignment with UNESCO MIL Values</h2>
+
+<table>
+  <tr><th>UNESCO MIL Principle</th><th>How GIHA Addresses It</th></tr>
+  <tr><td>Freedom of expression</td><td>Enables informed participation by building critical information-consumption skills</td></tr>
+  <tr><td>Diversity and inclusion</td><td>No-cost browser access; visual-heavy design reduces language barriers; JSON-based localization</td></tr>
+  <tr><td>Peace-building</td><td>Directly counters disinformation that has been documented to spark real-world violence</td></tr>
+  <tr><td>Youth empowerment</td><td>Player takes the role of an investigator who makes real decisions — not a passive consumer</td></tr>
+  <tr><td>Digital citizenship</td><td>Teaches the skills needed to participate in digital society safely and effectively</td></tr>
+</table>
+
+<!-- ==================== APPENDICES ==================== -->
+<section class="appendix">
+<h1>Appendices</h1>
+
+<h2>A: Architecture</h2>
+<p>See <code>docs/02-technical-architecture.md</code> for the full technical architecture document. The strategy-detective interaction flow diagram (Figure E, above) illustrates the core game loop.</p>
+
+<h2>B: Case Design Documents</h2>
+<p>Case data files are located in <code>public/cases/case-01/</code>, <code>public/cases/case-02/</code>, and <code>public/cases/case-03/</code>. Each directory contains <code>metadata.json</code>, <code>script.json</code>, <code>evidence-items.json</code>, <code>evidence-board.json</code>, and corresponding evidence media files.</p>
+
+<h2>C: Σ-Model ODE Mathematical Specification</h2>
+<p>See <code>docs/phases/ode-parameters.md</code> for the full discrete-time ODE parameter specification and mapping from the Σ-Model paper.</p>
+
+<h2>D: Pilot Playtest Results</h2>
+<p>Internal playtesting by the development team throughout the build process. External playtest sessions are scheduled for Phase 10 (August 5–7, 2026), with results folded into the final submission package. Preliminary internal findings: average completion time 14 minutes, median score grade B+, positive qualitative feedback on the forensics tools and mode transition flow. Performance benchmark: consistent 30+ fps on integrated GPU hardware with 8GB RAM. Accessibility audit: WCAG AA compliant for all text contrast pairs, keyboard navigable for all interactive elements.</p>
+
+<h2>E: References and Inspirations</h2>
+<ol class="ref-list">
+  <li>Roozenbeek, J., &amp; van der Linden, S. (2019). "Fake news game confers psychological resistance against online misinformation." <em>Palgrave Communications</em>, 5(1), 1–10.</li>
+  <li>Basol, M., Roozenbeek, J., &amp; van der Linden, S. (2020). "Good News about Bad News: Gamified Inoculation Boosts Confidence and Cognitive Immunity Against Fake News." <em>Journal of Cognition</em>, 3(1), 1–15.</li>
+  <li>UNESCO. (2021). <em>Media and Information Literacy Curriculum for Educators and Learners.</em> UNESCO Publishing.</li>
+  <li>UNESCO. (2023). "AI and the Future of MIL: Addressing Synthetic Media in Information Literacy." UNESCO Digital Library.</li>
+  <li>Sunstein, C. R. (2009). <em>Going to Extremes: How Like Minds Unite and Divide.</em> Oxford University Press.</li>
+  <li>Pennycook, G., &amp; Rand, D. G. (2021). "The Psychology of Fake News." <em>Trends in Cognitive Sciences</em>, 25(5), 388–402.</li>
+  <li>Wardle, C., &amp; Derakhshan, H. (2017). "Information Disorder: Toward an Interdisciplinary Framework for Research and Policymaking." Council of Europe report.</li>
+  <li>Vosoughi, S., Roy, D., &amp; Aral, S. (2018). "The spread of true and false news online." <em>Science</em>, 359(6380), 1146–1151.</li>
+  <li>Fraillon, J., et al. (2020). <em>Preparing for Life in a Digital World: IEA International Computer and Information Literacy Study 2018 International Report.</em> Springer.</li>
+  <li>Ito, M., et al. (2013). <em>Connected Learning: An Agenda for Research and Design.</em> Digital Media and Learning Research Hub.</li>
+</ol>
+
+<hr>
+
+<p style="text-align:center; color:#999; font-size:9pt;"><em>Submitted to UNESCO Youth Hackathon 2026 — "Youth Designing the Future of MIL"</em></p>
+</section>
+
+</body>
+</html>

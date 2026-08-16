@@ -332,9 +332,39 @@ export function renderDistrictLabels(ctx: CanvasRenderingContext2D) {
   }
 }
 
+let staticMapCanvas: HTMLCanvasElement | null = null;
+let staticMapRendered = false;
+
+export function invalidateStaticMap(): void {
+  staticMapRendered = false;
+  staticMapCanvas = null;
+}
+
 export function renderMap(ctx: CanvasRenderingContext2D, tiles: Tile[][]) {
-  renderGround(ctx, tiles);
-  renderRoads(ctx);
-  renderBuildings(ctx);
-  renderDistrictLabels(ctx);
+  if (!staticMapCanvas) {
+    staticMapCanvas = document.createElement('canvas');
+    staticMapCanvas.width = CANVAS_WIDTH;
+    staticMapCanvas.height = CANVAS_HEIGHT;
+  }
+
+  if (!staticMapRendered) {
+    const offCtx = staticMapCanvas.getContext('2d');
+    if (offCtx) {
+      offCtx.imageSmoothingEnabled = false;
+      renderGround(offCtx, tiles);
+      renderRoads(offCtx);
+      renderBuildings(offCtx);
+      renderDistrictLabels(offCtx);
+      staticMapRendered = true;
+    } else {
+      // Fallback: render directly
+      renderGround(ctx, tiles);
+      renderRoads(ctx);
+      renderBuildings(ctx);
+      renderDistrictLabels(ctx);
+      return;
+    }
+  }
+
+  ctx.drawImage(staticMapCanvas, 0, 0);
 }
