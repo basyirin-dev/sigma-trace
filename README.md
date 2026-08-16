@@ -19,6 +19,8 @@ by a two-person youth team (an AI researcher and a cybersecurity engineer).
 - **Theme fit:** Strategy Mode teaches systems thinking about how disinformation
   spreads (R₀, σ-coherence, interventions); Detective Mode teaches hands-on
   verification skills (spectrogram, frame stepping, metadata, source tracing).
+- **Team:** two-person youth team — Basyirin Amsyar bin Basri (Game Developer &
+  Proposal Writer) and Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi (Video Editor).
 - **Submission:** see [`docs/output/submission-form-contents.md`](docs/output/submission-form-contents.md)
   and the `v1.0.0-submission` release tag.
 

@@ -8,8 +8,8 @@
 
 ## Section 1: Team Members
 
-- **M1 (AI/Research):** Basyirin Amsyar Basri
-- **M2 (Security/Dev):** [TBD]
+- **M1 — Game Developer & Proposal Writer:** Basyirin Amsyar bin Basri
+- **M2 — Video Editor:** Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi
 
 ---
 

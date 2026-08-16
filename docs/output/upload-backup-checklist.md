@@ -28,10 +28,9 @@ permission, signing in, or downloading**.
 
 Use `docs/output/submission-form-contents.md` as the source — all fields are
 pre-filled (team GIHA Team, category Games & Interactive, title, description,
-theme, technical summary, audience 14–24). Complete the two placeholders
+theme, technical summary, audience 14–24). Complete the remaining placeholder
 before submitting:
 
-- [ ] Member 2 name (team needs 2–6 named members)
 - [ ] Video pitch public URL
 
 ### Step 3: Upload materials

@@ -10,13 +10,13 @@ before upload (see 12.4).
 
 ## 1. Team Information
 
-| Field          | Value                                                                                                                                                                                     |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Team name      | GIHA Team                                                                                                                                                                                 |
-| Members        | 2 (within the 2–6 allowed)                                                                                                                                                                |
-| Member 1       | Basyirin Amsyar Basri — AI Researcher (dynamical systems, ODE modeling, strategy mode)                                                                                                    |
-| Member 2       | **[TBD name]** — Cybersecurity Developer (detective mode, forensics tools, CI/CD)                                                                                                         |
-| Team statement | We are an AI researcher and a cybersecurity engineer who combined our skills to build GIHA — the only MIL tool that teaches systems thinking AND hands-on investigation in a single game. |
+| Field          | Value                                                                                                                                               |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Team name      | GIHA Team                                                                                                                                           |
+| Members        | 2 (within the 2–6 allowed)                                                                                                                          |
+| Member 1       | Basyirin Amsyar bin Basri — Game Developer & Proposal Writer                                                                                        |
+| Member 2       | Muhamad Na'im Naqiuddin Bin Mohd Saiful Hazmi — Video Editor                                                                                        |
+| Team statement | We are a game developer and a video editor who combined our skills to build GIHA — a game that teaches systems thinking AND hands-on investigation. |
 
 ## 2. Project Information
 
